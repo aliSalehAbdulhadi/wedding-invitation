@@ -96,13 +96,12 @@ export function advanceSpring(body, target, elapsed) {
   return body;
 }
 
-export function chapterProgress(top, sectionHeight, viewportHeight, reducedMotion = false) {
-  const clamp = (n) => Math.min(1, Math.max(0, n));
-  if (reducedMotion) return { arrival: 1, scene: 1 };
-  return {
-    arrival: clamp((viewportHeight * .86 - top) / (sectionHeight * .65 + viewportHeight * .25)),
-    scene: clamp(-top / Math.max(viewportHeight * .35, sectionHeight - viewportHeight)),
-  };
+// The paper bird keeps company with the last chapter whose anchor has risen into the lower viewport.
+// Scrolling only chooses the destination; the flight itself is time-based and springy.
+export function activeFlightStop(anchorYs, scroll, viewportHeight) {
+  let active = 0;
+  anchorYs.forEach((y, index) => { if (y - scroll < viewportHeight * .86) active = index; });
+  return active;
 }
 
 // A small, time-lived wake follows actual flight, independently of scroll progress.

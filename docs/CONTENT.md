@@ -16,7 +16,7 @@ The user explicitly authorized fictional demo details on 22 October 2026. All ev
 
 ## Narrative and motion
 
-The user requested storytelling through scroll, beyond repeated fades. The revised visual chapters are joining orbits, a celestial evening dial, a promise under stars that bloom into jasmine, opening garden gates, and botanical paper unfolding into the guest's keepsake. Short bilingual bridge lines connect these scenes without inventing biographical details. Keep the approved envelope opening and overall palette. Reduced-motion visitors receive readable static compositions. The same bird now joins both action dialogs at a header perch.
+The user requested storytelling section by section without scroll-tied animation. The chapters are joining orbits, a celestial evening dial, a promise under stars that bloom into jasmine, a lantern-lit garden, a last chapter where doors open onto a dancing couple above the guest's keepsake card, and a closing night. Short bilingual bridge lines connect these scenes without inventing biographical details. Keep the approved envelope opening and overall palette. Reduced-motion visitors receive readable static compositions. The same bird joins both action dialogs at a header perch.
 
 ## Before going live
 

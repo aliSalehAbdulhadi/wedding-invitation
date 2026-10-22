@@ -1,23 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { validateContent, buildCalendar, calendarLinks, escapeIcsText, foldIcsLine, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, chapterProgress } from '../public/assets/js/invitation.js';
+import { validateContent, buildCalendar, calendarLinks, escapeIcsText, foldIcsLine, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from '../public/assets/js/invitation.js';
 
 const data = JSON.parse(readFileSync(new URL('../public/content.json', import.meta.url), 'utf8').replace(/^\uFEFF/, ''));
 
-test('chapter choreography reverses with scroll, clamps, and is complete with reduced motion', () => {
-  assert.deepEqual(chapterProgress(1200, 1500, 900), {arrival:0,scene:0});
-  assert.equal(chapterProgress(-300, 1500, 900).scene, .5);
-  assert.equal(chapterProgress(-600, 1500, 900).scene, 1);
-  assert.equal(chapterProgress(0, 1500, 900).scene, 0);
-  assert.deepEqual(chapterProgress(1200, 1500, 900, true), {arrival:1,scene:1});
-  for (const height of [100,900,1800]) for (const top of [1000,0,-1000]) {
-    const p = chapterProgress(top,height,900);
-    assert.ok(Number.isFinite(p.scene) && p.scene>=0 && p.scene<=1);
-    assert.ok(p.arrival>=0 && p.arrival<=1);
-  }
+test('the bird follows the latest chapter that has risen into view, and returns when scrolling back', () => {
+  const stops = [100, 1000, 2000, 3000];
+  assert.equal(activeFlightStop(stops, 0, 900), 0);
+  assert.equal(activeFlightStop(stops, 400, 900), 1);
+  assert.equal(activeFlightStop(stops, 1500, 900), 2);
+  assert.equal(activeFlightStop(stops, 9000, 900), 3);
+  assert.equal(activeFlightStop(stops, 0, 900), 0);
+  assert.equal(activeFlightStop([], 0, 900), 0);
 });
-
 test('the wake follows real movement, drifts and expires at rest, and stays bounded', () => {
   const wake = {previous:null, emittedAt:0, particles:[]};
   advanceBirdWake(wake, {x:0,y:0}, 0);

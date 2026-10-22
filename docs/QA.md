@@ -5,7 +5,7 @@ Verified in the in-app Chromium browser and with standard-library checks:
 - Arabic default/RTL and English switching/LTR; localized headings, dialogs, dates, links, and copy.
 - Desktop 1280px and phone widths 390px and 320px; narrow-screen overflow was found and fixed.
 - Envelope entry, silent default, explicit music playback and mute; no console warnings/errors in the checked flows.
-- Scroll progress changes actual ring transforms, the promise text masks, the traced garden path and marker, and the emerging card transform. Scrolling back reverses the progression.
+- Chapters wake once when they enter view and play timed entrances; ambient loops run only while a chapter is on screen. Nothing is scroll-scrubbed. Tapping the rings triggers the parting animation, and pointer movement/tap in starlight chapters spawns glints and a shooting star.
 - Calendar choices render; a real browser download contains the expected UTC instants and demo label.
 - Arabic and English personalized PNGs download at exactly 1200 × 1600. Arabic guest-name shaping was visually inspected. Blank-name handling was exercised.
 - Nine Node test groups check content validation, ordered timezone-aware dates, calendar injection/escaping/UTF-8 folding, calendar URLs, Unicode name handling, flight-curve anchor continuity, spring convergence/inertia, wake emission/drift/expiry, and reversible/clamped chapter progress including reduced motion.
@@ -19,7 +19,7 @@ Autonomous-motion check: the browser entered `perched` with folded wings after a
 
 Wake update: the browser confirms the old static route is absent, the 32-mark SVG pool emits during actual flight/exploration, and all marks fade to zero visibility while perched. Scroll wakes the companion and creates a fresh wake. Inspected at 320px and 1280px with no horizontal overflow, no console errors/warnings, and music still off. The unit check covers bounded population, drift, expiry at rest, renewed flight, and stale-mark clearing after a long pause. Reduced motion and 200% browser zoom remain unexercised as noted above.
 
-Connected-world revision: inspected Arabic/RTL and English/LTR at 320px, 390px, and 1280px. The scenes now use full-width orbit, celestial dial, blooming promise, architectural garden, and unfolding-letter compositions. Scroll changes ring union and gate perspective; reversing scroll reverses their progress. A cramped phone date dial was found and given independent height so its weekday clears the decorative stamp and its actions remain readable. No horizontal overflow was observed.
+Chapter revision: inspected Arabic/RTL at a 523px phone viewport and a 1280px desktop viewport (scaled emulation), covering all six chapters and the opening screen; no horizontal overflow. Under emulated reduced motion every entrance element is at full opacity, the doors are open and no infinite animation runs. Ring parting, glints and tap meteors fired in a scripted pointer test. English/LTR, 200% zoom, keyboard-only and physical-device checks were not repeated for this revision.
 
 The actual flight layer becomes a child of each open action dialog; the same bird lands at its header perch, and closing returns the layer to the body. Escape and the close button restore focus to the opener. An actual Arabic guest PNG downloaded with this layer present, and the input updates the on-page keepsake locally. Music stays off. The motion test was made robust by sampling the newest live wisp, rather than an older one that could expire at the next step.
 

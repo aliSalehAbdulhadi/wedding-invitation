@@ -1,10 +1,10 @@
-import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, chapterProgress } from './invitation.js';
+import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js';
 
 const words = {
   ar: {
     storyWhisper: 'ومن هذا اللقاء، أضاءت ليلة.', nightWhisper: 'ولكل ليلةٍ مضيئة، وعد.', promiseWhisper: 'حتى تزهر الحكاية، ونلتقي.', gardenWhisper: 'وبقي في الرسالة مكانٌ لاسمك.',
     skip: 'انتقل إلى الدعوة', demo: 'دعوة تجريبية · جميع التفاصيل للمعاينة', brand: 'تبدأ الحكاية', navigation: 'التنقل', navDetails: 'تفاصيل الليلة', navLocation: 'المكان', navKeepsake: 'دعوتك الخاصة',
-    heroEyebrow: 'بكل الحب، ندعوكم لحفل زفاف', heroTagline: 'حكاية واحدة. وعمرٌ من الحب.', discover: 'اكتشف تفاصيل الليلة', scroll: 'والحكاية تبدأ هنا', heroNote: 'معكم، تصبح أجمل',
+    heroEyebrow: 'بكل الحب، ندعوكم لحفل زفاف', heroTagline: 'حكاية واحدة. وعمرٌ من الحب.', scroll: 'والحكاية تبدأ هنا', heroNote: 'معكم، تصبح أجمل',
     storyEyebrow: 'الفصل الأول · حين التقينا', storyTitle: 'ومن بين كل الحكايات، اخترنا أن نكون معًا.', storySceneKicker: 'من حكايتين', storySceneClosing: 'إلى حكاية واحدة', together: 'معًا', promiseChapter: 'وعدٌ نكتبه معًا', letterForYou: 'وهذا الفصل، لك أنت.', celebrationEyebrow: 'الفصل الثاني · يومٌ نصنعه ذكرى', celebrationTitle: 'ليلةٌ تشبه الحلم.', timeZone: 'بتوقيت مكان الحفل', addCalendar: 'أضف إلى التقويم', planEyebrow: 'كل لحظة، ذكرى',
     quoteLabel: 'كلمات من القلب', quoteFootnote: 'معًا، تبدأ أجمل الأيام', locationEyebrow: 'الفصل الثالث · كل الطرق تجمعنا', openMaps: 'افتح الموقع على الخريطة', mapHint: 'يفتح في خرائط Google', mapArtLabel: 'رسم فني لحديقة، وليس خريطة للموقع',
     keepsakeEyebrow: 'الفصل الأخير · وأنت جزءٌ منه', keepsakeTitle: 'دعوة تحمل اسمك.', keepsakeCopy: 'لأنك جزء من الحكاية، صمّمنا لك دعوة خاصة. أضف اسمك، واحتفظ بقطعة من هذه الليلة.', personalize: 'اصنع دعوتك الخاصة', privacy: 'اسمك يبقى على جهازك. لا نجمعه ولا نرسله.',
@@ -16,7 +16,7 @@ const words = {
   en: {
     storyWhisper: 'And from that meeting, an evening began to glow.', nightWhisper: 'Every luminous evening holds a promise.', promiseWhisper: 'Until the story blooms, and we meet.', gardenWhisper: 'There is still a place in the letter for your name.',
     skip: 'Skip to invitation', demo: 'Demo invitation · all details are for preview', brand: 'Our story begins', navigation: 'Navigation', navDetails: 'The evening', navLocation: 'The setting', navKeepsake: 'Your keepsake',
-    heroEyebrow: 'Together with love, we invite you to the wedding of', heroTagline: 'One story. A lifetime of love.', discover: 'Discover the evening', scroll: 'A little more of our story', heroNote: 'Sweeter with you here',
+    heroEyebrow: 'Together with love, we invite you to the wedding of', heroTagline: 'One story. A lifetime of love.', scroll: 'A little more of our story', heroNote: 'Sweeter with you here',
     storyEyebrow: 'Chapter one · A beautiful encounter', storyTitle: 'Of all the stories, we chose a life together.', storySceneKicker: 'Two lives', storySceneClosing: 'One beautiful story', together: 'together', promiseChapter: 'A promise, written together', letterForYou: 'And this chapter is yours.', celebrationEyebrow: 'Chapter two · A date becomes a promise', celebrationTitle: 'An evening to remember.', timeZone: 'Local time at the venue', addCalendar: 'Add to calendar', planEyebrow: 'Every moment, a memory',
     quoteLabel: 'A note from the heart', quoteFootnote: 'The loveliest days begin together', locationEyebrow: 'Chapter three · All paths lead here', openMaps: 'Find the celebration', mapHint: 'Opens in Google Maps', mapArtLabel: 'An artistic garden illustration, not a geographical map',
     keepsakeEyebrow: 'The final chapter · You are part of it', keepsakeTitle: 'Your name. Our invitation.', keepsakeCopy: "You're part of this story. Make a little keepsake of the evening, with your name and a whole lot of love.", personalize: 'Make your invitation', privacy: 'Your name stays on your device. It is never collected or sent.',
@@ -90,8 +90,9 @@ function renderLanguage(next) {
   const links = calendarLinks(content, language);
   $('#google-calendar').href = links.google;
   $('#outlook-calendar').href = links.outlook;
-  $('#schedule-list').replaceChildren(...content.schedule.map((item) => {
+  $('#schedule-list').replaceChildren(...content.schedule.map((item, index) => {
     const li = document.createElement('li');
+    li.style.setProperty('--n', index);
     const time = document.createElement('span');
     time.className = 'timeline-time';
     time.textContent = new Intl.DateTimeFormat(locale(), { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' }).format(new Date(`2000-01-01T${item.time}:00Z`));
@@ -191,7 +192,7 @@ function startInvitation(withMusic) {
     if (opening.open) opening.close();
     document.body.classList.add('invitation-open');
     $('#main').focus({ preventScroll: true });
-  }, motion.matches ? 0 : 1150);
+  }, motion.matches ? 0 : 1250);
 }
 
 function closeDialog(dialog) {
@@ -275,16 +276,22 @@ async function createKeepsake(name, exportLanguage) {
 }
 
 
-// One scroll reading per frame; each chapter transforms a different physical motif.
+// Chapters play by themselves when they arrive; scrolling only decides which one is awake.
 let sceneFramePending = false;
-let sceneEntries = [];
+const NS = 'http://www.w3.org/2000/svg';
+const chapterEl = (tag, className, vars = {}) => {
+  const node = document.createElement(tag);
+  node.className = className;
+  for (const [name, value] of Object.entries(vars)) node.style.setProperty(name, value);
+  return node;
+};
 function enhanceTypography() {
-  for (const heading of $$('.word-reveal')) {
-    const value = heading.textContent;
+  for (const heading of $$('.split')) {
+    const value = heading.textContent.trim();
     heading.setAttribute('aria-label', value);
     heading.replaceChildren(...value.split(/\s+/).flatMap((word, index) => {
-      const mask = document.createElement('span'); mask.className = 'word-mask'; mask.setAttribute('aria-hidden', 'true');
-      const inner = document.createElement('span'); inner.textContent = word; inner.style.setProperty('--word', index);
+      const mask = document.createElement('span'); mask.className = 'word'; mask.setAttribute('aria-hidden', 'true');
+      const inner = document.createElement('span'); inner.textContent = word; inner.style.setProperty('--w', index);
       mask.append(inner);
       return [mask, document.createTextNode(' ')];
     }));
@@ -303,41 +310,150 @@ function requestSceneFrame() {
 }
 function updateScenes() {
   sceneFramePending = false;
-  const height = innerHeight;
-  const readings = sceneEntries.map((entry) => ({ entry, rect: entry.element.getBoundingClientRect() }));
   const flightReading = readFlightWaypoints();
-  for (const { entry, rect } of readings) {
-    const progress = chapterProgress(rect.top, rect.height, height, motion.matches);
-    entry.element.style.setProperty('--journey', progress.arrival.toFixed(4));
-    entry.element.style.setProperty('--scene', progress.scene.toFixed(4));
-    entry.element.classList.toggle('chapter-arrived', rect.top < height * .8 && rect.bottom > height * .12);
-    if (entry.element.dataset.scene === 'location' && entry.path) {
-      const point = entry.path.getPointAtLength(entry.length * progress.arrival);
-      entry.dot.setAttribute('cx', point.x); entry.dot.setAttribute('cy', point.y);
-    }
-  }
   measureBirdDialog();
   updateStoryFlight(flightReading);
 }
 function initializeScenes() {
-  sceneEntries = $$('[data-scene]').map((element) => {
-    const path = element.querySelector('.garden-route');
-    return { element, path, dot: element.querySelector('.garden-route-dot'), length: path ? path.getTotalLength() : 0 };
-  });
-  document.body.classList.add('story-motion');
   addEventListener('scroll', requestSceneFrame, { passive: true });
   addEventListener('resize', requestSceneFrame, { passive: true });
   motion.addEventListener('change', requestSceneFrame);
   requestSceneFrame();
 }
 
+// A chapter wakes once (its entrance plays a single time) and runs its quiet loops only while on screen.
+function initializeChapters() {
+  const chapters = $$('[data-chapter]');
+  if (motion.matches || !('IntersectionObserver' in window)) {
+    for (const chapter of chapters) chapter.classList.add('is-awake', 'is-live');
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      entry.target.classList.toggle('is-live', entry.isIntersecting);
+      if (entry.isIntersecting) entry.target.classList.add('is-awake');
+    }
+  }, { rootMargin: '0px 0px -12% 0px' });
+  for (const chapter of chapters) observer.observe(chapter);
+  document.body.classList.add('motion-ready');
+}
+
+// Stars, fireflies, petals, and blooms are decorative and generated, so the HTML stays readable.
+function populateAtmosphere() {
+  let seed = 20271;
+  const random = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
+  for (const box of $$('[data-stars]')) {
+    const host = box.parentElement;
+    const count = Math.round(bounded(host.clientWidth * host.clientHeight / 8500, 45, 160));
+    for (let index = 0; index < count; index++) {
+      const x = random() * 100;
+      const bright = random() < .16;
+      box.append(chapterEl('span', bright ? 'star star--bright' : 'star', {
+        '--x': `${x.toFixed(2)}%`, '--y': `${(random() * 100).toFixed(2)}%`, '--s': `${(1 + random() * (bright ? 2.2 : 1.4)).toFixed(1)}px`,
+        '--td': `${(3.4 + random() * 4).toFixed(1)}s`, '--tw': `${(-x / 100 * 8).toFixed(2)}s`,
+      }));
+    }
+  }
+  for (const box of $$('[data-motes]')) {
+    for (let index = 0; index < Number(box.dataset.motes); index++) {
+      box.append(chapterEl('span', 'mote', {
+        '--x': `${(random() * 100).toFixed(1)}%`, '--y': `${(25 + random() * 75).toFixed(1)}%`, '--s': `${(2 + random() * 3).toFixed(1)}px`,
+        '--t': `${(9 + random() * 9).toFixed(1)}s`, '--d': `${(-random() * 16).toFixed(1)}s`,
+        '--dx': `${(random() * 90 - 45).toFixed(0)}px`, '--dy': `${(-(40 + random() * 100)).toFixed(0)}px`,
+      }));
+    }
+  }
+  for (const box of $$('[data-petals]')) {
+    for (let index = 0; index < Number(box.dataset.petals); index++) {
+      box.append(chapterEl('span', 'petal', {
+        '--x': `${(random() * 100).toFixed(1)}%`, '--s': `${(7 + random() * 6).toFixed(1)}px`,
+        '--t': `${(11 + random() * 8).toFixed(1)}s`, '--d': `${(-random() * 18).toFixed(1)}s`, '--dx': `${(random() * 120 - 60).toFixed(0)}px`,
+      }));
+    }
+  }
+  for (const box of $$('[data-blooms]')) {
+    for (let index = 0; index < Number(box.dataset.blooms); index++) {
+      const bloom = document.createElementNS(NS, 'svg');
+      bloom.setAttribute('class', 'bloom');
+      for (const [name, value] of Object.entries({ '--x': `${(3 + random() * 92).toFixed(1)}%`, '--y': `${(random() * 70).toFixed(1)}%`, '--s': `${(20 + random() * 20).toFixed(0)}px`, '--b': index })) bloom.style.setProperty(name, value);
+      const use = document.createElementNS(NS, 'use');
+      use.setAttribute('href', '#jasmine-flower');
+      bloom.append(use); box.append(bloom);
+    }
+  }
+}
+
+// Interactions answer the guest's hand, not the scroll bar.
+function initializeInteractions() {
+  for (const target of $$('[data-tilt]')) {
+    let point;
+    let frame = 0;
+    target.addEventListener('pointermove', (event) => {
+      if (motion.matches) return;
+      point = event;
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const box = target.getBoundingClientRect();
+        target.style.setProperty('--mx', bounded((point.clientX - box.left) / box.width * 2 - 1, -1, 1).toFixed(3));
+        target.style.setProperty('--my', bounded((point.clientY - box.top) / box.height * 2 - 1, -1, 1).toFixed(3));
+      });
+    }, { passive: true });
+    target.addEventListener('pointerleave', () => { target.style.setProperty('--mx', '0'); target.style.setProperty('--my', '0'); });
+  }
+  const universe = $('.ring-universe');
+  universe.parentElement.addEventListener('pointerdown', () => {
+    if (motion.matches) return;
+    universe.classList.remove('is-parting');
+    void universe.offsetWidth;
+    universe.classList.add('is-parting');
+  });
+  universe.addEventListener('animationend', (event) => { if (event.animationName === 'part-one') universe.classList.remove('is-parting'); });
+  for (const section of $$('[data-starlight]')) {
+    const layer = section.querySelector('.starlight-layer');
+    let lastAt = 0;
+    let lastX = -99;
+    let lastY = -99;
+    let meteorAt = 0;
+    const spawn = (event, size, spread) => {
+      if (layer.childElementCount > 40) return;
+      const box = section.getBoundingClientRect();
+      const glint = chapterEl('span', 'glint', {
+        '--x': `${event.clientX - box.left + (Math.random() - .5) * spread * 2}px`, '--y': `${event.clientY - box.top + (Math.random() - .5) * spread * 2}px`,
+        '--s': `${size}px`, '--gx': `${(Math.random() - .5) * 40}px`, '--gy': `${12 + Math.random() * 34}px`,
+      });
+      glint.addEventListener('animationend', () => glint.remove(), { once: true });
+      layer.append(glint);
+    };
+    section.addEventListener('pointermove', (event) => {
+      if (motion.matches || event.pointerType === 'touch') return;
+      const now = performance.now();
+      if (now - lastAt < 70 || Math.hypot(event.clientX - lastX, event.clientY - lastY) < 22) return;
+      lastAt = now; lastX = event.clientX; lastY = event.clientY;
+      spawn(event, 5 + Math.random() * 7, 8);
+    }, { passive: true });
+    section.addEventListener('pointerdown', (event) => {
+      if (motion.matches || event.target.closest('button, a, input, dialog')) return;
+      for (let index = 0; index < 7; index++) spawn(event, 7 + Math.random() * 9, 44);
+      const now = performance.now();
+      if (now - meteorAt < 2400) return;
+      meteorAt = now;
+      const box = section.getBoundingClientRect();
+      const meteor = chapterEl('span', 'meteor meteor--tap', { '--x': `${box.width * (.55 + Math.random() * .4)}px`, '--y': `${Math.min(box.height * .5, event.clientY - box.top - 40 + Math.random() * 60)}px` });
+      meteor.addEventListener('animationend', () => meteor.remove(), { once: true });
+      layer.append(meteor);
+    });
+  }
+}
 
 // A single paper bird leaves the physical envelope and visits the story's ornaments.
 let flightHasStarted = false;
 let entranceFlight = false;
 const birdWake = { previous: null, emittedAt: 0, particles: [] };
 let wakeMarks = [];
-const flightStops = ['.hero-divider svg', '.story-visual', '.date-card [data-event-day]', '.quote-star', '.garden-marker', '.keepsake-stage .mini-star', '.closing-section .rings'];
+const flightStops = ['.hero-divider svg', '.ring-universe', '.date-card', '.quote-star', '.location-art', '.couple-dance', '.keepsake-stage .mini-star', '.closing-rings'];
+// Where the bird likes to hover beside each stop, in pixels from its centre (smaller on phones).
+const flightPerches = [[30, -12], [190, -150], [200, -190], [70, -46], [170, -230], [150, -105], [62, -40], [95, -60]];
 
 function readFlightWaypoints() {
   if (!flightHasStarted) return null;
@@ -346,8 +462,6 @@ function readFlightWaypoints() {
     const rect = element.getBoundingClientRect();
     return { x: rect.left + rect.width / 2, y: rect.top + scrollY + rect.height / 2, width: rect.width, height: rect.height, element };
   });
-  // The sticky promise stays a real waypoint as it moves through document space.
-  for (let index = 1; index < positions.length; index++) positions[index].y = Math.max(positions[index].y, positions[index - 1].y + 80);
   return { positions, scroll: scrollY, width: innerWidth, height: innerHeight };
 }
 function placeBird(x, y, rotation = 0, scale = 1, facing = 1) {
@@ -377,29 +491,14 @@ function paintBirdWake(x, y) {
 function updateStoryFlight(reading) {
   if (!reading || entranceFlight || motion.matches) return;
   const { positions, scroll, width, height } = reading;
-  const focus = scroll + positions[0].y;
-  let birdPosition = positions[0];
-  let birdAngle = -12;
-  for (let index = 0; index < positions.length - 1; index++) {
-    const a = positions[index];
-    const b = positions[index + 1];
-    const gap = b.y - a.y;
-    const bend = Math.min(180, width * .2) * (index % 2 ? -1 : 1);
-    const c1 = { x: Math.min(width - 35, Math.max(35, a.x + bend)), y: a.y + gap / 3 };
-    const c2 = { x: Math.min(width - 35, Math.max(35, b.x + bend)), y: b.y - gap / 3 };
-    const t = Math.min(1, Math.max(0, (focus - a.y) / gap));
-    if (focus >= a.y) {
-      birdPosition = cubicPoint(a, c1, c2, b, t);
-      const ahead = cubicPoint(a, c1, c2, b, Math.min(1, t + .01));
-      const behind = cubicPoint(a, c1, c2, b, Math.max(0, t - .01));
-      birdAngle = Math.atan2(ahead.y - behind.y, ahead.x - behind.x) * 180 / Math.PI - 25;
-    }
-    a.element.classList.toggle('flight-near', Math.abs(focus - a.y) < 95);
-  }
-  const end = positions.at(-1);
-  end.element.classList.toggle('flight-near', Math.abs(focus - end.y) < 95);
-  setBirdDestination(birdPosition, birdAngle, reading);
-  $('#story-flight').classList.toggle('flight-complete', focus >= end.y);
+  const active = activeFlightStop(positions.map((stop) => stop.y), scroll, height);
+  const stop = positions[active];
+  const perch = flightPerches[active];
+  const scale = width < 600 ? .6 : 1;
+  positions.forEach((anchor, index) => anchor.element.classList.toggle('flight-near', index === active && Math.abs(anchor.y - scroll - height / 2) < height * .5));
+  reading.active = active;
+  setBirdDestination({ x: bounded(stop.x + perch[0] * scale, 35, width - 35), y: stop.y + perch[1] * scale }, 0, reading);
+  $('#story-flight').classList.toggle('flight-complete', active === positions.length - 1);
 }
 function beginStoryFlight() {
   const bird = $('#story-bird');
@@ -455,6 +554,8 @@ let birdAction = null;
 let birdRest = null;
 let birdNextCuriosity = 0;
 let birdBehavior = '';
+let birdActive = -1;
+let birdSwoop = null;
 let birdDialog = null;
 let birdDialogTarget = null;
 const birdPersonality = Math.random() * 20;
@@ -506,6 +607,12 @@ function setBirdDestination(point, angle, reading) {
     birdAction = null; birdRest = null;
     birdNextCuriosity = now + 900;
   }
+  if (reading.active !== undefined && reading.active !== birdActive) {
+    if (birdActive !== -1 && !motion.matches) birdSwoop = { began: now, amp: (reading.active % 2 ? -1 : 1) * Math.min(150, reading.width * .22), duration: 1700 };
+    birdActive = reading.active;
+    birdAction = null; birdRest = null;
+    birdNextCuriosity = now + 2600;
+  }
   birdDestination = { x: point.x, y: point.y - reading.scroll, angle, vx: velocityX, reading };
   birdLastMeasurement = now; birdPreviousScroll = reading.scroll;
   if (!birdBody) birdBody = { x: point.x, y: point.y - reading.scroll, vx: 0, vy: 0, angle: -12, facing: 1 };
@@ -514,11 +621,11 @@ function setBirdDestination(point, angle, reading) {
 function chooseBirdPerch() {
   if (!birdDestination) return null;
   const { positions, scroll, width, height } = birdDestination.reading;
-  const offsets = [[30,-12],[65,-75],[55,-60],[32,-13],[32,-38],[68,-9],[35,-9]];
   const candidates = positions.map((anchor, index) => {
-    const offset = offsets[index];
-    return { x: bounded(anchor.x + offset[0] * (width < 600 ? .6 : 1), 35, width - 35), y: anchor.y - scroll + offset[1], index };
-  }).filter((point) => point.y > 75 && point.y < height - 75);
+    const offset = flightPerches[index];
+    const scale = width < 600 ? .6 : 1;
+    return { x: bounded(anchor.x + offset[0] * scale, 35, width - 35), y: anchor.y - scroll + offset[1] * scale, index };
+  }).filter((point) => point.y > 75 && point.y < height - 75 && Math.hypot(point.x - birdBody.x, point.y - birdBody.y) > 70);
   candidates.sort((a,b) => Math.hypot(a.x-birdBody.x,a.y-birdBody.y) - Math.hypot(b.x-birdBody.x,b.y-birdBody.y));
   return candidates[0] || null;
 }
@@ -552,6 +659,15 @@ function animateLivingBird(now) {
     y: birdDestination.y + bounded(birdScrollVelocity * .055, -78, 78) + Math.sin(time * 2.3) * 5,
   };
   let behavior = idle < 450 ? 'following' : 'hovering';
+  if (birdSwoop) {
+    const t = (now - birdSwoop.began) / birdSwoop.duration;
+    if (t >= 1) birdSwoop = null;
+    else {
+      const arc = Math.sin(Math.PI * t);
+      target.x += arc * birdSwoop.amp; target.y -= arc * 70;
+      behavior = 'exploring';
+    }
+  }
   if (!birdDialog && idle > 850 && !birdAction && now > birdNextCuriosity) beginBirdCuriosity(now);
   if (birdAction) {
     const t = bounded((now - birdAction.began) / birdAction.duration, 0, 1);
@@ -601,9 +717,21 @@ function initialize() {
   document.documentElement.classList.replace('no-js', 'js');
   renderLanguage('ar');
   for (const button of $$('[data-language-toggle]')) button.addEventListener('click', () => renderLanguage(language === 'ar' ? 'en' : 'ar'));
+  const opening = $('#opening-dialog');
+  let pointer;
+  let pointerFrame = 0;
+  opening.addEventListener('pointermove', (event) => {
+    pointer = event;
+    if (pointerFrame || motion.matches) return;
+    pointerFrame = requestAnimationFrame(() => {
+      pointerFrame = 0;
+      opening.style.setProperty('--px', (pointer.clientX / innerWidth * 2 - 1).toFixed(3));
+      opening.style.setProperty('--py', (pointer.clientY / innerHeight * 2 - 1).toFixed(3));
+    });
+  }, { passive: true });
+  opening.addEventListener('cancel', (event) => { event.preventDefault(); startInvitation(false); });
   $('#open-invitation').addEventListener('click', () => startInvitation(Boolean(content.music?.startOnOpen)));
   $('#open-alternative').addEventListener('click', () => startInvitation(!content.music?.startOnOpen));
-  $('#opening-dialog').addEventListener('cancel', (event) => { event.preventDefault(); startInvitation(false); });
   $('#music-toggle').addEventListener('click', () => {
     musicIntent = !playing;
     if (musicIntent) void startMusic(); else stopMusic();
@@ -657,16 +785,12 @@ function initialize() {
       $('#export-error').textContent = text('exportError');
     } finally { button.disabled = false; $('#download-png-label').textContent = text('downloadPng'); }
   });
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) entry.target.classList.toggle('is-visible', entry.isIntersecting);
-    }, { threshold: 0, rootMargin: '0px 0px -28px 0px' });
-    for (const element of $$('.reveal')) observer.observe(element);
-    document.body.classList.add('motion-ready');
-  }
+  populateAtmosphere();
+  initializeChapters();
+  initializeInteractions();
   initializeScenes();
   document.fonts.ready.then(requestSceneFrame);
-  $('#opening-dialog').showModal();
+  opening.showModal();
   $('#open-invitation').focus({ preventScroll: true });
 }
 
