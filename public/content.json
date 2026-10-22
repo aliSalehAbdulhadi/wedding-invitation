@@ -1,0 +1,98 @@
+{
+  "demo": true,
+  "couple": {
+    "first": {
+      "ar": "عمر",
+      "en": "Omar"
+    },
+    "second": {
+      "ar": "ليان",
+      "en": "Layan"
+    }
+  },
+  "event": {
+    "id": "omar-layan-preview-2027",
+    "start": "2027-05-21T19:00:00+03:00",
+    "end": "2027-05-21T23:30:00+03:00",
+    "timeZone": "Asia/Baghdad",
+    "title": {
+      "ar": "حفل زفاف عمر وليان",
+      "en": "Omar & Layan's wedding"
+    },
+    "description": {
+      "ar": "ليلة نحتفل فيها بالحب. هذه دعوة تجريبية وليست مناسبة حقيقية.",
+      "en": "An evening to celebrate love. This is a demo invitation, not a real event."
+    }
+  },
+  "venue": {
+    "name": {
+      "ar": "حدائق الياسمين",
+      "en": "The Jasmine Gardens"
+    },
+    "address": {
+      "ar": "بغداد، العراق",
+      "en": "Baghdad, Iraq"
+    },
+    "note": {
+      "ar": "تحت السماء، وبين الياسمين، نجتمع لنحتفل ببداية جديدة.",
+      "en": "Beneath the evening sky, surrounded by jasmine, we gather for a beautiful beginning."
+    },
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baghdad%2C%20Iraq",
+    "mapLabel": {
+      "ar": "موقع تجريبي · بغداد",
+      "en": "Preview location · Baghdad"
+    }
+  },
+  "schedule": [
+    {
+      "time": "19:00",
+      "title": {
+        "ar": "لقاء الأحبّة",
+        "en": "A warm welcome"
+      },
+      "note": {
+        "ar": "نستقبلكم بكل الحب",
+        "en": "Familiar faces, new memories"
+      }
+    },
+    {
+      "time": "20:00",
+      "title": {
+        "ar": "بداية الحكاية",
+        "en": "The celebration begins"
+      },
+      "note": {
+        "ar": "لحظة نودّ أن نشارككم إياها",
+        "en": "A moment to share with you"
+      }
+    },
+    {
+      "time": "20:30",
+      "title": {
+        "ar": "ليلة لا تُنسى",
+        "en": "Dinner & a little magic"
+      },
+      "note": {
+        "ar": "عشاء، ضحكات، وذكريات جميلة",
+        "en": "Good food, laughter, and love"
+      }
+    }
+  ],
+  "copy": {
+    "invitation": {
+      "ar": "بكل الحب، ندعوكم لتشاركونا فرحة زفافنا. حضوركم هو أجمل تفاصيل ليلتنا، ومعكم تصبح الحكاية أجمل.",
+      "en": "With full hearts, we invite you to celebrate our wedding. Your presence is the loveliest part of our evening. This story is sweeter with you in it."
+    },
+    "quote": {
+      "ar": "بعضُ الحكايات تُروى.\nوحكايتنا، نعيشها معًا.",
+      "en": "Some stories are told.\nOurs is lived, together."
+    },
+    "closing": {
+      "ar": "وبحضوركم، تكتمل فرحتنا.",
+      "en": "It wouldn't be the same without you."
+    }
+  },
+  "music": {
+    "startOnOpen": false
+  }
+}

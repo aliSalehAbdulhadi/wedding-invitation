@@ -1,0 +1,11 @@
+{
+  "css_source": "https://fonts.googleapis.com/css2?family=Amiri:wght@400&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Noto+Sans+Arabic:wght@400;500&display=swap",
+  "font_sources": [
+    "https://fonts.gstatic.com/s/amiri/v30/J7aRnpd8CGxBHqUp.ttf",
+    "https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf",
+    "https://fonts.gstatic.com/s/cormorantgaramond/v21/co3umX5slCNuHLi8bLeY9MK7whWMhyjypVO7abI26QOD_v86GnM.ttf",
+    "https://fonts.gstatic.com/s/notosansarabic/v33/nwpxtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlhQ5l3sQWIHPqzCfyGyvuw.ttf",
+    "https://fonts.gstatic.com/s/notosansarabic/v33/nwpxtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlhQ5l3sQWIHPqzCf-myvuw.ttf"
+  ],
+  "license": "SIL Open Font License 1.1"
+}

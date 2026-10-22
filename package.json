@@ -1,0 +1,12 @@
+{
+  "name": "wedding-invitation",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "An Arabic-first, bilingual wedding invitation in native HTML, CSS, and JavaScript.",
+  "scripts": {
+    "dev": "python -m http.server 8080 --bind 127.0.0.1 --directory public",
+    "check": "python scripts/check.py",
+    "test": "node --test"
+  }
+}

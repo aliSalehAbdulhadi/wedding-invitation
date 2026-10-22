@@ -1,0 +1,4 @@
+# The unfinished invitation should not be indexed. Revisit at launch.
+# This does not restrict access to the website.
+User-agent: *
+Disallow: /

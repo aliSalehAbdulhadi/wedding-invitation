@@ -1,0 +1,14 @@
+---
+description: Accessibility, progressive enhancement, and guest-facing behavior
+globs: "public/**/*.html,public/**/*.css,public/**/*.js"
+alwaysApply: false
+---
+
+- Use semantic HTML, one h1, logical headings, real links/buttons, and visible focus.
+- Maintain readable contrast, comfortable body type, touch targets, zoom support, and correct language/direction.
+- Keep essential invitation details in HTML. Use JavaScript only for requested progressive enhancements.
+- Do not autoplay audio, hide content behind JS, or use color alone to convey meaning.
+- Render plain dynamic text with `textContent`; never insert guest input through `innerHTML`.
+- Connect RSVP to a real service when requested; never simulate successful submission.
+- Check phone/desktop layouts, keyboard navigation, reduced motion, and the important guest flow in a browser.
+- Use `.agents/skills/web-design-guidelines/SKILL.md` for a requested UI review.

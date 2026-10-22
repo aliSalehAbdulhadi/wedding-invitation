@@ -1,0 +1,16 @@
+# Local tooling and operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+node_modules/
+__pycache__/
+*.py[cod]
+*.log
+
+# Private configuration and local verification artifacts
+.env
+.env.*
+!.env.example
+artifacts/
+.verification/

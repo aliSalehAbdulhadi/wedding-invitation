@@ -1,0 +1,12 @@
+---
+description: Typography, color, layout, and motion for the wedding invitation
+globs: "public/**/*.html,public/**/*.css,public/**/*.svg"
+alwaysApply: false
+---
+
+- Read `docs/DESIGN.md` and `.agents/skills/wedding-art-direction/SKILL.md` for visual work.
+- Start with warm stationery, expressive serif type, strong readable ink, generous space, and one coherent motif.
+- Keep the couple's identity and event details central; follow later choices over the initial style proposal.
+- Extend CSS tokens. Prefer fluid type, logical properties, natural content height, and a restrained type palette.
+- Avoid generic SaaS cards, unrelated gradients, glass panels, ornate body type, and pale small text.
+- Add motion sparingly and respect reduced motion. Core content must work without JavaScript.

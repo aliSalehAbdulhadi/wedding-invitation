@@ -1,0 +1,12 @@
+---
+description: Core wedding invitation scope, source layout, and AI instructions
+alwaysApply: true
+---
+
+- Read `AGENTS.md` as the main project instructions.
+- Use native HTML, CSS, and JavaScript. Keep the site buildless and dependency-free unless a requirement justifies a change.
+- `public/` is the only hosting document root. Agent instructions and docs are not web assets.
+- Read `docs/CONTENT.md` before adding event information; never invent wedding facts.
+- Read the relevant skills listed in `AGENTS.md` rather than loading every skill.
+- Use relative local asset URLs and exact filename casing.
+- Run `python scripts/check.py`; verify visual or interactive changes in a browser.
