@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ar" dir="rtl" class="no-js">
 <head>
   <meta charset="utf-8">
@@ -7,12 +7,32 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#f7f5ee">
   <title>علي وتبارك | تبدأ الحكاية</title>
+  <style>html.opening-pending { background:#25261f; } html.opening-pending body { visibility:hidden; }</style>
+  <script>
+    // Hold the first paint until the envelope is in the top layer; no-JS stays readable.
+    if (/^https?:$/.test(location.protocol) && 'HTMLDialogElement' in window) {
+      document.documentElement.classList.add('opening-pending');
+      window.invitationStartup = {
+        failed:false,
+        release() { clearTimeout(this.timer); document.documentElement.classList.remove('opening-pending'); },
+        fail() {
+          this.failed=true; this.release();
+          document.documentElement.classList.replace('js','no-js');
+          document.body?.classList.remove('motion-ready');
+          document.getElementById('opening-dialog')?.close();
+        }
+      };
+      window.invitationStartup.timer=setTimeout(() => window.invitationStartup.fail(),12000);
+    }
+  </script>
   <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg">
-  <link rel="stylesheet" href="./assets/fonts/fonts.css">
-  <link rel="stylesheet" href="./assets/css/styles.css?v=20261023-22">
-  <link rel="stylesheet" href="./assets/css/themes.css">
-  <link rel="stylesheet" href="./assets/css/enchanted.css?v=20261023-22">
-  <script defer src="./assets/js/preview.js?v=20261023-22"></script>
+  <link rel="preload" href="./assets/fonts/font-01.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="modulepreload" href="./assets/js/main.js?v=20261023-24">
+  <link rel="stylesheet" href="./assets/fonts/fonts.css?v=20261023-24">
+  <link rel="stylesheet" href="./assets/css/styles.css?v=20261023-24">
+  <link rel="stylesheet" href="./assets/css/themes.css?v=20261023-24">
+  <link rel="stylesheet" href="./assets/css/enchanted.css?v=20261023-24">
+  <script defer src="./assets/js/preview.js?v=20261023-24"></script>
 </head>
 <body>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -247,7 +267,7 @@
     <div class="envelope-stage"><button class="envelope-button" id="open-invitation" type="button" aria-label="افتح الدعوة">
       <span class="stage-lights" aria-hidden="true"><span class="stage-halo"></span><svg class="stage-orbit" viewBox="0 0 400 400"><circle class="ring ring--draw" pathLength="1" cx="200" cy="200" r="196"/><g class="ring-spin ring-spin--a"><circle class="ring ring--dash" cx="200" cy="200" r="176"/><circle class="bead" cx="376" cy="200" r="3.4"/><use href="#icon-star" x="188" y="12" width="24" height="24"/></g><g class="ring-spin ring-spin--b"><circle class="ring ring--dash" cx="200" cy="200" r="148"/><circle class="bead bead--small" cx="52" cy="200" r="2.4"/></g></svg></span>
       <span class="envelope" aria-hidden="true"><span class="envelope-letter"><span data-i18n="openingLetter">بكل الحب</span><span class="story-bird" id="story-bird" aria-hidden="true"><svg viewBox="0 0 72 64"><defs><linearGradient id="bird-paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="var(--white)"/><stop offset="1" stop-color="var(--gold)"/></linearGradient></defs><path class="bird-tail" d="m29 35-23 9 17-17Z"/><path class="bird-wing bird-wing--back" d="M26 34 16 4l33 28Z"/><path class="bird-body" d="m21 36 32-21 13 10-12 4-16 19Z"/><path class="bird-wing bird-wing--front" d="m28 35 7-31 15 29-12 15Z"/><path class="bird-fold" d="m28 35 22-2M35 4l3 44M53 15l1 14"/><circle class="bird-eye" cx="56" cy="23" r="1" fill="var(--muted)"/></svg></span></span><span class="envelope-bottom"></span><span class="envelope-flap"></span><span class="wax-seal"><svg><use href="#icon-star"/></svg></span></span><span class="envelope-cta"><span data-i18n="openInvitation">افتح الدعوة</span></span></button></div>
-    <p class="opening-hint" data-i18n="openingHint">تجربة صغيرة، لمناسبة كبيرة. الموسيقى اختيارية.</p><button class="silent-entry" id="open-alternative" type="button" data-i18n="openSilent">افتح بدون موسيقى</button></div>
+    <p class="opening-hint" data-i18n="openingHint">افتح الرسالة، واتبع طائرنا في الحكاية. الموسيقى اختيارية.</p><button class="silent-entry" id="open-alternative" type="button" data-i18n="openWithMusic">افتح الدعوة مع موسيقى هادئة</button></div>
   <div class="opening-bottom"><span dir="ltr">A LITTLE LOVE LETTER</span><span data-i18n="openingFooter">بدايتنا الأجمل، بوجودكم</span></div>
 </dialog>
 <dialog class="modal" id="calendar-dialog" aria-labelledby="calendar-title">

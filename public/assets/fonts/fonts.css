@@ -3,21 +3,21 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(./font-01.ttf) format('truetype');
+  src: url(./font-01.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url(./font-02.ttf) format('truetype');
+  src: url(./font-02.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(./font-03.ttf) format('truetype');
+  src: url(./font-03.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Noto Sans Arabic';
@@ -25,7 +25,7 @@
   font-weight: 400;
   font-stretch: normal;
   font-display: swap;
-  src: url(./font-04.ttf) format('truetype');
+  src: url(./font-04.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Noto Sans Arabic';
@@ -33,5 +33,5 @@
   font-weight: 500;
   font-stretch: normal;
   font-display: swap;
-  src: url(./font-05.ttf) format('truetype');
+  src: url(./font-05.woff2) format('woff2');
 }

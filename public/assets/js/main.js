@@ -1,6 +1,6 @@
 ﻿import { playOpeningChime } from './opening-sound.js';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
-import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261023-16';
+import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261023-24';
 
 import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261023-3';
 
@@ -332,7 +332,11 @@ function enhanceTypography() {
     mask.append(inner); return mask;
   }));
 }
-function requestSceneFrame() {
+let sceneLayoutDirty = true;
+let flightGeometry;
+function requestSceneFrame(event) {
+  // Scroll changes viewport coordinates, not document geometry. Never remeasure all SVGs per scroll frame.
+  if (event?.type !== 'scroll') sceneLayoutDirty = true;
   if (sceneFramePending) return;
   sceneFramePending = true;
   requestAnimationFrame(updateScenes);
@@ -341,6 +345,7 @@ function updateScenes() {
   sceneFramePending = false;
   const flightReading = readFlightWaypoints();
   measureBirdDialog();
+  sceneLayoutDirty = false;
   updateStoryFlight(flightReading);
 }
 // Measure only on layout changes; CSS owns the continuous light and pause behavior.
@@ -354,6 +359,7 @@ function syncTimelineLight() {
   const first = centers[0], last = centers.at(-1), distance = last-first || 1;
   list.style.setProperty('--thread-start', `${first-3.5}px`);
   list.style.setProperty('--thread-end', `${last-3.5}px`);
+  list.style.setProperty('--thread-distance', `${last-first}px`);
   rows.forEach((row,index) => row.style.setProperty('--stop-delay', `${(centers[index]-first)/distance * 6.5 * .76}s`));
   list.classList.add('is-tracing');
 }
@@ -365,6 +371,7 @@ function initializeScenes() {
   motion.addEventListener('change', requestSceneFrame);
   window.visualViewport?.addEventListener('resize',requestSceneFrame);
   window.visualViewport?.addEventListener('scroll',requestSceneFrame);
+  if ('ResizeObserver' in window) new ResizeObserver(requestSceneFrame).observe($('#main'));
   requestSceneFrame();
 }
 
@@ -409,14 +416,16 @@ function populateAtmosphere() {
   for (const box of $$('[data-stars]')) {
     const host = box.parentElement;
     const count = Math.round(bounded(host.clientWidth * host.clientHeight / 8500, 45, 160));
+    const fragment = document.createDocumentFragment();
     for (let index = 0; index < count; index++) {
       const x = random() * 100;
       const bright = random() < .16;
-      box.append(chapterEl('span', bright ? 'star star--bright' : 'star', {
+      fragment.append(chapterEl('span', bright ? 'star star--bright' : 'star', {
         '--x': `${x.toFixed(2)}%`, '--y': `${(random() * 100).toFixed(2)}%`, '--s': `${(1 + random() * (bright ? 2.2 : 1.4)).toFixed(1)}px`,
         '--td': `${(3.4 + random() * 4).toFixed(1)}s`, '--tw': `${(-x / 100 * 8).toFixed(2)}s`,
       }));
     }
+    box.append(fragment);
   }
   for (const box of $$('[data-motes]')) {
     for (let index = 0; index < Number(box.dataset.motes); index++) {
@@ -537,6 +546,9 @@ const flightPerches = [[30, -12], [190, -150], [200, -190], [70, -46], [170, -23
 
 function readFlightWaypoints() {
   if (!flightHasStarted) return null;
+  // Reuse measurements between layout changes, but refresh a few times a second so the bird
+  // still tracks scenes that are settling into place with entrance transforms.
+  if (flightGeometry && !sceneLayoutDirty && performance.now() - flightGeometry.at < 300) return { ...flightGeometry, scroll:scrollY, width:innerWidth, height:innerHeight };
   const positions = flightStops.map((selector) => {
     const element = $(selector);
     const rect = element.getBoundingClientRect();
@@ -547,7 +559,8 @@ function readFlightWaypoints() {
     const rect=space.getBoundingClientRect();
     return {element,kind:element.dataset.birdVisit,space,left:rect.left,top:rect.top+scrollY,width:rect.width,height:rect.height};
   });
-  return { positions, visits, scroll: scrollY, width: innerWidth, height: innerHeight };
+  flightGeometry = { positions, visits, at: performance.now() };
+  return { ...flightGeometry, scroll: scrollY, width: innerWidth, height: innerHeight };
 }
 function placeBird(x, y, rotation = 0, scale = 1, facing = 1) {
   const layer = $('#story-flight');
@@ -562,10 +575,12 @@ function placeBird(x, y, rotation = 0, scale = 1, facing = 1) {
 function paintBirdWake(x, y) {
   const now = performance.now();
   const particles = advanceBirdWake(birdWake, { x, y }, now);
-  $('#flight-canvas').setAttribute('viewBox', `0 0 ${innerWidth} ${innerHeight}`);
+  const canvas = $('#flight-canvas');
+  const viewBox = `0 0 ${innerWidth} ${innerHeight}`;
+  if (canvas.getAttribute('viewBox') !== viewBox) canvas.setAttribute('viewBox',viewBox);
   wakeMarks.forEach((mark, index) => {
     const p = particles[index];
-    if (!p) { mark.style.opacity = '0'; return; }
+    if (!p) { if (mark.style.opacity !== '0') mark.style.opacity = '0'; return; }
     const age = (now - p.born) / p.life;
     const opacity = Math.min(1, age / .12) * Math.pow(1 - age, 1.7);
     mark.setAttribute('d', p.glint ? 'M -2 0 L 2 0 M 0 -2 L 0 2' : `M ${-p.size / 2} 0 Q 0 -2 ${p.size / 2} 0`);
@@ -960,7 +975,10 @@ function animateLivingBird(now) {
   placeBird(birdBody.x, birdBody.y, birdBody.angle, scale, birdBody.facing);
   birdRaf = requestAnimationFrame(animateLivingBird);
 }
-addEventListener('visibilitychange', () => { if (!document.hidden && flightHasStarted) requestSceneFrame(); });
+addEventListener('visibilitychange', () => {
+  document.documentElement.classList.toggle('is-page-hidden',document.hidden);
+  if (!document.hidden && flightHasStarted) requestSceneFrame();
+});
 
 let keepsakeExportController;
 function clearKeepsakeRitual() {
@@ -1084,18 +1102,26 @@ function initialize() {
   initializeInteractions();
   initializeScenes();
   document.fonts.ready.then(requestSceneFrame);
-  opening.showModal();
+  if (!opening.open) opening.showModal();
+  $('#open-invitation').disabled = false;
+  $('#open-alternative').disabled = false;
+  opening.querySelector('[data-language-toggle]').disabled = false;
+  opening.removeAttribute('aria-busy');
+  window.invitationStartup?.release();
   $('#open-invitation').focus({ preventScroll: true });
 }
 
 try {
-  const response = await fetch(new URL('./content.json', document.baseURI), { cache: 'no-cache' });
+  const response = await fetch(new URL('./content.json', document.baseURI), { cache: 'no-cache', signal:AbortSignal.timeout(10000) });
   if (!response.ok) throw new Error('Content unavailable');
   content = validateContent(await response.json());
+  if (window.invitationStartup?.failed) throw new Error('Invitation startup timed out');
   initialize();
 } catch (error) {
   // The semantic Arabic invitation remains readable if configuration cannot load.
   document.documentElement.classList.replace('js', 'no-js');
+  document.body.classList.remove('motion-ready');
+  window.invitationStartup?.fail();
   for (const dialog of $$('dialog[open]')) dialog.close();
   notify(text('configError'));
   console.error('Invitation initialization failed:', error.message);

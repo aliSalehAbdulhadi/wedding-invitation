@@ -433,16 +433,16 @@
 .arrival-copy .button { margin-block-start:.8rem; }
 
 /* The passing thread and every diamond share one measured 6.5-second cycle. */
-.timeline::after { animation:none; opacity:0; }
+.timeline::after { animation:none; opacity:0; inset-block-start:var(--thread-start); }
 .timeline.has-arrived.is-tracing::after { animation:timeline-thread 6.5s linear infinite; }
 .timeline li::before { background:color-mix(in srgb,var(--gold) 45%,var(--night)); box-shadow:none; }
 .timeline.has-arrived.is-tracing li::before { animation:timeline-stop 6.5s linear var(--stop-delay,0s) infinite; }
 .motion-ready .timeline.has-arrived li::after { animation:none; }
 @keyframes timeline-thread {
-  0% { inset-block-start:var(--thread-start); opacity:0; }
-  12% { inset-block-start:var(--thread-start); opacity:1; }
-  88% { inset-block-start:var(--thread-end); opacity:1; }
-  100% { inset-block-start:var(--thread-end); opacity:0; }
+  0% { transform:translateY(0); opacity:0; }
+  12% { transform:translateY(0); opacity:1; }
+  88% { transform:translateY(var(--thread-distance)); opacity:1; }
+  100% { transform:translateY(var(--thread-distance)); opacity:0; }
 }
 @keyframes timeline-stop {
   0%,5%,29%,100% { background:color-mix(in srgb,var(--gold) 45%,var(--night)); box-shadow:0 0 0 transparent; }
@@ -462,3 +462,6 @@
 .motion-ready .ring-universe:not(.has-arrived) .joining-ring,
 .motion-ready .arrival-portal:not(.has-arrived) .arrival-door { transition:none; }
 @media print { .chapter.chapter--story,.chapter.chapter--promise,.chapter.chapter--garden,.chapter.chapter--closing,.chapter.chapter--celebration { padding-block:1.5rem; } }
+
+/* A hidden tab has nothing to show; resume exactly where it left off. */
+.is-page-hidden *,.is-page-hidden *::before,.is-page-hidden *::after { animation-play-state:paused !important; }

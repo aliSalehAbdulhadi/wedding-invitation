@@ -1,4 +1,4 @@
-﻿if (location.protocol === 'file:') {
+if (location.protocol === 'file:') {
   const note = document.createElement('aside');
   note.className = 'local-preview-notice';
   note.setAttribute('aria-label', 'Local preview / المعاينة المحلية');
@@ -10,5 +10,22 @@
   note.append(copy, link);
   document.body.prepend(note);
 } else {
-  import('./main.js?v=20261023-22');
+  // Show the real envelope before fetching the module graph or event configuration.
+  const opening = document.getElementById('opening-dialog');
+  const startup = window.invitationStartup;
+  if (!startup?.failed) {
+    try {
+      document.documentElement.classList.replace('no-js','js');
+      document.getElementById('open-invitation').disabled = true;
+      document.getElementById('open-alternative').disabled = true;
+      opening.setAttribute('aria-busy','true');
+      opening.querySelector('[data-language-toggle]').disabled = true;
+      opening.addEventListener('cancel', event => {
+        if (document.getElementById('open-invitation').disabled) event.preventDefault();
+      });
+      opening.showModal();
+      document.documentElement.classList.remove('opening-pending');
+      import('./main.js?v=20261023-24').catch(() => startup?.fail());
+    } catch { startup?.fail(); }
+  }
 }

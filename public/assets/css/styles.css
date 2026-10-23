@@ -25,12 +25,13 @@ body: :after { content: ''; position: fixed; inset: 0; pointer-events: none; z-i
 [hidden], dialog:not([open]) { display: none !important; }
 .no-js .js-only { display: none !important; }
 button, input { font: inherit; }
-button, a { -webkit-tap-highlight-color: transparent; }
+button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+dialog { overscroll-behavior: contain; }
 button { cursor: pointer; color: inherit; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .3em; }
-button: disabled { cursor: wait; opacity: .6; }
+button:disabled { cursor: wait; opacity: .6; }
 :focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
-input: focus-visible { outline-offset: 2px; }
+input:focus-visible { outline-offset: 2px; }
 img, svg { max-inline-size: 100%; }
 img { display: block; }
 h1, h2, h3, p { margin: 0; }
@@ -642,7 +643,7 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep) 76.08%, tran
 @media (prefers-reduced-motion: reduce), print { .story-flight { display: none !important; } }
 .story-flight .story-bird { opacity: 1; transition: opacity .6s; }
 /* Focus moves to the main landmark after entry; controls retain visible outlines. */
-main: focus { outline: none; }
+main:focus { outline: none; }
 /* A companion with inertia, wing beats, little detours, and quiet perches. */
 .story-flight .bird-wing--front, .story-flight .bird-wing--back { animation-duration: 1.35s; }
 .story-flight .is-exploring .bird-wing--front, .story-flight .is-exploring .bird-wing--back { animation-duration: .65s; }
