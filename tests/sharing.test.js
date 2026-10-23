@@ -15,9 +15,14 @@ test('sharing metadata and a real lightweight image use the confirmed public hos
   assert.equal(tags.get('robots'),'noindex, nofollow');
   const imageURL=new URL(tags.get('og:image'));
   assert.equal(imageURL.origin,origin);
-  const file=new URL('.'+imageURL.pathname,root),png=readFileSync(file);
-  assert.equal(png.subarray(1,4).toString(),'PNG');
-  assert.equal(png.readUInt32BE(16),1200); assert.equal(png.readUInt32BE(20),630);
+  const file=new URL('.'+imageURL.pathname,root),image=readFileSync(file);
+  assert.equal(tags.get('og:image:type'),'image/jpeg');
+  assert.equal(image.readUInt16BE(0),0xffd8);
+  const frame=image.indexOf(Buffer.from([0xff,0xc0]));
+  assert.ok(frame>0,'JPEG contains a baseline frame');
+  assert.equal(image.readUInt16BE(frame+7),Number(tags.get('og:image:width')));
+  assert.equal(image.readUInt16BE(frame+5),Number(tags.get('og:image:height')));
+  assert.equal(tags.get('og:image:width'),'1730'); assert.equal(tags.get('og:image:height'),'909');
   assert.ok(statSync(file).size<300000);
   const robots=readFileSync(new URL('robots.txt',root),'utf8');
   assert.match(robots,/User-agent: WhatsApp\s+Allow: \//);

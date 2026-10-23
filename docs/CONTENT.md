@@ -44,3 +44,6 @@ Public palettes and social sharing, confirmed 24 October 2026: the couple reques
 
 
 Sharing refinement (24 October 2026): the couple asked for quieter metadata and a cleaner logo image. Use names only in titles, date and venue only in the description, and the Arabic initials monogram. The previous wedding-share.png remains available for already-cached previews; new metadata references wedding-monogram.png.
+
+
+Merged monogram (24 October 2026): the couple liked the generated interwoven ع / ت mark and authorized using it for the sharing preview. The active image is wedding-ligature.jpg, 1730x909, encoded to 71,611 bytes for delivery. Prior preview images remain available for cached links. Arabic hero typography options were shown as real Aref Ruqaa, Ruwudu and Gulzar samples; no hero font is changed until the couple chooses one.

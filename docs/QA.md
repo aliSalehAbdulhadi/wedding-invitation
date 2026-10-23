@@ -159,3 +159,6 @@ Sharing restraint pass (24 October 2026): simplified HTML/Open Graph/Twitter tit
 Verification: 20 Node checks and the static asset check pass. Real Chrome confirmed names-only Arabic/English browser titles, short localized date/venue descriptions, the static Arabic sharing title and no runtime errors. The new monogram PNG is 20,438 bytes. WhatsApp itself was not used to send a message; final crawler responses are checked after Git auto-deployment.
 
 Public verification: Git deployment a3cf362 reached READY. WhatsApp/facebookexternalhit HTTP requests received the names-only title, date/venue description, and new monogram URL; the 20,438-byte PNG returned HTTP 200 with image/png. No message was sent through WhatsApp.
+
+
+Merged identity pass (24 October 2026): rendered three real typeface options with the exact Arabic names; all fonts loaded and their glyph shapes were visually inspected. These remain preview-only pending the couple’s font choice. The couple liked the custom generated initials artwork. It is used as the sharing preview in a compact JPEG encoding, 1730x909 and 71,611 bytes, with matching Open Graph dimensions/type and a new filename. The original generated PNG remains in the task workspace, and generation provenance is in docs/monogram-artwork.md. No hero layout or animation changes are included in this preview-asset pass.
