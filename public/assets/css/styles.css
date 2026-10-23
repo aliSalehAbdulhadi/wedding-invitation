@@ -286,8 +286,8 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep) 76.08%, tran
 .joining-ring { fill: none; stroke: url(#ring-gold); stroke-width: 1.8; transform-box: fill-box; transform-origin: center; transition: translate 2.8s var(--spring) .7s, rotate 2.8s var(--ease) .7s; }
 .joining-ring circle + circle { stroke-width: .55; opacity: .6; animation: ring-lustre 6s ease-in-out infinite alternate; }
 .joining-ring--two circle + circle { animation-delay: -3s; }
-.motion-ready .story-art:not(.has-arrived) .joining-ring--one { translate: -150px 0; rotate: -14deg; }
-.motion-ready .story-art:not(.has-arrived) .joining-ring--two { translate: 150px 0; rotate: 14deg; }
+.motion-ready .ring-universe:not(.has-arrived) .joining-ring--one { translate: -150px 0; rotate: -14deg; }
+.motion-ready .ring-universe:not(.has-arrived) .joining-ring--two { translate: 150px 0; rotate: 14deg; }
 .ring-universe.is-parting .joining-ring--one { animation: part-one 1.7s var(--ease); }
 .ring-universe.is-parting .joining-ring--two { animation: part-two 1.7s var(--ease); }
 @keyframes part-one { 28% { translate: -75px 0; rotate: -7deg; } }
@@ -295,16 +295,12 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep) 76.08%, tran
 .universe-orbit { fill: none; stroke: var(--foliage); stroke-width: .6; stroke-dasharray: 3 7; opacity: .45; }
 .orbit-comet { fill: none; stroke: var(--gold); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: .06 .94; filter: drop-shadow(0 0 5px var(--gold)); animation: comet-run 11s linear infinite; }
 .ring-flash { opacity: 0; transform-box: fill-box; transform-origin: center; }
-.motion-ready .story-art.has-arrived .ring-flash { animation: ring-flash 2.2s ease-out 1.9s both; }
+.motion-ready .ring-universe.has-arrived .ring-flash { animation: ring-flash 2.2s ease-out 1.9s both; }
 @keyframes ring-flash { 0% { opacity: 0; scale: .2; } 25% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 1.5; } }
-.orbit-name { position: absolute; top: 50%; left: 50%; translate: -50% -50%; font: clamp(1.7rem, 3vw, 2.6rem)/1.5 var(--display); opacity: 0; transition: left 2.6s var(--ease) .7s, opacity 1.2s ease 1.5s; }
-.motion-ready .story-art:not(.has-arrived) .orbit-name { opacity: 1; }
-.motion-ready .story-art:not(.has-arrived) .orbit-name--one { left: 20%; }
-.motion-ready .story-art:not(.has-arrived) .orbit-name--two { left: 80%; }
-html[dir='rtl'] .motion-ready .story-art:not(.has-arrived) .orbit-name--one { left: 80%; }
-html[dir='rtl'] .motion-ready .story-art:not(.has-arrived) .orbit-name--two { left: 20%; }
+.orbit-name { fill:var(--ink); stroke:none; text-anchor:middle; dominant-baseline:middle; font:48px/1.5 var(--display); opacity:0; transition:opacity .85s ease-in-out 3.15s; }
+.motion-ready .ring-universe:not(.has-arrived) .orbit-name { opacity:1; transition:none; }
 .union-word { font: clamp(1.8rem, 3vw, 2.6rem)/1.5 var(--display); color: var(--gold-ink); transition: opacity 1.4s ease 2.1s, scale 1.8s var(--spring) 2.1s, filter 1.4s ease 2.1s; }
-.motion-ready .story-art:not(.has-arrived) .union-word { opacity: 0; scale: .6; filter: blur(8px); }
+.motion-ready .ring-universe:not(.has-arrived) .union-word { opacity: 0; scale: .6; filter: blur(8px); }
 .ring-universe.flight-near .union-word { scale: 1.16; text-shadow: 0 0 24px color-mix(in srgb, var(--gold) 60.00%, transparent); }
 .ring-universe.flight-near .joining-ring { filter: drop-shadow(0 0 9px color-mix(in srgb, var(--gold) 66.67%, transparent)); }
 .lede { --d: 2.2s; max-inline-size: 56ch; margin-inline: auto; font-size: .9rem; text-align: center; }

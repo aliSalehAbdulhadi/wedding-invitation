@@ -1,4 +1,4 @@
-if (location.protocol === 'file:') {
+﻿if (location.protocol === 'file:') {
   const note = document.createElement('aside');
   note.className = 'local-preview-notice';
   note.setAttribute('aria-label', 'Local preview / المعاينة المحلية');
@@ -10,5 +10,5 @@ if (location.protocol === 'file:') {
   note.append(copy, link);
   document.body.prepend(note);
 } else {
-  import('./main.js?v=20261023-5');
+  import('./main.js?v=20261023-22');
 }

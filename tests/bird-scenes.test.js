@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {makeBirdVisit,sampleBirdVisit} from '../public/assets/js/bird-scenes.js';
 
 test('artwork visits keep their destinations inside small and wide viewports and meet both ends',()=>{
-  for (const width of [320,551,1280]) for (const kind of ['hero','rings','date','blossom','lantern','couple','letter','closing']) {
+  for (const width of [320,551,1280]) for (const kind of ['hero','rings','date','blossom','gateway','couple','letter','closing']) {
     const from={x:60,y:90};
     const visit=makeBirdVisit(kind,{left:-20,top:130,width:460,height:420},{width,height:800},from,.4);
     assert.ok(visit.duration<=2600, "encounters should respond within a short visit");

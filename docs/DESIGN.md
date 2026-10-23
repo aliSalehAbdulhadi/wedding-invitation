@@ -124,3 +124,35 @@ Text entrance refinement: headings and promise lines fade from 4% to full opacit
 Press border and dance entrance: practical controls have a pointer-transparent, aria-hidden edge layer. A theme-colored light sweeps once around its masked border over .85s alongside the existing press pulse. Native clicks and keyboard actions are immediate; plain border glow is the fallback when the mask is unsupported. The layer is restored if localized labels replace its content. The envelope retains its separate treatment.
 
 The complete couple group performs one 2.8-second perspective turn on its own arrival, fading in and settling into the original pose. Dress, veil and both figures remain in the same transformed group. A short drawn light arc marks the turn near their feet; the surrounding ambient sway continues separately. Scrolling back or a bird visit does not restart the entrance. Reduced motion and print expose the final still pose and hide the edge/turn effects.
+
+The couple's anatomy was redrawn: the groom has a tapered tailcoat, two separate trouser legs with shoes and a short coat tail, and the bride's gown hides her feet. Arms are round-capped strokes with small hands: his forearm cradles her waist and her hand rests on his chest. A shared user-space gradient keeps strokes and fills one tone. After the entrance the couple waltz slowly and continuously: nested groups carry an 18-second oval floor path (sine-eased sideways travel with a slight perspective turn, plus depth), a 4.5-second rise and fall on three, and lagging fabric. The ball gown skews at the waist while two hem flares fan out beyond it, the groom's near leg steps and his coat tail swings, the veil and a sheer second veil drift, both heads tilt, and the floor shadow and a faint gold orbit trace follow. All of it is CSS on SVG groups; loops pause when the chapter is off screen, and reduced motion and print show the still pose.
+
+
+Confirmed content and numeric dates: Ali and Tabarak's wedding uses 20/11/2026, with gathering at 17:00, celebration at 18:00 and conclusion at 22:00 in Baghdad. The venue's secondary title sits beneath its name and is included in calendars and the local PNG. Month names are replaced by two-digit numeric months in both languages. JSON remains canonical and the Arabic HTML fallback matches it.
+
+The rings hold their separate names during the approach: a one-second pause, three-second join and a later fade before the shared word. Names travel to separate ring centers rather than colliding in the middle. The small folded friend is 42 x 38px. Existing scenery-only ornaments and other recent local changes are preserved.
+
+
+## Arrival at Khayal Hall
+
+The venue is an imagined folded-paper gateway, rather than a separate lantern illustration above a block of copy. Its two arched paper leaves open once on arrival around the semantic venue name, secondary title, address and real map link. It is storybook scenery, not a representation of the hall's architecture. A continuous drawn thread leads from the preceding jasmine garden, visits the gate's star seal and passes down toward the personal invitation. A restrained traveling glint, warm interior light and three small stars keep the scene alive without obscuring the practical details.
+
+The autonomous bird has a short gateway route: approach, inspect the seal, brighten it and continue around the arch. Scenery remains inert and aria-hidden, preserving the recent removal of ornament buttons. Copy stays selectable and the native map link keeps its immediate behavior. All art uses the existing palette tokens. The gateway is open by default without motion enhancement; reduced motion exposes its open pose, and print removes the art while retaining the venue information. The old lantern scene and its active route were replaced.
+
+
+## Chapter rhythm and connected motion refinement
+
+Chapter boundaries now share a shorter spacing scale; the story and promise no longer force viewport height when their content already fits. The promise still reserves space for its rooted jasmine. The venue bridge and keepsake heading have a combined 68px separation at 551px, down from 144px. Closing space is shorter as well. This preserves breathing room without repeated empty screenfuls.
+
+The joining rings wait until 35% of their own artwork is visible, independently of the kicker. Names are SVG text attached to the ring groups, so their paths cannot drift apart on different aspect ratios. A short readable pause leads into a gentle acceleration and deceleration over 2.8 seconds, then names fade and the shared word emerges. The word does not bounce larger when the bird passes.
+
+The timeline's traveling light and diamond highlights share a linear 6.5-second clock. Marker centers are measured only when layout changes; distance sets each highlight's delay. Language replacement restarts the clock together, and CSS chapter visibility pauses all participants together offscreen. No continuous geometry reads or animation timers were added. Reduced motion uses static filled markers.
+
+The gate's leaves are precise SVG quarter arches with inset paper contours and handles, matching the surrounding frame. The two hinges have slightly different settling times and the interior light spreads gently as they open. The original gate concept and autonomous seal encounter stay intact. Guest-modal copy now invites the guest to add their name and keep a memory; image dimensions, file type and the character-count/privacy helper are removed from the normal form copy. The actual validation and local-only behavior are preserved, with technical details still documented here.
+
+
+## Faster joining and restored gate opening
+
+The ring sequence is about three seconds overall: a .2s readable start, 1.65s of approach with a gentle landing, names held fully opaque until 2.05s, a .5s name fade and together appearing from 2.3s to 3s. Names remain inside their SVG ring groups. Shared timing variables keep the phases aligned. This replaces the previous 2.8s movement and 4.65s overall sequence.
+
+The gate's waiting rule had accidentally repeated layout declarations instead of applying its closed transform. It now explicitly uses perspective(1600px) rotateY(0deg), with no waiting-state transition. On arrival the leaves transition to their existing opposite 78-degree poses. The portal waits for 35% visibility, like the rings, so its opening is visible during normal arrival. It still plays once per visit to the page; reduced motion and the no-JavaScript composition stay open and readable.

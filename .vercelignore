@@ -1,0 +1,4 @@
+# Only upload the static invitation and its deployment configuration.
+/*
+!public
+!vercel.json

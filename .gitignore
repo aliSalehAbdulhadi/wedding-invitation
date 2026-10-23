@@ -14,3 +14,6 @@ __pycache__/
 !.env.example
 artifacts/
 .verification/
+
+# Local Vercel project/account link
+.vercel/

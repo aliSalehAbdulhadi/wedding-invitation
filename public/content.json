@@ -1,80 +1,84 @@
 {
-  "demo": true,
+  "demo": false,
   "couple": {
     "first": {
-      "ar": "عمر",
-      "en": "Omar"
+      "ar": "علي",
+      "en": "Ali"
     },
     "second": {
-      "ar": "ليان",
-      "en": "Layan"
+      "ar": "تبارك",
+      "en": "Tabarak"
     }
   },
   "event": {
-    "id": "omar-layan-preview-2027",
-    "start": "2027-05-21T19:00:00+03:00",
-    "end": "2027-05-21T23:30:00+03:00",
+    "id": "ali-tabarak-2026-11-20",
+    "start": "2026-11-20T17:00:00+03:00",
+    "end": "2026-11-20T22:00:00+03:00",
     "timeZone": "Asia/Baghdad",
     "title": {
-      "ar": "حفل زفاف عمر وليان",
-      "en": "Omar & Layan's wedding"
+      "ar": "حفل زفاف علي وتبارك",
+      "en": "Ali & Tabarak's wedding"
     },
     "description": {
-      "ar": "ليلة نحتفل فيها بالحب. هذه دعوة تجريبية وليست مناسبة حقيقية.",
-      "en": "An evening to celebrate love. This is a demo invitation, not a real event."
+      "ar": "نحتفل بزفاف علي وتبارك في قاعة خيال، نادي الضباط، شارع فلسطين، بغداد. التجمع الساعة ٥ مساءً، ويبدأ الحفل الساعة ٦ مساءً وينتهي الساعة ١٠ مساءً.",
+      "en": "Celebrate Ali and Tabarak's wedding at Khayal Hall, Officers’ Club, Palestine Street, Baghdad. Guests gather at 5 PM; the celebration starts at 6 PM and ends at 10 PM (Baghdad time)."
     }
   },
   "venue": {
     "name": {
-      "ar": "حدائق الياسمين",
-      "en": "The Jasmine Gardens"
+      "ar": "قاعة خيال",
+      "en": "Khayal Hall"
     },
     "address": {
-      "ar": "بغداد، العراق",
-      "en": "Baghdad, Iraq"
+      "ar": "شارع فلسطين، بغداد، العراق",
+      "en": "Palestine Street, Baghdad, Iraq"
     },
     "note": {
-      "ar": "تحت السماء، وبين الياسمين، نجتمع لنحتفل ببداية جديدة.",
-      "en": "Beneath the evening sky, surrounded by jasmine, we gather for a beautiful beginning."
+      "ar": "في قاعة خيال، نجتمع بكم لنحتفل ببداية حكايتنا.",
+      "en": "Join us at Khayal Hall to celebrate the beginning of our story."
     },
-    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Baghdad%2C%20Iraq",
+    "mapsUrl": "https://maps.app.goo.gl/6jaVgZaiFFihzx8ZA",
     "mapLabel": {
-      "ar": "موقع تجريبي · بغداد",
-      "en": "Preview location · Baghdad"
+      "ar": "قاعة خيال · نادي الضباط · شارع فلسطين",
+      "en": "Khayal Hall · Officers’ Club · Palestine Street"
+    },
+    "subtitle": {
+      "ar": "نادي الضباط",
+      "en": "Officers’ Club"
     }
   },
   "schedule": [
     {
-      "time": "19:00",
+      "time": "17:00",
       "title": {
-        "ar": "لقاء الأحبّة",
-        "en": "A warm welcome"
+        "ar": "التجمع واستقبال الأحبّة",
+        "en": "Gathering & welcome"
       },
       "note": {
         "ar": "نستقبلكم بكل الحب",
-        "en": "Familiar faces, new memories"
+        "en": "We look forward to welcoming you"
       }
     },
     {
-      "time": "20:00",
+      "time": "18:00",
       "title": {
-        "ar": "بداية الحكاية",
+        "ar": "بداية الحفل",
         "en": "The celebration begins"
       },
       "note": {
-        "ar": "لحظة نودّ أن نشارككم إياها",
-        "en": "A moment to share with you"
+        "ar": "نحتفل بفرحتنا معكم",
+        "en": "Celebrate this moment with us"
       }
     },
     {
-      "time": "20:30",
+      "time": "22:00",
       "title": {
-        "ar": "ليلة لا تُنسى",
-        "en": "Dinner & a little magic"
+        "ar": "ختام الحفل",
+        "en": "The evening concludes"
       },
       "note": {
-        "ar": "عشاء، ضحكات، وذكريات جميلة",
-        "en": "Good food, laughter, and love"
+        "ar": "تكتمل فرحتنا بحضوركم",
+        "en": "Thank you for sharing our joy"
       }
     }
   ],

@@ -1,7 +1,5 @@
-/* Touch the ornaments and the same companion answers. */
-.bird-playpoint { padding:0; border:0; background:none; color:inherit; font:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; }
-.bird-playpoint:focus-visible { outline:1px solid var(--gold-ink); outline-offset:6px; }
-.bird-playpoint:disabled { cursor:default; opacity:1; }
+/* The companion visits these ornaments on its own; they are scenery, not controls. */
+.bird-playpoint { padding:0; border:0; background:none; color:inherit; font:inherit; }
 .hero-lure { display:grid; place-items:center; inline-size:44px; block-size:44px; flex:none; }
 .hero-divider .hero-lure svg { margin:0; }
 .ring-universe.bird-playpoint { display:grid; }
@@ -9,48 +7,12 @@
 .date-lure svg { inline-size:17px; block-size:17px; fill:currentColor; }
 .blossom-lure { display:grid; place-items:center; inline-size:64px; block-size:64px; margin:0 auto 1.4rem; }
 .blossom-lure .quote-star { margin:0; inline-size:32px; block-size:32px; fill:var(--cream); color:var(--cream); }
-.letter-lure { display:grid; place-items:center; inline-size:64px; block-size:58px; margin:0 auto .7rem; }
+.letter-lure { display:grid; place-items:center; inline-size:58px; block-size:52px; margin:0 auto .7rem; }
 .letter-lure .mini-star { margin:0; }
 .closing-lure { display:grid; place-items:center; inline-size:110px; block-size:90px; margin-block-end:1.5rem; }
 .closing-lure .closing-rings { margin:0; }
 .bird-playpoint svg { pointer-events:none; }
-.bird-playpoint:focus-visible, .bird-playpoint:hover { --ornament-glow:1; }
-.hero-lure:hover svg,.letter-lure:hover svg,.blossom-lure:hover svg,.date-lure:hover svg { filter:drop-shadow(0 0 7px var(--gold)); }
 .hero-lure.has-met-bird svg,.date-lure.has-met-bird svg { filter:drop-shadow(0 0 5px var(--gold)); }
-.location-art.has-met-bird .wish-flower { color:var(--gold-ink); opacity:1; }
-
-/* A lantern leaves the star garden and waits over its reflection. No frame or repeated arches. */
-.garden-inner { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(1rem,5vw,4rem); }
-.chapter--garden { padding-block:clamp(5rem,10vw,9rem); }
-.location-art.bird-playpoint { inline-size:min(100%,510px); aspect-ratio:520/510; border:0; border-radius:0; background:none; box-shadow:none; overflow:visible; }
-.location-art::after { display:none; }
-.wish-world { display:block; inline-size:100%; block-size:100%; overflow:visible; }
-.wish-float { transform-origin:260px 210px; animation:wish-float 7s ease-in-out infinite alternate; }
-.wish-lantern { transform-origin:260px 140px; transition:rotate .9s var(--ease); }
-.wish-aura { transform-origin:260px 218px; animation:wish-light 6s ease-in-out infinite alternate; }
-.wish-flower { color:var(--gold); opacity:.75; }
-.wish-flame { transform-origin:260px 275px; animation:wish-flame 2.5s ease-in-out infinite alternate; }
-.wish-thread { fill:none; stroke:var(--gold); stroke-width:.7; stroke-dasharray:1; opacity:.55; transition:stroke-dashoffset 3s var(--ease) .5s; }
-.wish-water { fill:none; stroke:var(--gold); stroke-width:.7; opacity:.4; }
-.wish-water ellipse:nth-child(2) { opacity:.45; }
-.wish-ripple { transform-origin:260px 409px; animation:wish-ripple 6s ease-out infinite; }
-.wish-distance { opacity:.5; transform-origin:center; animation:distant-wishes 14s ease-in-out infinite alternate; }
-.wish-distance path:nth-child(2) { opacity:.6; }.wish-distance path:nth-child(3) { opacity:.4; }
-.wish-seeds { opacity:.45; animation:stage-dust-drift 9s ease-in-out infinite alternate; }
-.wish-release { opacity:0; }
-.wish-float { transition:translate 2.8s var(--ease),opacity 2s ease; }
-.motion-ready .location-art:not(.has-arrived) .wish-float { translate:0 65px; opacity:0; }
-.motion-ready .location-art:not(.has-arrived) .wish-thread { stroke-dashoffset:1; }
-.motion-ready .location-art:not(.has-arrived) * { animation-play-state:paused !important; }
-.location-copy { padding:0; margin:0; text-align:start; }
-.location-copy .eyebrow.rise,.location-copy .location-address,.location-copy .body-copy { --d:.15s; }
-.location-copy .whisper { margin-block-start:2rem; padding-block-start:1.6rem; }
-.location-copy h2 { font-size:clamp(3rem,5vw,4.6rem); }
-@keyframes wish-float { from { translate:0 -7px; rotate:-2deg; } to { translate:0 6px; rotate:2deg; } }
-@keyframes wish-light { from { opacity:.65; scale:.92; } to { opacity:1; scale:1.06; } }
-@keyframes wish-flame { from { scale:.8 1; opacity:.5; } to { scale:1 1.12; opacity:.9; } }
-@keyframes wish-ripple { from { scale:.6; opacity:.6; } to { scale:2.1; opacity:0; } }
-@keyframes distant-wishes { from { translate:-2px 5px; } to { translate:3px -12px; } }
 
 /* A prince and princess in silhouette, still made from the selected paper-and-ink palette. */
 .prince-lapel { fill:var(--glow); opacity:.28; }
@@ -62,8 +24,6 @@
 [data-bird-moment='hero'] .hero-lure svg { animation:bird-star-play 2.3s var(--ease); }
 [data-bird-moment='date'] .date-lure svg { animation:bird-star-chase 2.5s var(--ease); }
 [data-bird-moment='blossom'] .blossom-lure svg { animation:bird-flower-tickle 1.6s ease-in-out; }
-[data-bird-moment='lantern'] .wish-lantern { animation:bird-lantern-nudge 2.5s ease-in-out; }
-[data-bird-moment='lantern'] .wish-release { animation:bird-wish-release 2.8s ease-out; }
 [data-bird-moment='couple'] .couple-heart { animation:bird-draw-heart 3.1s ease both; }
 [data-bird-moment='couple'] .stage-light { filter:brightness(1.2); }
 [data-bird-moment='letter'] .mini-star { animation:bird-friend-bow 2s ease-in-out; }
@@ -74,8 +34,6 @@
 @keyframes bird-star-play { 28% { transform:rotate(70deg) scale(1.35); } 65% { transform:rotate(-15deg) scale(.9); } }
 @keyframes bird-star-chase { 25% { translate:25px -10px; rotate:45deg; } 60% { translate:-18px 6px; rotate:120deg; } }
 @keyframes bird-flower-tickle { 20%,60% { rotate:-15deg; } 40%,80% { rotate:15deg; } }
-@keyframes bird-lantern-nudge { 25% { rotate:8deg; } 50% { rotate:-5deg; } 75% { rotate:3deg; } }
-@keyframes bird-wish-release { 0% { opacity:0; translate:0 0; } 15% { opacity:1; } 100% { opacity:0; translate:14px -100px; } }
 @keyframes bird-draw-heart { 0% { opacity:0; stroke-dashoffset:1; } 12% { opacity:.9; } 70% { stroke-dashoffset:0; opacity:.9; } 100% { stroke-dashoffset:0; opacity:0; } }
 @keyframes bird-friend-bow { 30% { rotate:16deg; translate:0 4px; } 60% { rotate:-5deg; } }
 @keyframes bird-sneeze { 25% { rotate:-12deg; } 40%,70% { translate:-4px 1px; } 55%,85% { translate:4px -1px; } }
@@ -111,23 +69,18 @@
   .location-copy .whisper { margin-block-start:2.2rem; }
 }
 @media(prefers-reduced-motion:reduce) {
-  .wish-float,.wish-lantern,.wish-aura,.wish-flame,.wish-distance,.wish-seeds,.wish-ripple,.bird-playpoint svg { animation:none !important; }
-  .motion-ready .location-art .wish-float { opacity:1; translate:0; }
-  .motion-ready .location-art .wish-thread { stroke-dashoffset:0; }
   .magic-control::before,.magic-control::after,.bird-kiss { display:none; }
   .button.magic-control:hover,.button.magic-control:active { transform:none; }
 }
 @media print {
   .bird-playpoint { outline:0 !important; }
-  .motion-ready .location-art .wish-float { opacity:1; translate:0; }
-  .motion-ready .location-art .wish-thread { stroke-dashoffset:0; }
   .magic-control::before,.magic-control::after,.bird-kiss { display:none; }
 }
 
 .couple-dance .silhouette-veil { opacity:.3; }
 
 /* The promise ends in a composed pair of growing jasmine boughs, below the words. */
-.chapter--promise { padding-block:clamp(6rem,12vw,9rem) clamp(19rem,32vw,25rem); }
+.chapter--promise { min-block-size:0; padding-block:clamp(4rem,7vw,6rem) clamp(17rem,30vw,23rem); }
 .chapter--promise .promise-chapter,.chapter--promise .quote-footnote { color:var(--cream); font-size:.82rem; line-height:2; }
 .chapter--promise .whisper { color:var(--cream); font-size:clamp(1.12rem,2.2vw,1.4rem); line-height:1.9; max-inline-size:34ch; margin-inline:auto; margin-block-start:2rem; }
 .chapter--promise .constellation { opacity:.24; }
@@ -227,9 +180,10 @@
 .split .word { overflow:visible; }
 .split .word > span { opacity:1; translate:0; transition:opacity 1.25s cubic-bezier(.4,0,.2,1) calc(var(--w,0) * 25ms),translate 1.3s var(--ease) calc(var(--w,0) * 25ms); }
 .motion-ready .split:not(.has-arrived) .word > span { opacity:.04; translate:0 .14em; }
-.joining-ring { transition:translate 1.9s var(--ease) .1s,rotate 1.9s var(--ease) .1s; }
+.ring-universe { --ring-join:1.65s; --ring-start:.2s; --ring-name-out:2.05s; --ring-union-in:2.3s; }
+.joining-ring { transition:translate var(--ring-join) cubic-bezier(.42,0,.2,1) var(--ring-start),rotate var(--ring-join) cubic-bezier(.42,0,.2,1) var(--ring-start); }
 .scene-closing { --d:.2s; }
-.orbit-name { transition:left 1.8s var(--ease) .1s,opacity .8s ease .55s; }
+.orbit-name { transition:opacity .5s ease-in-out var(--ring-name-out); }
 .date-card strong { transition-delay:.15s; transition-duration:1s; }
 .timeline li { transition:opacity .8s var(--ease) calc(.1s + var(--n,0) * .16s),translate 1s var(--ease) calc(.1s + var(--n,0) * .16s); }
 .quote-line { overflow:visible; }
@@ -238,8 +192,8 @@
 .invitation-open .hero-content > :is(p,h1).hero-enter { animation-name:text-soft-in; animation-duration:1.35s; animation-timing-function:cubic-bezier(.4,0,.2,1); }
 @keyframes text-soft-in { from { opacity:.04; transform:translateY(8px); filter:none; } to { opacity:1; transform:none; filter:none; } }
 .location-copy { transition:opacity 1s ease .05s,translate 1.1s var(--ease) .05s; }
-.union-word { transition:opacity .9s ease 1s,scale 1.1s var(--spring) 1s,filter .9s ease 1s; }
-.motion-ready .story-art.has-arrived .ring-flash { animation-delay:1.1s; }
+.union-word { transition:opacity .7s ease-in-out var(--ring-union-in),scale .7s ease-in-out var(--ring-union-in),filter .7s ease var(--ring-union-in); }
+.motion-ready .ring-universe.has-arrived .ring-flash { animation-delay:1.85s; animation-duration:1.2s; }
 [data-bird-moment='rings'] .union-word { animation:union-warmth 1.5s ease; }
 @keyframes union-warmth { 45% { text-shadow:0 0 16px var(--gold); } }
 .stage-light { transition-duration:1.5s,1.8s; transition-delay:0s; }
@@ -263,14 +217,7 @@
 @keyframes bird-question { 25% { rotate:-9deg; } 60% { rotate:5deg; } }
 @keyframes bird-delight { 35% { translate:0 -7px; rotate:-6deg; } 65% { translate:0 2px; rotate:4deg; } }
 #keepsake-dialog:has(.download-result:not([hidden])) #download-png { display:none; }
-.letter-lure .bird-friend { inline-size:54px; block-size:48px; overflow:visible; transform:rotate(-9deg); filter:drop-shadow(0 3px 2px color-mix(in srgb,var(--ink) 14%,transparent)); }
-
-/* A larger lantern and a quiet jasmine shoreline replace the empty margins. */
-.location-art.bird-playpoint { aspect-ratio:460/420; inline-size:min(100%,470px); }
-.wish-shore > path { stroke-dasharray:1; transition:stroke-dashoffset 1.8s var(--ease) .2s; opacity:.5; }
-.motion-ready .location-art:not(.has-arrived) .wish-shore > path { stroke-dashoffset:1; }
-.wish-jasmine { opacity:.6; transform-origin:260px 300px; animation:shore-breathe 7s ease-in-out infinite alternate; }
-@keyframes shore-breathe { to { opacity:.9; translate:0 -2px; } }
+.letter-lure .bird-friend { inline-size:42px; block-size:38px; overflow:visible; transform:rotate(-9deg); filter:drop-shadow(0 3px 2px color-mix(in srgb,var(--ink) 14%,transparent)); }
 
 /* The final signature is held by light, with a small moving thread below it. */
 .closing-inner { padding-block:1.5rem .2rem; }
@@ -292,10 +239,9 @@
 @media(min-width:640px) { .theme-options { grid-template-columns:repeat(2,minmax(0,1fr)); }.theme-option { gap:.55rem; }.theme-swatch { flex-basis:46px; }.theme-option strong { font-size:.8rem; } }
 @media(max-width:900px) { .garden-inner { gap:.6rem; }.location-art.bird-playpoint { inline-size:min(100%,420px); } }
 @media(prefers-reduced-motion:reduce) {
-  .story-flight .story-bird svg,.wish-jasmine,.closing-orbit,.closing-coda * { animation:none !important; }
-  .motion-ready .location-art .wish-shore > path { stroke-dashoffset:0; }
+  .story-flight .story-bird svg,.closing-orbit,.closing-coda * { animation:none !important; }
 }
-@media print { .closing-coda * { animation:none !important; }.motion-ready .location-art .wish-shore > path { stroke-dashoffset:0; } }
+@media print { .closing-coda * { animation:none !important; } }
 
 @media(prefers-reduced-motion:reduce), print {
   .motion-ready .rise,.motion-ready .split .word > span,.motion-ready .quote-text .quote-line > span { opacity:1 !important; translate:0 !important; filter:none !important; }
@@ -321,10 +267,198 @@
   32% { opacity:.85; translate:7px -2px; transform:perspective(850px) rotateY(-168deg) rotateZ(2deg) scale(.97); }
   65% { opacity:1; translate:-3px 0; transform:perspective(850px) rotateY(-32deg) rotateZ(-1deg) scale(1.01); }
   84% { opacity:1; translate:1px 0; transform:perspective(850px) rotateY(6deg) rotateZ(.4deg) scale(1); }
-  100% { opacity:1; translate:0; transform:perspective(850px) rotateY(0deg) rotateZ(0deg) scale(1); }
+  100% { opacity:1; translate:0; transform:perspective(1600px) rotateY(0deg) rotateZ(0deg) scale(1); }
 }
 @keyframes dance-turn-light { 0% { opacity:0; stroke-dashoffset:1; } 28% { opacity:.6; } 72% { opacity:.45; } 100% { opacity:0; stroke-dashoffset:0; } }
+
+/* A slow waltz. The pair circles an oval floor and rises and falls on three; fabric, veil and heads follow a beat later. */
+.limb { fill:none; stroke:url(#silhouette-ink); stroke-linecap:round; stroke-linejoin:round; }
+.pair-orbit,.pair-depth,.pair-bob,.groom-tail,.groom-step,.groom-arm,.bride-arm,.groom-head,.bride-head,.bride-skirt,.hem-flare,.couple-dance .silhouette-veil,.dance-shadow { transform-box:view-box; }
+.pair-orbit { transform-origin:0 -150px; animation:waltz-x 18s linear 2.4s infinite both; }
+.pair-depth { transform-origin:0 0; animation:waltz-depth 18s linear 2.4s infinite both; }
+.pair-bob { transform-origin:0 0; animation:waltz-rise 4.5s ease-in-out 2.4s infinite both; }
+.bride-skirt { transform-origin:40px -200px; animation:skirt-swing 4.5s ease-in-out 2.7s infinite both; }
+.hem-flare { transform-origin:40px -200px; }
+.hem-flare--a { animation:flare-a 4.5s ease-in-out 3s infinite both; }
+.hem-flare--b { animation:flare-b 4.5s ease-in-out 3.3s infinite both; }
+.groom-step { transform-origin:-34px -148px; animation:groom-step 4.5s ease-in-out 2.6s infinite both; }
+.groom-tail { transform-origin:-64px -152px; animation:coat-tail 4.5s ease-in-out 2.9s infinite both; }
+.groom-arm { transform-origin:-30px -238px; animation:arm-groom 4.5s ease-in-out 2.8s infinite both; }
+.bride-arm { transform-origin:40px -238px; animation:arm-bride 4.5s ease-in-out 3s infinite both; }
+.groom-head { transform-origin:-30px -252px; animation:head-groom 9s ease-in-out 2.6s infinite alternate both; }
+.bride-head { transform-origin:40px -248px; animation:head-bride 7.5s ease-in-out 2.8s infinite alternate both; }
+.couple-dance .silhouette-veil { transform-origin:51px -268px; animation:veil-drift 6.4s ease-in-out 2.6s infinite alternate both; }
+.couple-dance .veil-sheer { fill:var(--glow); opacity:.12; animation-duration:8.2s; animation-delay:3s; }
+.waltz-orbit { fill:none; stroke:var(--gold); stroke-width:.8; stroke-linecap:round; stroke-dasharray:.06 .94; opacity:.55; animation:waltz-orbit 18s linear 2.4s infinite both; }
+.dance-shadow { transform-origin:242px 449px; animation:shadow-x 18s linear 2.4s infinite both,shadow-y 18s linear 2.4s infinite both,shadow-rise 4.5s ease-in-out 2.4s infinite both; }
+@keyframes waltz-x {
+  0%,50%,100% { translate:0 0; transform:perspective(900px) rotateY(0deg) rotateZ(0deg); }
+  0%,50% { animation-timing-function:cubic-bezier(.33,.66,.66,1); }
+  25% { translate:26px 0; transform:perspective(900px) rotateY(16deg) rotateZ(.8deg); animation-timing-function:cubic-bezier(.34,0,.67,.34); }
+  75% { translate:-26px 0; transform:perspective(900px) rotateY(-16deg) rotateZ(-.8deg); animation-timing-function:cubic-bezier(.34,0,.67,.34); }
+}
+@keyframes waltz-depth {
+  0%,100% { translate:0 -3px; scale:.985; animation-timing-function:cubic-bezier(.34,0,.67,.34); }
+  25%,75% { translate:0 1px; scale:1; animation-timing-function:cubic-bezier(.33,.66,.66,1); }
+  50% { translate:0 5px; scale:1.025; animation-timing-function:cubic-bezier(.34,0,.67,.34); }
+}
+@keyframes waltz-rise { 0%,100% { translate:0 1px; scale:1 .994; } 62% { translate:0 -6px; scale:1 1.008; } }
+@keyframes skirt-swing { 0%,100% { transform:skewX(-1.6deg); } 40% { transform:skewX(2.6deg); } 72% { transform:skewX(-2.8deg); } }
+@keyframes flare-a { 0%,100% { transform:skewX(-2.2deg); translate:0 -1px; } 40% { transform:skewX(3.2deg); translate:0 3px; } 72% { transform:skewX(-3.6deg); translate:0 0; } }
+@keyframes flare-b { 0%,100% { transform:skewX(-2.8deg); translate:-2px -2px; } 46% { transform:skewX(4.2deg); translate:5px 3px; } 76% { transform:skewX(-4deg); translate:-1px -1px; } }
+@keyframes groom-step { 0%,100% { transform:rotate(0deg); } 33% { transform:rotate(2.6deg); } 66% { transform:rotate(-2.2deg); } }
+@keyframes arm-groom { 0%,100% { transform:rotate(-.8deg); } 50% { transform:rotate(1deg); } }
+@keyframes arm-bride { 0%,100% { transform:rotate(1.2deg); } 50% { transform:rotate(-1.4deg); } }
+@keyframes coat-tail { 0%,100% { transform:rotate(-4deg); } 45% { transform:rotate(7deg); } }
+@keyframes head-groom { from { transform:rotate(-1.4deg); } to { transform:rotate(2deg); } }
+@keyframes head-bride { from { transform:rotate(1.6deg); } to { transform:rotate(-2.2deg); } }
+@keyframes veil-drift { from { transform:rotate(-4deg) skewY(-2deg); } to { transform:rotate(7deg) skewY(3deg); } }
+@keyframes waltz-orbit { to { stroke-dashoffset:-1; } }
+@keyframes shadow-x {
+  0%,50%,100% { translate:0 0; }
+  0%,50% { animation-timing-function:cubic-bezier(.33,.66,.66,1); }
+  25% { translate:26px 0; animation-timing-function:cubic-bezier(.34,0,.67,.34); }
+  75% { translate:-26px 0; animation-timing-function:cubic-bezier(.34,0,.67,.34); }
+}
+@keyframes shadow-y {
+  0%,100% { transform:translateY(-3px); animation-timing-function:cubic-bezier(.34,0,.67,.34); }
+  25%,75% { transform:translateY(1px); animation-timing-function:cubic-bezier(.33,.66,.66,1); }
+  50% { transform:translateY(5px); animation-timing-function:cubic-bezier(.34,0,.67,.34); }
+}
+@keyframes shadow-rise { 0%,100% { scale:1; opacity:.35; } 62% { scale:.9 .86; opacity:.26; } }
+@media(prefers-reduced-motion:reduce), print {
+  .pair-orbit,.pair-depth,.pair-bob,.bride-skirt,.hem-flare,.groom-step,.groom-tail,.groom-arm,.bride-arm,.groom-head,.bride-head,.couple-dance .silhouette-veil,.waltz-orbit,.dance-shadow { animation:none !important; }
+  .waltz-orbit { display:none; }
+}
 @media(prefers-reduced-motion:reduce), print {
   .magic-border,.dance-turn-trace { display:none !important; }
   .motion-ready .dance-hall .pair-turn { animation:none !important; opacity:1 !important; translate:0 !important; transform:none !important; }
 }
+
+.location-copy .venue-subtitle { color:var(--ink); font:400 clamp(1.2rem,2vw,1.6rem)/1.7 var(--display); margin-block:.4rem .35rem; }
+
+
+/* The venue is a destination inside the letter: a path, a folded threshold, then an invitation. */
+.chapter--garden { padding-block:clamp(4rem,7vw,6rem) 1.5rem; background:var(--paper); }
+.garden-inner.arrival-inner { display:block; max-inline-size:1000px; }
+.arrival-heading { text-align:center; margin-block:0 1.5rem; }
+.arrival-heading .eyebrow { color:var(--muted); }
+.arrival-stage { position:relative; isolation:isolate; inline-size:min(100%,570px); margin-inline:auto; }
+.arrival-journey { position:absolute; z-index:-1; inset:-80px -100px -70px; inline-size:calc(100% + 200px); block-size:calc(100% + 150px); overflow:visible; fill:none; stroke:var(--gold); stroke-width:.8; pointer-events:none; }
+.arrival-thread { opacity:.35; stroke-dasharray:1; transition:stroke-dashoffset 2.2s ease; }
+.motion-ready .chapter--garden:not(.is-awake) .arrival-thread { stroke-dashoffset:1; }
+.arrival-running-light { stroke:var(--gold-ink); stroke-dasharray:.025 .975; animation:arrival-path-light 10s linear infinite; }
+.arrival-journey circle { fill:var(--white); stroke-width:1; }
+.location-art.arrival-portal { position:absolute; inset:0; inline-size:100%; block-size:100%; aspect-ratio:auto; border:0; border-radius:0; background:none; box-shadow:none; overflow:visible; transform:none; pointer-events:none; }
+.arrival-portal::after { display:none; }
+.arrival-interior { position:absolute; inset:5% 7.5% 6%; border-radius:50% 50% 0 0 / 35% 35% 0 0; overflow:hidden; background:linear-gradient(180deg,var(--white),var(--paper) 85%); box-shadow:inset 0 0 50px color-mix(in srgb,var(--gold) 8%,transparent),0 24px 48px color-mix(in srgb,var(--ink) 6%,transparent); }
+.arrival-lumen { position:absolute; inset:-30%; background:radial-gradient(ellipse at 45% 20%,color-mix(in srgb,var(--glow) 34%,transparent),transparent 55%); animation:arrival-light-breathe 8s ease-in-out infinite alternate; }
+.arrival-door { position:absolute; z-index:1; top:5%; bottom:6%; inline-size:42.5%; transition:transform 1.8s cubic-bezier(.4,0,.18,1) .12s; backface-visibility:visible; }
+.arrival-door-art { display:block; inline-size:100%; block-size:100%; overflow:visible; filter:drop-shadow(0 6px 7px color-mix(in srgb,var(--ink) 7%,transparent)); }
+.arrival-door-paper { fill:url(#arrival-paper); stroke:var(--gold); stroke-width:.9; }
+.arrival-door-inset { fill:none; stroke:var(--gold); stroke-width:.6; opacity:.42; }
+.arrival-door-handle { fill:none; stroke:var(--gold-ink); stroke-width:1.3; stroke-linecap:round; }
+.arrival-door--left { left:7.5%; border-radius:100% 0 0 0 / 35% 0 0 0; transform-origin:left center; transform:perspective(1600px) rotateY(78deg); }
+.arrival-door--right { right:7.5%; border-radius:0 100% 0 0 / 0 35% 0 0; transform-origin:right center; transform:perspective(1600px) rotateY(-78deg); transition-duration:2s; transition-delay:.23s; }
+.arrival-door--right .arrival-door-art { scale:-1 1; }
+.motion-ready .arrival-portal:not(.has-arrived) .arrival-door { transform:perspective(1600px) rotateY(0deg); }
+.arrival-architecture { position:absolute; z-index:2; inset:0; inline-size:100%; block-size:100%; overflow:visible; fill:none; stroke:var(--gold); stroke-width:.85; }
+.arrival-arch { stroke-dasharray:1; transition:stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1); }
+.arrival-arch--inner { opacity:.42; stroke-width:.6; transition-delay:.12s; }
+.motion-ready .arrival-portal:not(.has-arrived) .arrival-arch { stroke-dashoffset:1; }
+.arrival-threshold { opacity:.42; stroke-width:.7; }
+.arrival-stars { fill:var(--gold); stroke:none; opacity:.6; animation:arrival-stars-breathe 6s ease-in-out infinite alternate; }
+.arrival-seal { position:absolute; z-index:3; left:50%; top:15%; inline-size:48px; block-size:48px; transform:translate(-50%,-50%); display:grid; place-items:center; border:1px solid var(--gold); border-radius:50%; background:var(--paper); box-shadow:0 0 0 7px color-mix(in srgb,var(--white) 70%,transparent); transition:background .8s; }
+.arrival-seal svg { inline-size:23px; block-size:23px; fill:none; stroke:var(--gold-ink); stroke-width:.8; transition:rotate 1s var(--ease); }
+.arrival-portal.has-met-bird .arrival-seal { background:color-mix(in srgb,var(--glow) 30%,var(--paper)); }
+.arrival-portal.has-met-bird .arrival-seal svg { rotate:45deg; }
+.arrival-echo { position:absolute; left:50%; top:15%; inline-size:54px; aspect-ratio:1; translate:-50% -50%; border:1px solid var(--gold); border-radius:50%; opacity:0; }
+[data-bird-moment='gateway'] .arrival-echo { animation:arrival-answer 1.8s ease-out; }
+[data-bird-moment='gateway'] .arrival-seal { animation:arrival-seal-glow 1.8s ease-out; }
+.location-copy.arrival-copy { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; inline-size:100%; max-inline-size:none; min-block-size:640px; margin:0; padding:155px 70px 72px; text-align:center; background:none; box-shadow:none; }
+.arrival-copy h2 { margin:0; font-size:clamp(2.8rem,6vw,4.8rem); line-height:1.4; }
+.arrival-copy .venue-subtitle { margin-block:.35rem; }
+.arrival-copy .location-address { font-size:.8rem; margin-block:.5rem .8rem; }
+.arrival-line { margin-block:.7rem 1.5rem; color:var(--muted); font:400 1.12rem/1.8 var(--display); }
+.arrival-copy #maps-link { inline-size:fit-content; max-inline-size:100%; padding:.9rem 1.2rem; font-size:.74rem; gap:.65rem; }
+.arrival-copy #maps-link .icon { flex:none; inline-size:1.1rem; block-size:1.1rem; }
+.arrival-copy .location-hint { display:block; font-size:.6rem; margin-block-start:.75rem; }
+.arrival-inner .arrival-bridge { position:relative; max-inline-size:32ch; margin:1.8rem auto 0; padding:0; border:0; font-size:1.15rem; text-align:center; }
+.arrival-bridge::before { content:''; display:block; inline-size:1px; block-size:24px; margin:0 auto .75rem; background:linear-gradient(var(--gold),transparent); }
+@keyframes arrival-path-light { from { stroke-dashoffset:1; opacity:0; } 10%,85% { opacity:.75; } to { stroke-dashoffset:0; opacity:0; } }
+@keyframes arrival-light-breathe { from { opacity:.5; translate:-8px 0; } to { opacity:.85; translate:10px 5px; } }
+@keyframes arrival-stars-breathe { from { opacity:.25; } to { opacity:.7; } }
+@keyframes arrival-answer { 15% { opacity:.65; } to { scale:2.5; opacity:0; } }
+@keyframes arrival-seal-glow { 35% { box-shadow:0 0 0 7px color-mix(in srgb,var(--white) 70%,transparent),0 0 30px color-mix(in srgb,var(--gold) 35%,transparent); } }
+@media(max-width:650px) {
+  .arrival-heading { margin-block-end:.5rem; }
+  .arrival-stage { inline-size:min(100%,440px); }
+  .location-copy.arrival-copy { min-block-size:570px; padding:135px 42px 68px; }
+  .arrival-copy h2 { font-size:clamp(2.65rem,9vw,3.9rem); }
+  .arrival-inner .arrival-bridge { margin-block-start:1.8rem; }
+}
+@media(max-width:400px) {
+  .location-copy.arrival-copy { min-block-size:540px; padding:125px 26px 58px; }
+  .arrival-copy #maps-link { inline-size:100%; padding:.8rem .65rem; font-size:.68rem; gap:.4rem; }
+  .arrival-copy .location-address { font-size:.72rem; }
+  .arrival-seal { inline-size:40px; block-size:40px; }
+  .arrival-line { font-size:1rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .arrival-running-light,.arrival-lumen,.arrival-stars,.arrival-echo,.arrival-seal { animation:none !important; }
+  .motion-ready .arrival-portal .arrival-door--left { transform:perspective(1600px) rotateY(78deg); }
+  .motion-ready .arrival-portal .arrival-door--right { transform:perspective(1600px) rotateY(-78deg); }
+  .motion-ready .arrival-portal .arrival-arch,.chapter--garden .arrival-thread { stroke-dashoffset:0; }
+}
+@media print {
+  .arrival-portal,.arrival-journey,.arrival-bridge::before { display:none; }
+  .location-copy.arrival-copy { min-block-size:0; padding:1rem 0; }
+}
+
+
+/* Consistent chapter breathing room; artwork owns its internal space. */
+.chapter { padding-block:clamp(3.25rem,6vw,5.5rem); }
+.chapter--story { min-block-size:0; padding-block:clamp(4.5rem,7vw,6.5rem) clamp(3.5rem,6vw,5rem); }
+.chapter--celebration { padding-block:clamp(4.5rem,7vw,6rem) clamp(3.25rem,6vw,5rem); }
+.chapter--promise { padding-block:clamp(4rem,7vw,6rem) clamp(17rem,30vw,23rem); }
+.chapter--garden { padding-block:clamp(4rem,7vw,6rem) 1.5rem; }
+.chapter--closing { padding-block:clamp(2.5rem,5vw,4.5rem) clamp(3.25rem,6vw,5rem); }
+.closing-inner { padding-block:2rem 1rem; }
+.ring-universe.flight-near .union-word { scale:1; }
+.motion-ready .ring-universe:not(.has-arrived) .union-word { scale:.96; filter:blur(1px); }
+.arrival-door-paper,.arrival-door-inset,.arrival-door-handle,.arrival-architecture path { vector-effect:non-scaling-stroke; }
+.arrival-interior::after { content:''; position:absolute; inset:6% 5% 0; opacity:.55; background:radial-gradient(ellipse at 50% 70%,color-mix(in srgb,var(--glow) 18%,transparent),transparent 65%); scale:1; transition:scale 2s cubic-bezier(.4,0,.18,1),opacity 2s ease; }
+.motion-ready .arrival-portal:not(.has-arrived) .arrival-interior::after { scale:.25 1; opacity:0; }
+.arrival-copy { --d:.15s; }
+.arrival-copy .button { margin-block-start:.8rem; }
+
+/* The passing thread and every diamond share one measured 6.5-second cycle. */
+.timeline::after { animation:none; opacity:0; }
+.timeline.has-arrived.is-tracing::after { animation:timeline-thread 6.5s linear infinite; }
+.timeline li::before { background:color-mix(in srgb,var(--gold) 45%,var(--night)); box-shadow:none; }
+.timeline.has-arrived.is-tracing li::before { animation:timeline-stop 6.5s linear var(--stop-delay,0s) infinite; }
+.motion-ready .timeline.has-arrived li::after { animation:none; }
+@keyframes timeline-thread {
+  0% { inset-block-start:var(--thread-start); opacity:0; }
+  12% { inset-block-start:var(--thread-start); opacity:1; }
+  88% { inset-block-start:var(--thread-end); opacity:1; }
+  100% { inset-block-start:var(--thread-end); opacity:0; }
+}
+@keyframes timeline-stop {
+  0%,5%,29%,100% { background:color-mix(in srgb,var(--gold) 45%,var(--night)); box-shadow:0 0 0 transparent; }
+  12%,16% { background:var(--cream); box-shadow:0 0 7px var(--glow),0 0 23px 5px color-mix(in srgb,var(--gold) 60%,transparent); }
+}
+@media(prefers-reduced-motion:reduce), print {
+  .timeline.has-arrived.is-tracing::after { display:none; }
+  .timeline.has-arrived.is-tracing li::before { animation:none; background:var(--gold); }
+  .arrival-interior::after { transition:none; scale:1 !important; opacity:.55 !important; }
+}
+@media print {
+  .chapter { padding-block:1.5rem; min-block-size:0; }
+  .chapter--promise { padding-block:2rem; }
+}
+
+/* Prepare each pose immediately; only its arrival transitions toward the final pose. */
+.motion-ready .ring-universe:not(.has-arrived) .joining-ring,
+.motion-ready .arrival-portal:not(.has-arrived) .arrival-door { transition:none; }
+@media print { .chapter.chapter--story,.chapter.chapter--promise,.chapter.chapter--garden,.chapter.chapter--closing,.chapter.chapter--celebration { padding-block:1.5rem; } }

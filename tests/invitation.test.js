@@ -31,7 +31,7 @@ test('the wake follows real movement, drifts and expires at rest, and stays boun
   assert.equal(wake.particles.length, 0);
 });
 
-test('demo content validates and event dates are explicit and ordered', () => {
+test('configured content validates and event dates are explicit and ordered', () => {
   assert.equal(validateContent(data), data);
   assert.equal(data.music.startOnOpen, false);
   for (const change of [
@@ -48,15 +48,18 @@ test('demo content validates and event dates are explicit and ordered', () => {
   }
 });
 
+const calendarData=structuredClone(data);
+calendarData.demo=true; calendarData.event.start='2027-05-21T19:00:00+03:00'; calendarData.event.end='2027-05-21T23:30:00+03:00';
+
 test('calendar preserves the Baghdad instant in UTC and labels demo events', () => {
-  const ics = buildCalendar(data, 'ar', new Date('2026-10-22T12:00:00Z'));
+  const ics = buildCalendar(calendarData, 'ar', new Date('2026-10-22T12:00:00Z'));
   assert.match(ics, /DTSTART:20270521T160000Z\r\n/);
   assert.match(ics, /DTEND:20270521T203000Z\r\n/);
   assert.match(ics, /DTSTAMP:20261022T120000Z/);
   assert.match(ics, /SUMMARY:\[تجريبي\]/);
   assert.ok(ics.endsWith('END:VCALENDAR\r\n'));
   assert.ok(!/(?<!\r)\n/.test(ics));
-  const production = structuredClone(data); production.demo = false;
+  const production = structuredClone(calendarData); production.demo = false;
   assert.doesNotMatch(buildCalendar(production, 'en'), /\[DEMO\]/);
 });
 
@@ -69,7 +72,7 @@ test('calendar text cannot inject a new property and UTF-8 folding respects 75 o
 });
 
 test('Google and Outlook links contain the same correct instants and localized details', () => {
-  const links = calendarLinks(data, 'en');
+  const links = calendarLinks(calendarData, 'en');
   const google = new URL(links.google);
   const outlook = new URL(links.outlook);
   assert.equal(google.searchParams.get('dates'), '20270521T160000Z/20270521T203000Z');
@@ -116,4 +119,17 @@ test('the bird follows with inertia, settles, and does not teleport to a new des
   const a={x:0,y:0,vx:0,vy:0},b={...a};
   advanceSpring(a,target,10); advanceSpring(b,target,.033);
   assert.deepEqual(a,b);
+});
+
+
+test('the venue subtitle reaches both calendar formats and validates in both languages',()=>{
+  const venueData=structuredClone(data);
+  venueData.venue.subtitle={ar:'نادي الضباط',en:'Officers’ Club'};
+  assert.equal(validateContent(venueData),venueData);
+  for (const language of ['ar','en']) {
+    assert.ok(buildCalendar(venueData,language).replace(/\r\n /g,'').includes(venueData.venue.subtitle[language]));
+    for (const link of Object.values(calendarLinks(venueData,language))) assert.ok(new URL(link).searchParams.get('location').includes(venueData.venue.subtitle[language]));
+  }
+  venueData.venue.subtitle={ar:'نادي الضباط'};
+  assert.throws(()=>validateContent(venueData));
 });

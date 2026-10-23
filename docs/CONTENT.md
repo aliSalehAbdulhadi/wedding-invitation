@@ -1,20 +1,20 @@
 # Content decisions
 
-## Approved for the development preview
+## Confirmed invitation details
 
-The user explicitly authorized fictional demo details on 22 October 2026. All event facts live in `public/content.json`. Keep `demo: true` until real details are approved.
+The couple confirmed the real details on 23 October 2026, including the year 2026 and a numeric month. All event facts live in `public/content.json`; `demo` is now false. The site remains local and noindex until launch is requested.
 
-- Couple: عمر وليان / Omar and Layan.
-- Fictional venue: حدائق الياسمين / The Jasmine Gardens, Baghdad.
-- Sample event: 21 May 2027, 19:00–23:30, Asia/Baghdad (UTC+3).
-- Map: Baghdad city search for demonstration; it does not claim a real venue location.
+- Couple: علي وتبارك / Ali and Tabarak.
+- Venue: قاعة خيال / Khayal Hall. Secondary venue title: نادي الضباط / Officers’ Club. Address: شارع فلسطين، بغداد، العراق / Palestine Street, Baghdad, Iraq.
+- Date: Friday, 20/11/2026. Display the month numerically in both languages, including the PNG. Gathering at 17:00, celebration at 18:00, conclusion at 22:00, Asia/Baghdad (UTC+3). Calendar events cover 17:00–22:00 so guests arrive for the gathering; the description includes the 18:00 celebration start.
+- Map: https://maps.app.goo.gl/6jaVgZaiFFihzx8ZA (supplied by the couple; opens the hall listing in Baghdad).
 - Languages: Arabic RTL by default; English LTR through the language switch.
 - Theme: ivory stationery, deep olive, restrained champagne, botanical lines, and serif typography.
 - Default palette: `design.theme` in `public/content.json` (`olive`, `pearl`, `champagne`, `midnight`, `sage`, `lilac`, `sea-glass`, `moonstone`, `oyster`, `wisteria`, or `celadon`). The localhost-only Colors button previews these without editing event facts and remembers the choice on this device. Set the JSON value when choosing the final palette for hosting.
 - Opening feedback: a brief original magical bell chime plays after the envelope is activated.
 - Music: an original generated melody, **off by default** during development. `music.startOnOpen` is false; guests can explicitly opt in.
 - Personalized download: a guest-name modal reveals the invitation in a short magical ceremony, then generates a 1200 × 1600 PNG locally. Closing cancels the pending download; reduced motion skips the ceremony. No guest names are sent or stored.
-- Calendar: Google and Outlook compose links and a downloadable iCalendar file. Demo event titles are clearly marked.
+- Calendar: Google and Outlook compose links and a downloadable iCalendar file. Real event titles have no demo prefix. Venue subtitles are included in calendar locations and the PNG.
 
 ## Narrative and motion
 
@@ -22,9 +22,9 @@ The user requested storytelling section by section without scroll-tied animation
 
 ## Before going live
 
-Replace both language versions of names, venue, address, map link, copy, dates, time zone, and schedule in JSON. Update the static Arabic fallback in `public/index.html` as well. Replace descriptions that mention a demo, then disable the demo flag.
+The confirmed names, numeric date, venue subtitle, map and schedule are in JSON and the static Arabic fallback. Future changes must update both. Keep noindex until the couple asks to publish.
 
-Confirm actual names and their order, the event's time zone and offset, map destination, dates, schedule, wording, and the intended privacy level. No religious wording, RSVP service, countdown, photography, or private guest list is implied by the demo.
+Confirm actual names and their order, the event's time zone and offset, map destination, dates, schedule, wording, and the intended privacy level. No religious wording, RSVP service, countdown, photography, or private guest list was requested.
 
 Native calendar-app import/save behavior still needs final testing on the chosen iPhone, Android, Mac, and Windows apps before launch. Browser downloads and generated calendar contents are independently verifiable.
 

@@ -1,35 +1,33 @@
-import { playOpeningChime } from './opening-sound.js';
-import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-3';
-import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js';
+﻿import { playOpeningChime } from './opening-sound.js';
+import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
+import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261023-16';
 
 import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261023-3';
 
 const words = {
   ar: {
-    birdHero:'دع الطائر يوقظ النجمة', birdRings:'دع الطائر يلعب بين الخاتمين', birdDate:'دع الطائر يلاحق نجمة صغيرة', birdBlossom:'دع الطائر يكتشف زهرة الياسمين', birdLantern:'دع الطائر يوقظ فانوس الياسمين', birdCouple:'دع الطائر يرسم قلبًا للعروسين', birdLetter:'دع الطائر يحيّي صديقه', birdClosing:'دع الطائر يرسل قبلة الوداع',
     storyWhisper: 'ومن هذا اللقاء، أضاءت ليلة.', nightWhisper: 'ولكل ليلةٍ مضيئة، وعد.', promiseWhisper: 'حتى تزهر الحكاية، ونلتقي.', gardenWhisper: 'وبقي في الرسالة مكانٌ لاسمك.',
     skip: 'انتقل إلى الدعوة', demo: 'دعوة تجريبية · جميع التفاصيل للمعاينة', brand: 'تبدأ الحكاية', navigation: 'التنقل', navDetails: 'تفاصيل الليلة', navLocation: 'المكان', navKeepsake: 'دعوتك الخاصة',
     heroEyebrow: 'بكل الحب، ندعوكم لحفل زفاف', heroTagline: 'حكاية واحدة. وعمرٌ من الحب.', scroll: 'والحكاية تبدأ هنا', heroNote: 'معكم، تصبح أجمل',
     storyEyebrow: 'الفصل الأول · حين التقينا', storyTitle: 'ومن بين كل الحكايات، اخترنا أن نكون معًا.', storySceneKicker: 'من حكايتين', storySceneClosing: 'إلى حكاية واحدة', together: 'معًا', promiseChapter: 'وعدٌ نكتبه معًا', letterForYou: 'وهذا الفصل، لك أنت.', celebrationEyebrow: 'الفصل الثاني · يومٌ نصنعه ذكرى', celebrationTitle: 'ليلةٌ تشبه الحلم.', timeZone: 'بتوقيت مكان الحفل', addCalendar: 'أضف إلى التقويم', planEyebrow: 'كل لحظة، ذكرى',
-    quoteLabel: 'كلمات من القلب', quoteFootnote: 'معًا، تبدأ أجمل الأيام', locationEyebrow: 'الفصل الثالث · كل الطرق تجمعنا', openMaps: 'افتح الموقع على الخريطة', mapHint: 'يفتح في خرائط Google', mapArtLabel: 'رسم فني لحديقة، وليس خريطة للموقع',
+    quoteLabel: 'كلمات من القلب', quoteFootnote: 'معًا، تبدأ أجمل الأيام', arrivalLine:'هنا، يتحوّل الموعد إلى لقاء.', locationEyebrow: 'الفصل الثالث · كل الطرق تجمعنا', openMaps: 'افتح الموقع على الخريطة', mapHint: 'يفتح في خرائط Google', mapArtLabel: 'رسم فني لحديقة، وليس خريطة للموقع',
     keepsakeEyebrow: 'الفصل الأخير · وأنت جزءٌ منه', keepsakeTitle: 'دعوة تحمل اسمك.', keepsakeCopy: 'لأنك جزء من الحكاية، صمّمنا لك دعوة خاصة. أضف اسمك، واحتفظ بقطعة من هذه الليلة.', personalize: 'اصنع دعوتك الخاصة', privacy: 'اسمك يبقى على جهازك. لا نجمعه ولا نرسله.',
     miniEyebrow: 'دعوة من القلب', dearGuest: 'إلى ضيفنا العزيز', yourName: 'اسمك الجميل هنا', footer: 'صُنعت بحب، لتُحفظ في القلب.', backTop: 'إلى البداية', music: 'الموسيقى', off: 'متوقفة', on: 'تعمل', musicPlay: 'تشغيل الموسيقى الهادئة', musicMute: 'كتم الموسيقى',
     openingBrand: 'بعض الدعوات، تُفتح بالقلب.', openingEyebrow: 'إلى من يجعلون فرحتنا أجمل', openingTitle: 'هذه الدعوة، لك.', openingLetter: 'بكل الحب', openInvitation: 'افتح الدعوة', openWithMusic: 'افتح الدعوة مع موسيقى هادئة', openingHint: 'افتح الرسالة، واتبع طائرنا في الحكاية. الموسيقى اختيارية.', openSilent: 'افتح بدون موسيقى', openingFooter: 'بدايتنا الأجمل، بوجودكم',
     close: 'إغلاق', calendarEyebrow: 'احتفظ بالموعد', calendarTitle: 'نلتقي في هذا اليوم.', calendarDescription: 'اختر التقويم الذي تستخدمه. جميع الخيارات تحفظ التوقيت الصحيح أينما كنت.', googleHint: 'Android · iPhone · الويب', outlookHint: 'Windows · الويب', appleCalendar: 'Apple Calendar / ملف تقويم', appleHint: 'iPhone · Mac · أي تطبيق يدعم ‎.ics', calendarNote: 'قد يحتاج المتصفح إلى تنزيل ملف التقويم ثم فتحه في تطبيق التقويم.',
-    modalKeepsakeTitle: 'لنكتب اسمك في الحكاية.', modalKeepsakeCopy: 'بطاقة أنيقة بحجم ١٢٠٠ × ١٦٠٠ بكسل، باسمك وبكل الحب.', guestLabel: 'اسم الضيف', guestPlaceholder: 'الاسم الذي تحب أن نناديك به', guestHelp: 'حتى ٦٠ حرفًا. الاسم لن يُرسل إلى أي جهة.', downloadPng: 'حمّل دعوتك PNG', preparing: 'نكتبها لك بكل الحب…', previewAlt: 'معاينة دعوتك الشخصية', saveAgain: 'حفظ الصورة مجددًا', saveHint: 'على iPhone، يمكنك فتح الصورة ثم الضغط مطولًا لحفظها في الصور.', invalidGuest: 'اكتب اسمًا من حرف واحد إلى ٦٠ حرفًا.', exportError: 'تعذّر إنشاء الصورة. تحقق من الاتصال بالخطوط المحلية وحاول مجددًا.', imageReady: 'دعوتك جاهزة. يمكنك حفظها أيضًا من المعاينة.', audioError: 'لم يبدأ الصوت. يمكنك تشغيله من زر الموسيقى.', configError: 'تعذّر تحميل تفاصيل الدعوة. حدّث الصفحة أو تحقق من ملف content.json.',
+    modalKeepsakeTitle: 'لنكتب اسمك في الحكاية.', modalKeepsakeCopy: 'دعوة باسمك، وذكرى من ليلتنا تبقى معك.', guestLabel: 'اسم الضيف', guestPlaceholder: 'اكتب اسمك هنا', guestHelp: 'اسمك يكمّل الحكاية.', downloadPng: 'احفظ دعوتك', preparing: 'نكتبها لك بكل الحب…', previewAlt: 'معاينة دعوتك الشخصية', saveAgain: 'حفظ الصورة مجددًا', saveHint: 'على iPhone، يمكنك فتح الصورة ثم الضغط مطولًا لحفظها في الصور.', invalidGuest: 'اكتب اسمًا من حرف واحد إلى ٦٠ حرفًا.', exportError: 'تعذّر إنشاء الصورة. تحقق من الاتصال بالخطوط المحلية وحاول مجددًا.', imageReady: 'دعوتك جاهزة. يمكنك حفظها أيضًا من المعاينة.', audioError: 'لم يبدأ الصوت. يمكنك تشغيله من زر الموسيقى.', configError: 'تعذّر تحميل تفاصيل الدعوة. حدّث الصفحة أو تحقق من ملف content.json.',
   },
   en: {
-    birdHero:'Let the bird wake the star', birdRings:'Let the bird play between the rings', birdDate:'Let the bird chase a little star', birdBlossom:'Let the bird discover the jasmine', birdLantern:'Let the bird wake the jasmine lantern', birdCouple:'Let the bird draw a heart for the couple', birdLetter:'Let the bird greet its paper friend', birdClosing:'Let the bird send a farewell kiss',
     storyWhisper: 'And from that meeting, an evening began to glow.', nightWhisper: 'Every luminous evening holds a promise.', promiseWhisper: 'Until the story blooms, and we meet.', gardenWhisper: 'There is still a place in the letter for your name.',
     skip: 'Skip to invitation', demo: 'Demo invitation · all details are for preview', brand: 'Our story begins', navigation: 'Navigation', navDetails: 'The evening', navLocation: 'The setting', navKeepsake: 'Your keepsake',
     heroEyebrow: 'Together with love, we invite you to the wedding of', heroTagline: 'One story. A lifetime of love.', scroll: 'A little more of our story', heroNote: 'Sweeter with you here',
     storyEyebrow: 'Chapter one · A beautiful encounter', storyTitle: 'Of all the stories, we chose a life together.', storySceneKicker: 'Two lives', storySceneClosing: 'One beautiful story', together: 'together', promiseChapter: 'A promise, written together', letterForYou: 'And this chapter is yours.', celebrationEyebrow: 'Chapter two · A date becomes a promise', celebrationTitle: 'An evening to remember.', timeZone: 'Local time at the venue', addCalendar: 'Add to calendar', planEyebrow: 'Every moment, a memory',
-    quoteLabel: 'A note from the heart', quoteFootnote: 'The loveliest days begin together', locationEyebrow: 'Chapter three · All paths lead here', openMaps: 'Find the celebration', mapHint: 'Opens in Google Maps', mapArtLabel: 'An artistic garden illustration, not a geographical map',
+    quoteLabel: 'A note from the heart', quoteFootnote: 'The loveliest days begin together', arrivalLine:'Here, a date becomes a gathering.', locationEyebrow: 'Chapter three · All paths lead here', openMaps: 'Find the celebration', mapHint: 'Opens in Google Maps', mapArtLabel: 'An artistic garden illustration, not a geographical map',
     keepsakeEyebrow: 'The final chapter · You are part of it', keepsakeTitle: 'Your name. Our invitation.', keepsakeCopy: "You're part of this story. Make a little keepsake of the evening, with your name and a whole lot of love.", personalize: 'Make your invitation', privacy: 'Your name stays on your device. It is never collected or sent.',
     miniEyebrow: 'An invitation from the heart', dearGuest: 'Especially for', yourName: 'Your lovely name', footer: 'Made with love. Kept close to the heart.', backTop: 'Back to the beginning', music: 'Music', off: 'Off', on: 'On', musicPlay: 'Play soft background music', musicMute: 'Mute background music',
     openingBrand: 'Some invitations open the heart.', openingEyebrow: 'For the people who make our joy brighter', openingTitle: 'A little love letter. For you.', openingLetter: 'With love', openInvitation: 'Open the invitation', openWithMusic: 'Open the invitation with soft music', openingHint: 'Open the letter, and follow a little paper bird through our story. Music is optional.', openSilent: 'Open without music', openingFooter: 'Our beginning is brighter with you',
     close: 'Close', calendarEyebrow: 'Keep a little space for us', calendarTitle: "It's a date.", calendarDescription: 'Choose your calendar. Each option keeps the event at the right time, wherever you are.', googleHint: 'Android · iPhone · Web', outlookHint: 'Windows · Web', appleCalendar: 'Apple Calendar / Calendar file', appleHint: 'iPhone · Mac · Any app that opens .ics', calendarNote: 'Your browser may download a calendar file. Open it in your calendar app to add the event.',
-    modalKeepsakeTitle: "Let's put your name in the story.", modalKeepsakeCopy: 'A beautifully personal 1200 × 1600 PNG invitation. Yours to keep.', guestLabel: 'Guest name', guestPlaceholder: 'The name you love to go by', guestHelp: 'Up to 60 characters. Your name is never sent anywhere.', downloadPng: 'Download your invitation', preparing: 'Making a little magic…', previewAlt: 'Preview of your personalized invitation', saveAgain: 'Save the image again', saveHint: 'On iPhone, open the image and touch and hold to save it to Photos.', invalidGuest: 'Please enter a name with 1 to 60 characters.', exportError: 'The image could not be created. Check that local fonts loaded, then try again.', imageReady: 'Your invitation is ready. You can also save it from the preview.', audioError: 'Sound could not start. Try the music button.', configError: 'The invitation details could not load. Refresh the page or check content.json.',
+    modalKeepsakeTitle: "Let's put your name in the story.", modalKeepsakeCopy: 'An invitation with your name, and a little memory of our evening.', guestLabel: 'Guest name', guestPlaceholder: 'Your name', guestHelp: 'A place for you in our story.', downloadPng: 'Save your invitation', preparing: 'Making a little magic…', previewAlt: 'Preview of your personalized invitation', saveAgain: 'Save the image again', saveHint: 'On iPhone, open the image and touch and hold to save it to Photos.', invalidGuest: 'Please enter a name with 1 to 60 characters.', exportError: 'The image could not be created. Check that local fonts loaded, then try again.', imageReady: 'Your invitation is ready. You can also save it from the preview.', audioError: 'Sound could not start. Try the music button.', configError: 'The invitation details could not load. Refresh the page or check content.json.',
   },
 };
 
@@ -55,23 +53,31 @@ function eventFormat(options) {
   return new Intl.DateTimeFormat(locale(), { calendar: 'gregory', timeZone: content.event.timeZone, ...options }).format(new Date(content.event.start));
 }
 
+// An empty field follows the page (placeholder and caret on the reading side); typed text picks its own direction.
+function syncGuestDirection() {
+  const input = $('#guest-name');
+  input.dir = input.value ? 'auto' : document.documentElement.dir;
+}
 function renderLanguage(next) {
   language = next;
   document.documentElement.lang = language;
   document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+  syncGuestDirection();
   for (const element of $$('[data-i18n]')) element.textContent = text(element.dataset.i18n);
   for (const [attribute, dataset] of [['aria-label', 'i18nAria'], ['placeholder', 'i18nPlaceholder'], ['alt', 'i18nAlt']]) {
     for (const element of $$(`[data-${attribute === 'aria-label' ? 'i18n-aria' : 'i18n-' + attribute}]`)) element.setAttribute(attribute, text(element.dataset[dataset]));
   }
+  $('.joining-ring--one .orbit-name').dataset.name = language === 'ar' ? 'second' : 'first';
+  $('.joining-ring--two .orbit-name').dataset.name = language === 'ar' ? 'first' : 'second';
   for (const element of $$('[data-name]')) element.textContent = content.couple[element.dataset.name][language];
   if ($('#guest-name').value.trim()) $('.mini-guest').textContent = $('#guest-name').value.trim();
   for (const element of $$('[data-copy]')) element.textContent = content.copy[element.dataset.copy][language];
   for (const element of $$('[data-venue]')) element.textContent = content.venue[element.dataset.venue][language];
   for (const element of $$('[data-venue-city]')) element.textContent = content.venue.address[language];
   const formats = {
-    'data-event-date': { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
+    'data-event-date': { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit' },
     'data-event-weekday': { weekday: 'long' }, 'data-event-day': { day: 'numeric' },
-    'data-event-month': { month: 'long', year: 'numeric' }, 'data-event-time': { hour: 'numeric', minute: '2-digit' },
+    'data-event-month': { month: '2-digit', year: 'numeric' }, 'data-event-time': { hour: 'numeric', minute: '2-digit' },
   };
   for (const [attribute, options] of Object.entries(formats)) for (const element of $$(`[${attribute}]`)) element.textContent = eventFormat(options);
   for (const button of $$('[data-language-toggle]')) {
@@ -96,6 +102,7 @@ function renderLanguage(next) {
   const links = calendarLinks(content, language);
   $('#google-calendar').href = links.google;
   $('#outlook-calendar').href = links.outlook;
+  $('#schedule-list').classList.remove('is-tracing');
   $('#schedule-list').replaceChildren(...content.schedule.map((item, index) => {
     const li = document.createElement('li');
     li.style.setProperty('--n', index);
@@ -108,6 +115,7 @@ function renderLanguage(next) {
     details.append(title, note); li.append(time, details);
     return li;
   }));
+  requestAnimationFrame(() => requestAnimationFrame(syncTimelineLight));
   $('#export-error').textContent = '';
   updateMusicButton();
   enhanceTypography();
@@ -261,14 +269,14 @@ async function createKeepsake(name, exportLanguage) {
   const font = isArabic ? 'Amiri' : 'Cormorant Garamond';
   const guestFont = /[\u0600-\u06ff\u0750-\u077f\u08a0-\u08ff]/u.test(name) ? 'Amiri' : font;
   const eventLocale = isArabic ? 'ar-IQ' : 'en-GB';
-  const date = new Intl.DateTimeFormat(eventLocale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', calendar: 'gregory', timeZone: content.event.timeZone }).format(new Date(content.event.start));
+  const date = new Intl.DateTimeFormat(eventLocale, { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric', calendar: 'gregory', timeZone: content.event.timeZone }).format(new Date(content.event.start));
   const time = new Intl.DateTimeFormat(eventLocale, { hour: 'numeric', minute: '2-digit', timeZone: content.event.timeZone }).format(new Date(content.event.start));
   await Promise.all([
-    document.fonts.load('120px "Amiri"', 'عمر ليان ' + name),
-    document.fonts.load('120px "Cormorant Garamond"', 'Omar Layan ' + name),
+    document.fonts.load('120px "Amiri"', `${content.couple.first.ar} ${content.couple.second.ar} ${name}`),
+    document.fonts.load('120px "Cormorant Garamond"', `${content.couple.first.en} ${content.couple.second.en} ${name}`),
     document.fonts.load('28px "Noto Sans Arabic"', 'دعوة من القلب'),
   ]);
-  if (!document.fonts.check('120px "Amiri"', 'عمر ليان') || !document.fonts.check('120px "Cormorant Garamond"', 'Omar Layan')) throw new Error('Invitation fonts are unavailable');
+  if (!document.fonts.check('120px "Amiri"', `${content.couple.first.ar} ${content.couple.second.ar}`) || !document.fonts.check('120px "Cormorant Garamond"', `${content.couple.first.en} ${content.couple.second.en}`)) throw new Error('Invitation fonts are unavailable');
   const canvas = document.createElement('canvas');
   canvas.width = 1200; canvas.height = 1600;
   const ctx = canvas.getContext('2d');
@@ -289,8 +297,9 @@ async function createKeepsake(name, exportLanguage) {
   fittedText(ctx, name, 1093, 73, guestFont, palette['ink'], 860);
   ctx.direction = isArabic ? 'rtl' : 'ltr';
   fittedText(ctx, date, 1247, isArabic ? 33 : 30, font, palette['muted'], 840);
-  fittedText(ctx, `${content.venue.name[exportLanguage]} · ${time}`, 1315, 30, font, palette['muted'], 840);
-  fittedText(ctx, content.venue.address[exportLanguage], 1368, 26, font, palette['muted'], 840);
+  fittedText(ctx, `${content.venue.name[exportLanguage]} · ${time}`, 1308, 30, font, palette['muted'], 840);
+  if (content.venue.subtitle) fittedText(ctx, content.venue.subtitle[exportLanguage], 1350, 28, font, palette['muted'], 840);
+  fittedText(ctx, content.venue.address[exportLanguage], 1392, 26, font, palette['muted'], 840);
   if (content.demo) fittedText(ctx, isArabic ? 'دعوة تجريبية · ليست مناسبة حقيقية' : 'DEMO INVITATION · NOT A REAL EVENT', 1495, 20, font, palette['muted'], 900);
   return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('PNG export failed')), 'image/png'));
 }
@@ -334,7 +343,23 @@ function updateScenes() {
   measureBirdDialog();
   updateStoryFlight(flightReading);
 }
+// Measure only on layout changes; CSS owns the continuous light and pause behavior.
+function syncTimelineLight() {
+  const list = $('#schedule-list'), rows = [...list.children];
+  if (!rows.length) return;
+  const centers = rows.map(row => {
+    const marker = getComputedStyle(row,'::before');
+    return row.offsetTop + parseFloat(marker.top) + parseFloat(marker.height)/2;
+  });
+  const first = centers[0], last = centers.at(-1), distance = last-first || 1;
+  list.style.setProperty('--thread-start', `${first-3.5}px`);
+  list.style.setProperty('--thread-end', `${last-3.5}px`);
+  rows.forEach((row,index) => row.style.setProperty('--stop-delay', `${(centers[index]-first)/distance * 6.5 * .76}s`));
+  list.classList.add('is-tracing');
+}
 function initializeScenes() {
+  if ('ResizeObserver' in window) new ResizeObserver(syncTimelineLight).observe($('#schedule-list'));
+  else addEventListener('resize',syncTimelineLight,{passive:true});
   addEventListener('scroll', requestSceneFrame, { passive: true });
   addEventListener('resize', requestSceneFrame, { passive: true });
   motion.addEventListener('change', requestSceneFrame);
@@ -346,7 +371,7 @@ function initializeScenes() {
 // Chapter atmosphere stays live on screen; each foreground scene waits for its own arrival.
 function initializeChapters() {
   const chapters = $$('[data-chapter]');
-  const arrivals = $$('.chapter .rise, .chapter .split, .story-art, .date-card, .timeline, .quote-text, .location-art, .location-copy, .dance-hall, .mini-invitation, .keepsake-copy, .closing-rings, .jasmine-garden');
+  const arrivals = $$('.chapter .rise, .chapter .split, .story-art, .ring-universe, .date-card, .timeline, .quote-text, .location-art, .location-copy, .dance-hall, .mini-invitation, .keepsake-copy, .closing-rings, .jasmine-garden');
   const revealAll = () => {
     for (const chapter of chapters) chapter.classList.add('is-awake', 'is-live');
     for (const scene of arrivals) scene.classList.add('has-arrived');
@@ -360,11 +385,11 @@ function initializeChapters() {
   });
   const entrance = new IntersectionObserver((entries) => {
     for (const entry of entries) {
-      if (!entry.isIntersecting || entry.intersectionRatio < .08) continue;
+      if (!entry.isIntersecting || entry.intersectionRatio < (entry.target.matches('.ring-universe,.arrival-portal') ? .35 : .08)) continue;
       entry.target.classList.add('has-arrived');
       entrance.unobserve(entry.target);
     }
-  }, { rootMargin: '0px 0px 0px 0px', threshold: .08 });
+  }, { rootMargin: '0px 0px 0px 0px', threshold: [.08,.35] });
   // Register after the envelope closes, so a covered scene cannot use up its entrance.
   $('#opening-dialog').addEventListener('close', () => {
     for (const chapter of chapters) atmosphere.observe(chapter);
@@ -440,23 +465,6 @@ function initializeInteractions() {
     }, { passive: true });
     target.addEventListener('pointerleave', () => { target.style.setProperty('--mx', '0'); target.style.setProperty('--my', '0'); });
   }
-  for (const point of $$('[data-bird-visit]')) {
-    point.disabled=motion.matches;
-    motion.addEventListener('change',()=>{ point.disabled=motion.matches; });
-    point.addEventListener('click', () => {
-      if (motion.matches || !flightHasStarted || entranceFlight || birdDialog) return;
-      const reading = readFlightWaypoints();
-      const visit = reading.visits.find(item => item.element === point);
-      if (visit) {
-        birdDestination.reading=reading;
-        pendingBirdPoint={element:point,at:performance.now()};
-        birdAction=null; birdRest=null; birdVisit=null; clearBirdReaction();
-        requestSceneFrame(); startBirdHeartbeat();
-      }
-    });
-  }
-  for (const event of ['wheel','touchmove']) addEventListener(event,()=>{ pendingBirdPoint=null; },{passive:true});
-  addEventListener('keydown',event=>{ if (['ArrowDown','ArrowUp','PageDown','PageUp','Home','End'].includes(event.key)) pendingBirdPoint=null; });
   // Native actions stay immediate. The light responds without intercepting clicks or map links.
   for (const control of $$('.button, .text-button, .calendar-option, .language-button, .dev-theme-trigger, .close-button')) {
     control.classList.add('magic-control');
@@ -503,7 +511,7 @@ function initializeInteractions() {
       const now = performance.now();
       // A tap leaves a little light for the companion to investigate.
       if (birdBody && !birdDialog && !entranceFlight) {
-        clearBirdReaction(); birdVisit=null; pendingBirdPoint=null; birdSwoop=null;
+        clearBirdReaction(); birdVisit=null; birdSwoop=null;
         birdAction={began:now,duration:1050,from:{x:birdBody.x,y:birdBody.y},to:{x:bounded(event.clientX,35,innerWidth-35),y:bounded(event.clientY-22,65,innerHeight-75)},radius:22,direction:event.clientX>birdBody.x?1:-1,kind:'spark'};
         $('#story-bird').classList.add('is-curious');
         startBirdHeartbeat();
@@ -629,8 +637,12 @@ let birdPreviousScroll = 0;
 let birdScrollVelocity = 0;
 let birdAction = null;
 let birdVisit = null;
-let pendingBirdPoint = null;
 const visitedBirdPoints = new WeakMap();
+// When each unseen ornament first became visible, so its first visit can follow quickly.
+const birdPointSeen = new WeakMap();
+let birdPointScan = 0;
+const BIRD_FIRST_VISIT_DELAY = 400;
+const BIRD_REVISIT_AFTER = 22000;
 let lastBirdPoint = null;
 let birdReactionTimer;
 let birdReactionHost;
@@ -706,7 +718,6 @@ function measureBirdDialog() {
 function visitBirdDialog(dialog) {
   if (!flightHasStarted || motion.matches) return;
   birdDialog = dialog;
-  pendingBirdPoint=null;
   birdAction = null; birdRest = null; birdVisit = null; clearBirdReaction();
   moveFlightLayer(dialog);
   measureBirdDialog();
@@ -732,17 +743,19 @@ function setBirdDestination(point, angle, reading) {
   const delta = reading.scroll - birdPreviousScroll;
   const previousX = birdDestination?.x ?? point.x;
   const velocityX = bounded((point.x - previousX) / elapsed, -350, 350);
+  // A visit in progress is never cancelled by scrolling; it follows its artwork until it finishes.
+  const visiting = Boolean(birdVisit);
   if (birdLastMeasurement && Math.abs(delta) > .5) {
     birdLastScrollAt = now;
     birdScrollVelocity = bounded(delta / elapsed, -1600, 1600);
-    birdAction = null; birdRest = null; birdVisit = null; clearBirdReaction();
-    birdNextCuriosity = now + 350;
+    if (!visiting) { birdAction = null; birdRest = null; clearBirdReaction(true); }
+    birdNextCuriosity = Math.max(birdNextCuriosity, now + 350);
   }
   if (reading.active !== undefined && reading.active !== birdActive) {
-    if (birdActive !== -1 && !motion.matches) birdSwoop = { began: now, amp: (reading.active % 2 ? -1 : 1) * Math.min(150, reading.width * .22), duration: 1700 };
+    if (birdActive !== -1 && !motion.matches && !visiting) birdSwoop = { began: now, amp: (reading.active % 2 ? -1 : 1) * Math.min(150, reading.width * .22), duration: 1700 };
     birdActive = reading.active;
-    birdAction = null; birdRest = null; birdVisit = null; clearBirdReaction();
-    birdNextCuriosity = now + 400;
+    if (!visiting) { birdAction = null; birdRest = null; clearBirdReaction(true); }
+    birdNextCuriosity = Math.max(birdNextCuriosity, now + 400);
   }
   birdDestination = { x: point.x, y: point.y - reading.scroll, angle, vx: velocityX, reading };
   birdLastMeasurement = now; birdPreviousScroll = reading.scroll;
@@ -760,9 +773,12 @@ function chooseBirdPerch() {
   candidates.sort((a,b) => Math.hypot(a.x-birdBody.x,a.y-birdBody.y) - Math.hypot(b.x-birdBody.x,b.y-birdBody.y));
   return candidates[0] || null;
 }
-function clearBirdReaction() {
-  clearTimeout(birdReactionTimer);
-  if (birdReactionHost) { delete birdReactionHost.dataset.birdMoment; birdReactionHost=null; }
+// keepScene lets a started scene moment (gateway, letter…) finish on its own timer, e.g. while the guest scrolls.
+function clearBirdReaction(keepScene=false) {
+  if (!keepScene) {
+    clearTimeout(birdReactionTimer);
+    if (birdReactionHost) { delete birdReactionHost.dataset.birdMoment; birdReactionHost=null; }
+  }
   $('#story-bird')?.classList.remove('is-bowing','is-sneezing','is-delighted','is-curious');
 }
 function birdHearts(x,y) {
@@ -793,28 +809,43 @@ function beginBirdVisit(visit,now) {
   const reading=birdDestination.reading;
   const rect={left:visit.left,top:visit.top-reading.scroll,width:visit.width,height:visit.height};
   const route=makeBirdVisit(visit.kind,rect,reading,{x:birdBody.x,y:birdBody.y});
-  birdVisit={...route,began:now,visit,reacted:false};
+  birdVisit={...route,began:now,visit,reacted:false,scroll0:reading.scroll};
   $('#story-bird').classList.add('is-curious');
   birdAction=null; birdRest=null; birdSwoop=null;
   birdLastScrollAt=now-1000;
   visitedBirdPoints.set(visit.element,now); lastBirdPoint=visit.element;
   startBirdHeartbeat();
 }
-function chooseBirdVisit(now) {
-  const reading=birdDestination.reading;
-  const candidates=reading.visits.filter(visit => {
+function visibleBirdVisits(reading) {
+  return reading.visits.filter(visit => {
     const top=visit.top-reading.scroll;
     const entered=visit.space.closest('.chapter')?.classList.contains('is-live') || visit.kind==='hero';
-    const foreground=visit.space.closest('.story-art,.date-card,.location-art,.dance-hall,.mini-invitation');
-    return entered && (!foreground || foreground.classList.contains('has-arrived')) && top+visit.height*.65>70 && top+visit.height*.25<reading.height-35 && !visitedBirdPoints.has(visit.element);
+    const foreground=visit.space.closest('.ring-universe,.story-art,.date-card,.location-art,.dance-hall,.mini-invitation');
+    return entered && (!foreground || foreground.classList.contains('has-arrived')) && top+visit.height*.65>70 && top+visit.height*.25<reading.height-35;
+  });
+}
+// Random pick among ornaments in view: unseen ones first, then old favourites after a long pause.
+function chooseBirdVisit(now) {
+  const candidates=visibleBirdVisits(birdDestination.reading).filter(visit => {
+    const seen=visitedBirdPoints.get(visit.element);
+    return seen===undefined || now-seen>BIRD_REVISIT_AFTER;
   });
   const fresh=candidates.filter(visit=>visit.element!==lastBirdPoint);
   const choices=fresh.length?fresh:candidates;
   return choices[Math.floor(Math.random()*choices.length)];
 }
+// An ornament the bird has never met gets its first visit soon after it settles into view.
+function firstBirdVisit(now) {
+  if (now-birdPointScan<120) return null;
+  birdPointScan=now;
+  const unseen=visibleBirdVisits(birdDestination.reading).filter(visit=>!visitedBirdPoints.has(visit.element));
+  for (const visit of unseen) if (!birdPointSeen.has(visit.element)) birdPointSeen.set(visit.element,now);
+  for (const visit of $$('[data-bird-visit]')) if (!unseen.some(item=>item.element===visit)) birdPointSeen.delete(visit);
+  return unseen.find(visit=>now-birdPointSeen.get(visit.element)>=BIRD_FIRST_VISIT_DELAY) || null;
+}
 motion.addEventListener('change',()=>{
   if (!motion.matches) return;
-  birdVisit=null; pendingBirdPoint=null; clearBirdReaction();
+  birdVisit=null; clearBirdReaction();
   for (const heart of $$('.bird-kiss')) heart.remove();
 });
 function beginBirdCuriosity(now) {
@@ -858,15 +889,11 @@ function animateLivingBird(now) {
       behavior = 'exploring';
     }
   }
-  if (pendingBirdPoint) {
-    if (birdDialog || now-pendingBirdPoint.at>2500) pendingBirdPoint=null;
-    else if (now-pendingBirdPoint.at>70 && idle>80) {
-      const visit=birdDestination.reading.visits.find(item=>item.element===pendingBirdPoint.element);
-      pendingBirdPoint=null;
-      if (visit) beginBirdVisit(visit,now);
-    }
+  if (!birdDialog && !birdVisit && idle > 150) {
+    const first=firstBirdVisit(now);
+    if (first) beginBirdVisit(first,now);
   }
-  if (!birdDialog && idle > 240 && !birdAction && !birdVisit && !pendingBirdPoint && now > birdNextCuriosity) beginBirdCuriosity(now);
+  if (!birdDialog && idle > 240 && !birdAction && !birdVisit && now > birdNextCuriosity) beginBirdCuriosity(now);
   if (birdAction) {
     const t = bounded((now - birdAction.began) / birdAction.duration, 0, 1);
     const easing = 1 - Math.pow(1-t, 3);
@@ -891,12 +918,18 @@ function animateLivingBird(now) {
   if (birdVisit) {
     const visit=birdVisit;
     const t=bounded((now-visit.began)/visit.duration,0,1);
+    // The route was drawn in viewport space; shift it with the page so it stays on the artwork while scrolling.
+    const drift=birdDestination.reading.scroll-visit.scroll0;
     target=sampleBirdVisit(visit.points,t);
+    target.y-=drift;
     behavior='exploring';
     if (t>=.24 && !visit.reacted) { visit.reacted=true; reactToBird(visit.visit); }
     if (t===1) {
-      birdRest=visit.points.at(-1); birdVisit=null;
+      const end=visit.points.at(-1), restY=end.y-drift;
+      birdRest=restY>75 && restY<birdDestination.reading.height-75 ? {x:end.x,y:restY} : null;
+      birdVisit=null;
       birdNextCuriosity=now+6000+Math.random()*4000;
+      birdPointScan=now+1100; // a breath before another unseen ornament gets its first visit
     }
   }
   if (birdDialogTarget) {
@@ -1009,6 +1042,7 @@ function initialize() {
   for (const event of ['focus','blur','keyup','pointerup','select','scroll','compositionend']) $('#guest-name').addEventListener(event,requestSceneFrame);
   document.addEventListener('selectionchange',()=>{ if (document.activeElement===$('#guest-name')) requestSceneFrame(); });
   $('#guest-name').addEventListener('input', (event) => {
+    syncGuestDirection();
     reactToWriting(event);
     $('#export-error').textContent = ''; $('#download-result').hidden = true;
     $('.mini-guest').textContent = $('#guest-name').value.trim() || text('yourName');
@@ -1055,7 +1089,7 @@ function initialize() {
 }
 
 try {
-  const response = await fetch(new URL('./content.json', document.baseURI));
+  const response = await fetch(new URL('./content.json', document.baseURI), { cache: 'no-cache' });
   if (!response.ok) throw new Error('Content unavailable');
   content = validateContent(await response.json());
   initialize();

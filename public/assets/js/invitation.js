@@ -12,6 +12,7 @@ export function validateContent(data) {
   if (typeof event.timeZone !== 'string' || !event.timeZone.trim()) throw new Error('Event needs an IANA time zone');
   new Intl.DateTimeFormat('en', { timeZone: event.timeZone }).format(new Date(event.start));
   if (!['name', 'address', 'note', 'mapLabel'].every((key) => bilingual(data.venue?.[key]))) throw new Error('Invalid venue');
+  if (data.venue.subtitle !== undefined && !bilingual(data.venue.subtitle)) throw new Error('Invalid venue subtitle');
   const map = new URL(data.venue.mapsUrl);
   if (map.protocol !== 'https:' || !['www.google.com', 'maps.google.com', 'maps.app.goo.gl', 'maps.apple.com', 'goo.gl'].includes(map.hostname) || map.username || map.password) throw new Error('Use a secure Google Maps or Apple Maps link');
   if (!Array.isArray(data.schedule) || data.schedule.length > 12 || !data.schedule.every((item) => /^([01]\d|2[0-3]):[0-5]\d$/.test(item.time) && bilingual(item.title) && bilingual(item.note))) throw new Error('Invalid schedule');
@@ -51,7 +52,7 @@ export function utcCalendarDate(value) {
 }
 
 export function buildCalendar(data, language = 'ar', now = new Date()) {
-  const location = `${data.venue.name[language]}, ${data.venue.address[language]}`;
+  const location = [data.venue.name[language], data.venue.subtitle?.[language], data.venue.address[language]].filter(Boolean).join(', ');
   const lines = [
     'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Our Story//Wedding Invitation//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
     `UID:${data.event.id}@wedding-invitation.local`, `DTSTAMP:${utcCalendarDate(now)}`,
@@ -66,7 +67,7 @@ export function buildCalendar(data, language = 'ar', now = new Date()) {
 
 export function calendarLinks(data, language = 'ar') {
   const title = eventTitle(data, language);
-  const location = `${data.venue.name[language]}, ${data.venue.address[language]}`;
+  const location = [data.venue.name[language], data.venue.subtitle?.[language], data.venue.address[language]].filter(Boolean).join(', ');
   const description = `${data.event.description[language]}\n${data.venue.mapsUrl}`;
   const google = new URL('https://calendar.google.com/calendar/render');
   google.search = new URLSearchParams({ action: 'TEMPLATE', text: title, dates: `${utcCalendarDate(data.event.start)}/${utcCalendarDate(data.event.end)}`, details: description, location, ctz: data.event.timeZone }).toString();

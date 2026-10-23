@@ -40,3 +40,26 @@ python scripts/check.py
 ```
 
 The first command is only a local preview server. Production hosting serves static files directly.
+
+
+## Vercel setup
+
+The root `vercel.json` selects the Other framework preset (`framework: null`), skips dependency installation and the build command, and serves only `public/`. `.vercelignore` uploads only `public/` and `vercel.json`; project instructions, documentation, tests and verification artifacts stay out of the upload. `.vercel/` is ignored by Git.
+
+Run CLI commands from the repository root, with Root Directory left at the repository root in the dashboard:
+
+```powershell
+npx --yes vercel@65.2.0 login
+npx --yes vercel@65.2.0 link
+npx --yes vercel@65.2.0 deploy
+```
+
+Choose the intended Vercel account/team and project during linking. A Git repository is optional for CLI deployments. In a dashboard import, choose Other, Output Directory `public`, and empty Build/Install Command overrides; the checked-in configuration supplies these values.
+
+Verify the generated preview URL over HTTPS before publishing to production. Once approved, deploy with `npx --yes vercel@65.2.0 deploy --prod`. Custom domains are optional; use the actual Vercel-assigned hostname until one is chosen. No custom hostname or DNS values have been invented.
+
+The invitation retains its existing noindex/robots settings. On a public hostname, the local-only developer theme picker is hidden and the configured public palette is used. Guest-name PNGs are still generated entirely on the guest's device. There are no environment variables or backend services to configure.
+
+Current status: prepared locally; no Vercel deployment or public URL has been created yet. Account authentication and the target project are the remaining setup steps.
+
+Official references: [Static configuration](https://vercel.com/docs/project-configuration/vercel-json), [.vercelignore](https://vercel.com/docs/deployments/vercel-ignore), and [CLI deployment](https://vercel.com/docs/projects/deploy-from-cli).
