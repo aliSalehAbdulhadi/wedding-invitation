@@ -3,7 +3,7 @@ import { playOpeningChime } from './opening-sound.js';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
 import { validateContent, calendarLinks, mapLinks, preferredApps, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-2';
 
-import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261023-3';
+import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261024-3';
 
 const words = {
   ar: {
@@ -111,6 +111,8 @@ function renderLanguage(next) {
   $('#device-calendar').href = calendarFile;
   $('#download-calendar').href = calendarFile;
   $('#calendar-link').href = apps.calendar === 'device' ? calendarFile : links.google;
+  // Keep the invitation's document loader alive when WebKit hands a file to Calendar.
+  $('#calendar-link').target = apps.calendar === 'device' ? '_blank' : '_self';
   $('#schedule-list').classList.remove('is-tracing');
   $('#schedule-list').replaceChildren(...content.schedule.map((item, index) => {
     const li = document.createElement('li');

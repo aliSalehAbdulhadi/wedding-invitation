@@ -1,12 +1,12 @@
-import { themes, getTheme, isDevelopmentHost, resolveThemeId } from './themes.js?v=20261023-3';
+import { themes, getTheme, resolveThemeId } from './themes.js?v=20261024-3';
 
 let activeTheme = themes[0];
 let ui;
 let language = 'ar';
 const preferenceKey = 'wedding-dev-palette-v1';
 const labels = {
-  ar: { trigger:'الألوان · تطوير', title:'اختر ألوان الحكاية', note:'لوحات زفاف هادئة للدعوة والرسومات والبطاقة المحمّلة.', local:'معاينة تطوير محلية فقط. يُحفظ اختيارك على هذا الجهاز.', close:'إغلاق', legend:'لوحة ألوان الدعوة' },
-  en: { trigger:'Colors · Dev', title:'Color the whole story', note:'Soft wedding palettes for the invitation, artwork, and downloaded keepsake.', local:'Local development preview only. Your choice is remembered on this device.', close:'Close', legend:'Invitation color palette' },
+  ar: { trigger:'الألوان', title:'اختر ألوان الحكاية', note:'لوحات زفاف هادئة للدعوة والرسومات والبطاقة المحمّلة.', local:'يُحفظ اختيار الألوان على هذا الجهاز.', close:'إغلاق', legend:'لوحة ألوان الدعوة' },
+  en: { trigger:'Colors', title:'Color the whole story', note:'Soft wedding palettes for the invitation, artwork, and downloaded keepsake.', local:'Your color choice is remembered on this device.', close:'Close', legend:'Invitation color palette' },
 };
 const element = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -45,11 +45,9 @@ export function renderThemePreview(nextLanguage) {
 }
 
 export function initializeThemePreview(content, openDialog) {
-  const development = isDevelopmentHost(location.hostname);
   let saved;
-  if (development) try { saved = localStorage.getItem(preferenceKey); } catch { /* The preview works without storage. */ }
-  applyTheme(resolveThemeId(content.design?.theme, saved, location.hostname));
-  if (!development) return;
+  try { saved = localStorage.getItem(preferenceKey); } catch { /* The preview works without storage. */ }
+  applyTheme(resolveThemeId(content.design?.theme, saved));
 
   const dock = element('div','dev-theme-dock');
   const trigger = element('button','dev-theme-trigger');
@@ -87,7 +85,7 @@ export function initializeThemePreview(content, openDialog) {
   document.body.append(dock,dialog);
   ui={dock,dialog,trigger,title,note,local,close,legend};
   trigger.addEventListener('click',()=>openDialog(dialog));
-  // Keep the developer control clickable while a native modal makes the page inert.
+  // Keep the color control clickable while a native modal makes the page inert.
   const syncDock=()=>{
     const host=[...document.querySelectorAll('dialog[open]')].filter(d=>d!==dialog).at(-1)||document.body;
     if (dock.parentElement!==host) host.append(dock);

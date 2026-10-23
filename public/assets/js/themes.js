@@ -17,12 +17,8 @@ export function getTheme(id) {
   return themes.find((theme) => theme.id === id) || themes[0];
 }
 
-export function isDevelopmentHost(hostname) {
-  return ['localhost','127.0.0.1','::1','[::1]'].includes(hostname);
-}
-
-export function resolveThemeId(configured, saved, hostname) {
-  const candidate = isDevelopmentHost(hostname) && themes.some(t => t.id === saved) ? saved : configured;
+export function resolveThemeId(configured, saved) {
+  const candidate = themes.some(t => t.id === saved) ? saved : configured;
   return getTheme(candidate).id;
 }
 

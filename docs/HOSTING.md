@@ -58,7 +58,7 @@ Choose the intended Vercel account/team and project during linking. A Git reposi
 
 Verify the generated preview URL over HTTPS before publishing to production. Once approved, deploy with `npx --yes vercel@65.2.0 deploy --prod`. Custom domains are optional; use the actual Vercel-assigned hostname until one is chosen. No custom hostname or DNS values have been invented.
 
-The invitation retains its existing noindex/robots settings. On a public hostname, the local-only developer theme picker is hidden and the configured public palette is used. Guest-name PNGs are still generated entirely on the guest's device. There are no environment variables or backend services to configure.
+The invitation retains its existing noindex/robots settings. On all hosts, the guest theme picker is available; a saved device preference overrides the configured default. Guest-name PNGs are still generated entirely on the guest's device. There are no environment variables or backend services to configure.
 
 Current status: GitHub auto-deployment confirmed on 24 October 2026. The couple connected GitHub and instructed that future releases should use pushes rather than manual CLI deployment.
 
@@ -68,11 +68,14 @@ Current status: GitHub auto-deployment confirmed on 24 October 2026. The couple 
 - Application source commit: `451a6f60927e26145a59991009a8b0beb553cbd9` (device-aware map/calendar links).
 - Automatic Git deployment `dpl_GjLE7M7RE4iSWzmR6qXTf6xKwqRv` reached READY for that commit. A CLI deployment of the same commit had already started before the connection was clarified; it also completed. Do not repeat manual deployments for routine changes.
 - Future workflow: verify locally, commit and push to `origin/main`, then inspect the automatic deployment and public URL. A documentation push can trigger deployment too.
-- Only public/ is served; there are 28 public files, including the two hosted calendar files. Browser test tooling, downloaded test engines and local artifacts remain outside the repository.
+- Only public/ is served; there are 29 public files, including the two hosted calendar files. Browser test tooling, downloaded test engines and local artifacts remain outside the repository.
 - Arabic and English .ics responses return HTTP 200 with `text/calendar; charset=utf-8`, `Content-Disposition: inline`, and cache revalidation. Explicit file-download links remain available. Git attributes preserve required CRLF bytes on Linux.
 - Calendar files come from `node scripts/generate-calendar.mjs`; tests reject files that drift from confirmed event details. No build/install step is introduced.
-- Application asset URLs use release `20261024-2`. The developer theme studio remains localhost-only; production uses the configured olive theme.
+- Application asset URLs use release `20261024-3`. The Colors studio is available to all visitors; olive is the default for guests without a saved preference.
 - No guest-name data is sent, no event is saved automatically, and indexing/noindex settings are preserved. Physical native-app handoff needs final phone checks; browser routing and file delivery are covered in docs/QA.md.
 - Local .vercel/ and environment files stay ignored and are not uploaded or committed. No custom domain, DNS, account credentials or project settings were changed by the app-link implementation.
 
 Official references: [Git deployments](https://vercel.com/docs/deployments/git), [Static configuration](https://vercel.com/docs/project-configuration/vercel-json), and [.vercelignore](https://vercel.com/docs/deployments/vercel-ignore).
+
+
+Sharing metadata is static in index.html for the confirmed 20-11 hostname. The public PNG is assets/images/wedding-share.png (1200x630, about 52KB); it requires no JavaScript or account. robots.txt permits sharing crawlers while retaining general search exclusion and HTML noindex. If the hostname or event facts change, update canonical/Open Graph/Twitter URLs and the social image as well. Native-calendar links open separately so a WebKit file handoff does not cancel future font loads in the invitation. Google calendar links retain a normal direct navigation; explicit file downloads remain available.

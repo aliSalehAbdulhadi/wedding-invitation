@@ -1,4 +1,9 @@
-# The unfinished invitation should not be indexed. Revisit at launch.
+# Let sharing crawlers read previews; keep search indexing disabled.
 # This does not restrict access to the website.
+User-agent: facebookexternalhit
+User-agent: Facebot
+User-agent: WhatsApp
+Allow: /
+
 User-agent: *
 Disallow: /

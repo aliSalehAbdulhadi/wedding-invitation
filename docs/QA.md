@@ -142,3 +142,14 @@ The localhost palette studio remains present; production continues to hide it. P
 Static check passes 77 references; main/preview syntax checks pass; all 19 Node tests pass. Tests ensure both hosted calendar files match current content, reject invalid coordinates, preserve the Google listing and check Apple/iPad defaults. Hosted files are regenerated with node scripts/generate-calendar.mjs; the site remains buildless. Vercel serves .ics as text/calendar, inline, with revalidation.
 
 Actual iPhone/Android app handoff, calendar import/save sheets, physical-phone performance and native 200% zoom remain unverified. Website JavaScript cannot enumerate unrelated installed apps; no app-probing scheme or timer redirect is used. Safari-native verification still requires an Apple device, despite WebKit coverage. Temporary browser tools, downloaded engines, screenshots and runners remain outside the repository/public directory.
+
+
+## Public colors, sharing metadata and calendar handoff — 24 October 2026
+
+The user confirmed that all live visitors should see Colors. Removed the host gate and development wording; valid saved preferences apply on any host and invalid preferences fall back to the configured default. All eleven palette contrast checks remain. The existing nested-dialog studio and per-device preference storage are reused.
+
+A WhatsApp-style HTTP request to the public hostname returned HTTP 200, normal HTML and a title, but no og:title; robots.txt also disallowed all crawlers. Added static canonical/Open Graph/Twitter tags for the confirmed hostname plus a real 1200x630 PNG (51,499 bytes) with approved names, numeric date and venue. Sharing crawlers have explicit Allow rules; other crawlers retain Disallow:/ and HTML noindex. This verifies page metadata and asset delivery, not WhatsApp’s cached preview UI or an actual sent message.
+
+A WebKit primary calendar download could interrupt the invitation document loader, leaving a later English font in error/loading. Opening native calendar file links separately preserves the original loader. The local WebKit Apple/Android routing repeat then passed including subsequent English font-dependent screenshots, and no interrupted request was recorded. Explicit file downloads and ordinary Google event links retain their existing behavior. Native app import still requires a phone check.
+
+Static references and JavaScript syntax pass. All 20 Node tests pass, including saved public-theme preference behavior, current-host sharing metadata, actual PNG size/dimensions and sharing-bot rules. The shared image was visually inspected. Existing app-link, event, font, name, physics and reduced-motion checks remain.

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { themes, getTheme, isDevelopmentHost, resolveThemeId } from '../public/assets/js/themes.js';
+import { themes, getTheme, resolveThemeId } from '../public/assets/js/themes.js';
 
 function luminance(hex) {
   const rgb=hex.match(/[a-f0-9]{2}/gi).map(n=>parseInt(n,16)/255).map(n=>n<=.04045?n/12.92:((n+.055)/1.055)**2.4);
@@ -22,12 +22,9 @@ test('eleven complete bilingual palettes retain readable body, secondary, accent
   }
 });
 
-test('developer palette preference never overrides the configured theme on a public host',()=>{
-  for (const host of ['localhost','127.0.0.1','::1','[::1]']) assert.equal(isDevelopmentHost(host),true);
-  for (const host of ['wedding.example.com','localhost.example.com','192.168.1.4','example.com']) assert.equal(isDevelopmentHost(host),false);
-  assert.equal(resolveThemeId('midnight','sage','localhost'),'sage');
-  assert.equal(resolveThemeId('midnight','sage','wedding.example.com'),'midnight');
-  assert.equal(resolveThemeId('pearl','invalid','localhost'),'pearl');
-  assert.equal(resolveThemeId('invalid',undefined,'example.com'),'olive');
+test('a guest palette preference overrides the default and invalid preferences fall back safely',()=>{
+  assert.equal(resolveThemeId('midnight','sage'),'sage');
+  assert.equal(resolveThemeId('pearl','invalid'),'pearl');
+  assert.equal(resolveThemeId('invalid',undefined),'olive');
   assert.equal(getTheme('unknown').id,'olive');
 });
