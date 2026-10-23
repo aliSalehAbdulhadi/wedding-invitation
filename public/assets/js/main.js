@@ -100,8 +100,8 @@ function renderLanguage(next) {
   const brand = `${content.couple.first[language]} ${language === 'ar' ? 'و' : '& '}${content.couple.second[language]}`;
   $('#brand-link').setAttribute('aria-label', brand);
   $('#invitation-title').setAttribute('aria-label', brand);
-  document.title = `${brand} | ${text('brand')}${content.demo ? (language === 'ar' ? ' — تجريبي' : ' — Demo') : ''}`;
-  $('meta[name="description"]').content = content.event.description[language];
+  document.title = `${brand}${content.demo ? (language === 'ar' ? ' — تجريبي' : ' — Demo') : ''}`;
+  $('meta[name="description"]').content = `${eventFormat({ day: '2-digit', month: '2-digit', year: 'numeric' })} · ${content.venue.name[language]}`;
   const offset = new Intl.DateTimeFormat('en', { timeZone: content.event.timeZone, timeZoneName: 'shortOffset' }).formatToParts(new Date(content.event.start)).find((part) => part.type === 'timeZoneName').value;
   $('[data-i18n="timeZone"]').textContent = `${text('timeZone')} (${offset.replace('GMT', 'UTC')})`;
   const links = calendarLinks(content, language);
