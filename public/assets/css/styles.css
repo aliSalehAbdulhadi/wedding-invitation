@@ -118,6 +118,9 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep, #15231b) 76.
 .calendar-option span { display: flex; flex-direction: column; gap: .3rem; }
 .calendar-option strong { font-size: .85rem; font-weight: 500; }
 .calendar-option small, .modal-footnote { color: var(--muted); font-size: .66rem; line-height: 1.8; }
+.calendar-download { margin-block-start:1rem; font-size:.75rem; }
+.date-card .calendar-more { min-block-size:44px; padding:.3rem .7rem; border:0; background:none; color:var(--cream); font-size:.65rem; text-decoration:underline; text-underline-offset:.3em; }
+.map-alternative { display:inline-flex; align-items:center; min-block-size:44px; padding:.35rem .5rem; color:var(--muted); font-size:.68rem; text-underline-offset:.3em; }
 .modal-footnote { margin-block-start: 1rem; }
 #keepsake-form { display: flex; flex-direction: column; margin-block-start: 1.5rem; gap: .4rem; }
 #keepsake-form label { font-size: .8rem; }

@@ -38,6 +38,10 @@
       "en": "Join us at Khayal Hall to celebrate the beginning of our story."
     },
     "mapsUrl": "https://maps.app.goo.gl/6jaVgZaiFFihzx8ZA",
+    "coordinates": {
+      "latitude": 33.3376782,
+      "longitude": 44.4264857
+    },
     "mapLabel": {
       "ar": "قاعة خيال · نادي الضباط · شارع فلسطين",
       "en": "Khayal Hall · Officers’ Club · Palestine Street"

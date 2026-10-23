@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Our Story//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ali-tabarak-2026-11-20@wedding-invitation.local
+DTSTAMP:20261023T214938Z
+DTSTART:20261120T140000Z
+DTEND:20261120T190000Z
+SUMMARY:حفل زفاف علي وتبارك
+LOCATION:قاعة خيال\, نادي الضباط\, شارع فلسطين
+ ، بغداد، العراق
+DESCRIPTION:نحتفل بزفاف علي وتبارك في قاعة خيا
+ ل، نادي الضباط، شارع فلسطين، بغداد. التج
+ مع الساعة ٥ مساءً، ويبدأ الحفل الساعة ٦ م
+ ساءً وينتهي الساعة ١٠ مساءً.\nhttps://maps.app.goo.
+ gl/6jaVgZaiFFihzx8ZA
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

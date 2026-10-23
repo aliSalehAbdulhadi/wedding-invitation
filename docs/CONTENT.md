@@ -14,7 +14,7 @@ The couple confirmed the real details on 23 October 2026, including the year 202
 - Opening feedback: a brief original magical bell chime plays after the envelope is activated.
 - Music: an original generated melody, **off by default** during development. `music.startOnOpen` is false; guests can explicitly opt in.
 - Personalized download: a guest-name modal reveals the invitation in a short magical ceremony, then generates a 1200 × 1600 PNG locally. Closing cancels the pending download; reduced motion skips the ceremony. No guest names are sent or stored.
-- Calendar: Google and Outlook compose links and a downloadable iCalendar file. Real event titles have no demo prefix. Venue subtitles are included in calendar locations and the PNG.
+- Calendar: the main action opens the hosted .ics on Apple devices and Google’s HTTPS event editor elsewhere. Other calendars offers Google, Outlook, the device calendar, and an explicit file download. Both hosted files are generated from content.json with `node scripts/generate-calendar.mjs`; regenerate whenever event facts change. A test rejects stale hosted files. Real event titles have no demo prefix. Venue subtitles are included in calendar locations and the PNG.
 
 ## Narrative and motion
 
@@ -29,3 +29,12 @@ Confirm actual names and their order, the event's time zone and offset, map dest
 Native calendar-app import/save behavior still needs final testing on the chosen iPhone, Android, Mac, and Windows apps before launch. Browser downloads and generated calendar contents are independently verifiable.
 
 The latest creative direction replaces disconnected scene animations with one continuous guide: a paper bird emerging from the opening envelope, traveling through the chapters, and ending at the personal keepsake. Preserve this connected journey when changing layouts.
+
+
+## Device-aware map and calendar links — 24 October 2026
+
+The supplied Google listing resolves to the hall pin at latitude 33.3376782, longitude 44.4264857 (the place marker, not the map camera center). These verified coordinates are stored in venue.coordinates. Apple devices, including iPad desktop mode, prefer an HTTPS Apple Maps pin; other devices retain the exact supplied Google listing. A quiet secondary link always offers the other map provider.
+
+Platform hints select defaults; they do not claim to detect installed apps. HTTPS map links let the operating system open a supported app, with the provider’s website as fallback. Calendar handlers can open a hosted text/calendar file, or download it for import. Google and Outlook web editors and an explicit download remain available. No custom-scheme probing, subscription calendar, account access, or automatic event save is used. Physical iPhone/Android app handoff still needs device verification.
+
+References: [Google Maps app/browser links](https://developers.google.com/maps/documentation/urls/get-started), [Apple Maps links](https://developer.apple.com/documentation/mapkit/unified-map-urls), [Google event compose links](https://developers.google.com/workspace/calendar/api/concepts/inviting-attendees-to-events), [installed-related-app restrictions](https://developer.chrome.com/docs/capabilities/get-installed-related-apps).

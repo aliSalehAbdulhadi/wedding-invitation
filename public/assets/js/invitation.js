@@ -15,6 +15,10 @@ export function validateContent(data) {
   if (data.venue.subtitle !== undefined && !bilingual(data.venue.subtitle)) throw new Error('Invalid venue subtitle');
   const map = new URL(data.venue.mapsUrl);
   if (map.protocol !== 'https:' || !['www.google.com', 'maps.google.com', 'maps.app.goo.gl', 'maps.apple.com', 'goo.gl'].includes(map.hostname) || map.username || map.password) throw new Error('Use a secure Google Maps or Apple Maps link');
+  if (data.venue.coordinates !== undefined) {
+    const { latitude, longitude } = data.venue.coordinates || {};
+    if (!Number.isFinite(latitude) || Math.abs(latitude) > 90 || !Number.isFinite(longitude) || Math.abs(longitude) > 180) throw new Error('Invalid venue coordinates');
+  }
   if (!Array.isArray(data.schedule) || data.schedule.length > 12 || !data.schedule.every((item) => /^([01]\d|2[0-3]):[0-5]\d$/.test(item.time) && bilingual(item.title) && bilingual(item.note))) throw new Error('Invalid schedule');
   if (!['invitation', 'quote', 'closing'].every((key) => bilingual(data.copy?.[key]))) throw new Error('Invalid invitation copy');
   return data;
@@ -69,11 +73,26 @@ export function calendarLinks(data, language = 'ar') {
   const title = eventTitle(data, language);
   const location = [data.venue.name[language], data.venue.subtitle?.[language], data.venue.address[language]].filter(Boolean).join(', ');
   const description = `${data.event.description[language]}\n${data.venue.mapsUrl}`;
-  const google = new URL('https://calendar.google.com/calendar/render');
-  google.search = new URLSearchParams({ action: 'TEMPLATE', text: title, dates: `${utcCalendarDate(data.event.start)}/${utcCalendarDate(data.event.end)}`, details: description, location, ctz: data.event.timeZone }).toString();
+  const google = new URL('https://calendar.google.com/calendar/r/eventedit');
+  google.search = new URLSearchParams({ action: 'TEMPLATE', text: title, dates: `${utcCalendarDate(data.event.start)}/${utcCalendarDate(data.event.end)}`, details: description, location, ctz: data.event.timeZone, stz: data.event.timeZone, etz: data.event.timeZone }).toString();
   const outlook = new URL('https://outlook.live.com/calendar/0/deeplink/compose');
   outlook.search = new URLSearchParams({ path: '/calendar/action/compose', rru: 'addevent', subject: title, startdt: new Date(data.event.start).toISOString(), enddt: new Date(data.event.end).toISOString(), body: description, location }).toString();
   return { google: google.href, outlook: outlook.href };
+}
+
+// Platform hints choose a useful default; websites cannot enumerate unrelated installed apps.
+export function preferredApps(device = {}) {
+  const apple = /iPhone|iPad|iPod|Mac/i.test(`${device.userAgentData?.platform || ''} ${device.platform || ''} ${device.userAgent || ''}`);
+  return { maps: apple ? 'apple' : 'google', calendar: apple ? 'device' : 'google' };
+}
+
+export function mapLinks(data, language = 'ar') {
+  const apple = new URL('https://maps.apple.com/');
+  const label = [data.venue.name[language], data.venue.subtitle?.[language]].filter(Boolean).join(' · ');
+  const point = data.venue.coordinates;
+  apple.searchParams.set('q', point ? label : `${label}, ${data.venue.address[language]}`);
+  if (point) apple.searchParams.set('ll', `${point.latitude},${point.longitude}`);
+  return { apple: apple.href, google: data.venue.mapsUrl };
 }
 
 export function cleanGuestName(value) {
