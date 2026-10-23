@@ -124,7 +124,7 @@ export function advanceBirdWake(wake, point, now) {
     p.vx *= Math.exp(-dt * 1.4);
     p.vy *= Math.exp(-dt * 1.4);
   }
-  if (speed > 18 && now - wake.emittedAt >= 45 && wake.particles.length < 32) {
+  if (speed > 18 && now - wake.emittedAt >= 65 && wake.particles.length < 20) {
     const angle = Math.atan2(dy, dx);
     const side = (Math.random() - .5) * 12;
     wake.particles.push({

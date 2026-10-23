@@ -109,3 +109,21 @@ Live Vercel verification (23 October 2026):
 - Opened the real live URL without a Vercel login gate, completed the envelope opening, inspected Arabic at 551px and English at 1280px, and generated a guest keepsake through the real form. Its completed PNG preview reported 1200 x 1600. The original submit action hid after success.
 - Page client/scroll widths matched at 536/536 and 1265/1265. The developer color control was absent on the public host and the configured olive palette was active. Music remained off; no browser warnings/errors captured. Existing noindex behavior was preserved.
 - OS reduced motion, 200% zoom, physical phones and native save/import sheets were not exercised in this hosted check. No calendar event was saved and no new app features were added.
+
+
+## Chrome rendering performance pass — 24 October 2026
+
+Reviewed commits c847098 and 710866a and preserved their startup, font compression, font cache headers, scroll restoration and backdrop compatibility fixes. The new pass targets continuous rendering, not event content.
+
+Measured the current and optimized sources in isolated Google Chrome through the official Chrome DevTools CLI. Settings were 551 x 884 CSS pixels, DPR 2, mobile/touch, and 4x CPU slowdown. A temporary local-only harness ran the same six-second sinusoidal scroll in each scene. Fresh pages and delayed automatic runs avoided the DevTools click helper's DOM-stability observers; the profiler itself still adds overhead. Background music was not enabled. These are single lab samples, not real-device FPS guarantees or Core Web Vitals scores.
+
+- Venue: 127 to 245 frame samples; median interval 41.8 to 20.9ms; p95 76.5 to 48.5ms; frames over 50ms 34 to 9. Long tasks fell from 30 / 2008ms total to 7 / 578ms. Scene rectangle reads fell from 288 to 112. Running animations at the end fell from 32 to 14.
+- Dance: 91 to 251 frame samples; median interval 69.5 to 20.9ms; p95 83.5 to 41.6ms; frames over 50ms 82 to 5. Long tasks fell from 80 / 5361ms total to 5 / 320ms. Scene rectangle reads fell from 288 to 32. Running animations at the end fell from 46 to 10.
+- Generated stars fell from 168 to 83 and motes from 60 to 30 at this viewport. Most stars remain still, so animated-element count falls further than the DOM count alone suggests.
+- Raw Chrome traces, screenshots and JSON metrics are retained locally under the task workspace's artifacts/chrome-auto-{current,optimized}-{venue,dance} files. The temporary server, probe, CLI runner and conversion tools are outside public/ and outside the repository. They are not deployed.
+
+Functional checks: delayed content loading kept the opaque envelope in front; a three-second delay produced zero sampled frames exposing the body before the opening dialog. Deliberate HTTP 503 returned to readable Arabic event details, and a page with scripts removed kept its map link and confirmed data. Keyboard Enter opened the invitation; reload from a lower section returned to the envelope at scroll position zero. Arabic typing, the bird's writing response, local PNG generation, hidden completed submit action, Escape close and English switching all worked without captured application warnings/errors in the manual flow.
+
+Chrome reduced-motion emulation at 320px and 1280px showed zero running animations, a hidden flight layer, figure opacity 1, and no horizontal overflow. The 551px gateway and finished couple were visually inspected. Native browser zoom shortcuts did not change headless Chrome's zoom, so actual 200% browser zoom remains unverified. Physical-phone, Safari and Firefox testing remain unperformed.
+
+Static HTML/assets check: 73 references pass. JavaScript syntax checks pass. All 16 Node tests pass, including the bounded canvas wake and existing startup/calendar/name/theme/physics coverage. Event facts, local-only guest names, noindex settings, optional music, the door opening, one-time dance entrance and bird encounters are preserved.

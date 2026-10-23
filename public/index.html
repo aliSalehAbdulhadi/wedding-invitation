@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ar" dir="rtl" class="no-js">
 <head>
   <meta charset="utf-8">
@@ -9,7 +9,7 @@
   <title>علي وتبارك | تبدأ الحكاية</title>
   <style>html.opening-pending { background:#25261f; } html.opening-pending body { visibility:hidden; }</style>
   <script>
-    // Every visit begins at the envelope, so never let the browser jump (or smooth-scroll) back to an old position.
+    // Every visit starts on the envelope, including reloads from a scrolled section.
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     // Hold the first paint until the envelope is in the top layer; no-JS stays readable.
     if (/^https?:$/.test(location.protocol) && 'HTMLDialogElement' in window) {
@@ -19,6 +19,7 @@
         release() { clearTimeout(this.timer); document.documentElement.classList.remove('opening-pending'); },
         fail() {
           this.failed=true; this.release();
+          document.documentElement.classList.remove('dialog-open');
           document.documentElement.classList.replace('js','no-js');
           document.body?.classList.remove('motion-ready');
           document.getElementById('opening-dialog')?.close();
@@ -29,12 +30,12 @@
   </script>
   <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg">
   <link rel="preload" href="./assets/fonts/font-01.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="modulepreload" href="./assets/js/main.js?v=20261023-25">
-  <link rel="stylesheet" href="./assets/fonts/fonts.css?v=20261023-25">
-  <link rel="stylesheet" href="./assets/css/styles.css?v=20261023-25">
-  <link rel="stylesheet" href="./assets/css/themes.css?v=20261023-25">
-  <link rel="stylesheet" href="./assets/css/enchanted.css?v=20261023-25">
-  <script defer src="./assets/js/preview.js?v=20261023-25"></script>
+  <link rel="modulepreload" href="./assets/js/main.js?v=20261024-1">
+  <link rel="stylesheet" href="./assets/fonts/fonts.css?v=20261024-1">
+  <link rel="stylesheet" href="./assets/css/styles.css?v=20261024-1">
+  <link rel="stylesheet" href="./assets/css/themes.css?v=20261024-1">
+  <link rel="stylesheet" href="./assets/css/enchanted.css?v=20261024-1">
+  <script defer src="./assets/js/preview.js?v=20261024-1"></script>
 </head>
 <body>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -172,20 +173,17 @@
     <div class="chapter-inner keepsake-inner">
       <header class="keepsake-head"><p class="eyebrow rise" data-i18n="keepsakeEyebrow">وهذا الفصل، لك</p><h2 id="keepsake-title" class="split" data-i18n="keepsakeTitle">دعوة تحمل اسمك.</h2></header>
       <div class="keepsake-stage">
-        <div class="dance-hall bird-playpoint" data-bird-space data-bird-visit="couple" data-tilt aria-hidden="true">
-          <svg class="couple-dance" viewBox="0 0 480 540" focusable="false" aria-hidden="true">
+        <div class="dance-hall bird-playpoint" data-bird-space data-bird-visit="couple" aria-hidden="true">
+          <svg class="dance-scenery" viewBox="0 0 480 540" focusable="false" aria-hidden="true">
             <defs>
               <radialGradient id="stage-haze"><stop stop-color="var(--night)" stop-opacity=".9"/><stop offset=".25" stop-color="var(--night)" stop-opacity=".8"/><stop offset=".5" stop-color="var(--night)" stop-opacity=".5"/><stop offset=".75" stop-color="var(--night)" stop-opacity=".16"/><stop offset="1" stop-color="var(--night)" stop-opacity="0"/></radialGradient>
               <linearGradient id="stage-beam" x1="0" y1="0" x2="0" y2="1"><stop stop-color="var(--glow)" stop-opacity=".7"/><stop offset=".4" stop-color="var(--glow)" stop-opacity=".15"/><stop offset="1" stop-color="var(--glow)" stop-opacity="0"/></linearGradient>
               <radialGradient id="stage-pool"><stop stop-color="var(--glow)" stop-opacity=".25"/><stop offset="1" stop-color="var(--glow)" stop-opacity="0"/></radialGradient>
               <linearGradient id="silhouette-ink" gradientUnits="userSpaceOnUse" x1="-100" y1="-320" x2="170" y2="20"><stop stop-color="var(--night-deep)"/><stop offset="1" stop-color="var(--night)"/></linearGradient>
               <linearGradient id="silhouette-rim"><stop stop-color="var(--glow)" stop-opacity=".75"/><stop offset="1" stop-color="var(--glow)" stop-opacity="0"/></linearGradient>
-              <filter id="light-soften" x="-40%" y="-10%" width="180%" height="130%"><feGaussianBlur stdDeviation="8"/></filter>
             </defs>
             <ellipse cx="240" cy="285" rx="239" ry="253" fill="url(#stage-haze)"/>
             <g class="stage-light">
-              <path d="M237 15 111 459Q240 491 369 459L243 15Z" fill="url(#stage-beam)" filter="url(#light-soften)"/>
-              <path d="M238 26 174 457H306L242 26Z" fill="url(#stage-beam)" opacity=".3"/>
               <ellipse cx="240" cy="454" rx="155" ry="28" fill="url(#stage-pool)"/>
             </g>
             <g class="stage-dust" fill="var(--glow)">
@@ -193,6 +191,12 @@
             </g>
             <ellipse class="waltz-orbit" cx="240" cy="452" rx="122" ry="18" pathLength="1"/>
             <ellipse class="dance-shadow" cx="242" cy="449" rx="89" ry="9" fill="var(--night-deep)" opacity=".35"/>
+          </svg>
+          <svg class="dance-effects" viewBox="0 0 480 540" aria-hidden="true"><path class="dance-turn-trace" pathLength="1" d="M122 433C101 393 172 368 269 381S401 431 341 452Q285 470 226 456"/>
+            <path class="couple-heart" pathLength="1" d="M240 151C211 130 192 109 206 95S234 88 240 101C247 88 266 80 277 95S270 130 240 151Z"/>
+            <path class="stage-thread" d="M154 486Q240 501 326 486"/></svg>
+          <div class="dance-beam" aria-hidden="true"></div>
+          <div class="dance-motion"><div class="dance-turn"><svg class="couple-dance" viewBox="0 0 480 540" focusable="false" aria-hidden="true">
             <g transform="translate(240 446)"><g class="pair-sway"><g class="pair-turn" id="hall-pair"><g class="pair-orbit"><g class="pair-depth"><g class="pair-bob">
               <!-- Original fairytale profiles, a sweeping ball gown and a prince's tailcoat. The parts move on a slow waltz. -->
               <!-- Groom: tailcoat, stepping leg and an arm that cradles the bride's waist. -->
@@ -209,8 +213,6 @@
               <!-- Bride: a sheer veil, a flaring gown and a hand that rests on his chest. -->
               <path class="silhouette-veil veil-sheer" d="M51-268C83-278 99-248 105-218C112-182 142-158 168-146C130-150 99-170 86-204C77-230 74-250 53-254Z"/>
               <path class="silhouette-veil" d="M51-268C77-271 87-245 91-221C96-194 117-166 137-150C111-158 91-182 81-206C72-225 71-249 53-253Z"/>
-              <path class="silhouette hem-flare hem-flare--a" d="M-38-6C-10 13 30 17 66 12C104 8 134 0 157-14C147 10 112 22 70 24C28 26-12 19-38-6Z"/>
-              <path class="silhouette hem-flare hem-flare--b" d="M58 8C96 6 132-8 154-26C165-8 152 8 126 15C102 21 78 17 58 8Z"/>
               <path class="silhouette bride-skirt" d="M44-246 54-239Q63-227 59-212L50-181C55-152 93-135 107-105C126-74 129-46 154-13C121 1 96 8 61 5C24 12-9 6-40-7C-15-27-19-65-1-103C14-134 30-151 28-181L28-183 23-213Q21-230 31-241L35-251 35-257Z"/>
               <path class="silhouette princess-profile bride-head" d="M29-283C31-291 44-294 52-286Q58-280 53-267Q50-261 44-259L44-246 34-246 35-257Q28-258 27-262L29-265Q24-266 27-270L23-272Q22-274 28-278Z"/>
               <path class="silhouette-edge bride-head" d="M29-281Q34-288 42-287M30-274l3 1M30-263q3 2 6 1"/>
@@ -222,10 +224,7 @@
               <path class="silhouette-edge bride-skirt" d="M31-240Q25-230 26-217M54-239Q64-229 59-212M50-181Q56-153 79-120M122-44Q134-21 154-11Q101 6 54 2"/>
               <path class="silhouette-fold bride-skirt" d="M35-174Q27-75-12-10M42-169Q49-83 65-1M51-166Q78-85 124-15M21-145Q46-129 63-144"/>
             </g></g></g></g></g></g>
-            <path class="dance-turn-trace" pathLength="1" d="M122 433C101 393 172 368 269 381S401 431 341 452Q285 470 226 456"/>
-            <path class="couple-heart" pathLength="1" d="M240 151C211 130 192 109 206 95S234 88 240 101C247 88 266 80 277 95S270 130 240 151Z"/>
-            <path class="stage-thread" d="M154 486Q240 501 326 486"/>
-          </svg>
+          </svg></div></div>
         </div>
         <div class="keepsake-dedication">
           <div class="mini-invitation" data-bird-space>
@@ -253,7 +252,7 @@
 </main>
 <footer class="site-footer"><span data-i18n="footer">صُنعت بحب، لتُحفظ في القلب.</span><a href="#invitation" class="back-top"><span data-i18n="backTop">إلى البداية</span><span aria-hidden="true">↑</span></a></footer>
 <button class="music-toggle js-only" id="music-toggle" type="button" aria-pressed="false" aria-label="تشغيل الموسيقى"><span class="music-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="music-label" data-i18n="music">الموسيقى</span><span class="music-state" id="music-state">متوقفة</span></button>
-<div class="story-flight" id="story-flight" popover="manual" aria-hidden="true"><svg class="flight-canvas" id="flight-canvas" preserveAspectRatio="none"><g id="flight-wake"></g></svg><span class="flight-light" id="flight-light"></span><span class="writing-glint" id="writing-glint" hidden></span></div>
+<div class="story-flight" id="story-flight" popover="manual" aria-hidden="true"><canvas class="flight-canvas" id="flight-canvas" width="512" height="512" hidden></canvas><span class="flight-light" id="flight-light"></span><span class="writing-glint" id="writing-glint" hidden></span></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <noscript><p class="noscript-note">الدعوة متاحة للقراءة. لتغيير اللغة أو إنشاء بطاقة باسمك، يرجى تفعيل JavaScript. / Enable JavaScript for English, calendar options, music, and personalized downloads.</p></noscript>
 

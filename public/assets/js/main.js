@@ -1,6 +1,7 @@
-﻿import { playOpeningChime } from './opening-sound.js';
+import { drawBirdWake } from './bird-wake.js?v=20261024-1';
+import { playOpeningChime } from './opening-sound.js';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
-import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261023-25';
+import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-1';
 
 import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261023-3';
 
@@ -230,7 +231,12 @@ function showDialog(dialog) {
   if (dialog.id!=='keepsake-dialog') keepsakeExportController?.abort();
   dialog.classList.remove('is-closing');
   dialog.showModal();
+  syncDialogState();
   visitBirdDialog(dialog);
+}
+function syncDialogState() {
+  document.documentElement.classList.toggle('dialog-open',Boolean($('dialog[open]')));
+  document.body.classList.toggle('scene-covered',Boolean($('.modal[open]')));
 }
 
 function downloadBlob(blob, filename, keepUrl = false) {
@@ -372,12 +378,15 @@ function initializeScenes() {
   window.visualViewport?.addEventListener('resize',requestSceneFrame);
   window.visualViewport?.addEventListener('scroll',requestSceneFrame);
   if ('ResizeObserver' in window) new ResizeObserver(requestSceneFrame).observe($('#main'));
+  $('#main').addEventListener('transitionend', event => {
+    if (['transform','translate','scale'].includes(event.propertyName)) requestSceneFrame();
+  });
   requestSceneFrame();
 }
 
 // Chapter atmosphere stays live on screen; each foreground scene waits for its own arrival.
 function initializeChapters() {
-  const chapters = $$('[data-chapter]');
+  const chapters = $$('[data-chapter],.hero');
   const arrivals = $$('.chapter .rise, .chapter .split, .story-art, .ring-universe, .date-card, .timeline, .quote-text, .location-art, .location-copy, .dance-hall, .mini-invitation, .keepsake-copy, .closing-rings, .jasmine-garden');
   const revealAll = () => {
     for (const chapter of chapters) chapter.classList.add('is-awake', 'is-live');
@@ -415,7 +424,7 @@ function populateAtmosphere() {
   const random = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
   for (const box of $$('[data-stars]')) {
     const host = box.parentElement;
-    const count = Math.round(bounded(host.clientWidth * host.clientHeight / 8500, 45, 160));
+    const count = Math.round(bounded(host.clientWidth * host.clientHeight / 18000, 24, 72));
     const fragment = document.createDocumentFragment();
     for (let index = 0; index < count; index++) {
       const x = random() * 100;
@@ -428,7 +437,7 @@ function populateAtmosphere() {
     box.append(fragment);
   }
   for (const box of $$('[data-motes]')) {
-    for (let index = 0; index < Number(box.dataset.motes); index++) {
+    for (let index = 0; index < Math.ceil(Number(box.dataset.motes) / 2); index++) {
       box.append(chapterEl('span', 'mote', {
         '--x': `${(random() * 100).toFixed(1)}%`, '--y': `${(25 + random() * 75).toFixed(1)}%`, '--s': `${(2 + random() * 3).toFixed(1)}px`,
         '--t': `${(9 + random() * 9).toFixed(1)}s`, '--d': `${(-random() * 16).toFixed(1)}s`,
@@ -462,7 +471,7 @@ function initializeInteractions() {
     let point;
     let frame = 0;
     target.addEventListener('pointermove', (event) => {
-      if (motion.matches) return;
+      if (motion.matches || event.pointerType === 'touch') return;
       point = event;
       if (frame) return;
       frame = requestAnimationFrame(() => {
@@ -539,16 +548,15 @@ function initializeInteractions() {
 let flightHasStarted = false;
 let entranceFlight = false;
 const birdWake = { previous: null, emittedAt: 0, particles: [] };
-let wakeMarks = [];
-const flightStops = ['.hero-divider svg', '.ring-universe', '.date-card', '.quote-star', '.location-art', '.couple-dance', '.keepsake-stage .mini-star', '.closing-rings'];
+let wakePaintedAt = 0;
+const wakeCanvas = $('#flight-canvas');
+const flightStops = ['.hero-divider svg', '.ring-universe', '.date-card', '.quote-star', '.location-art', '.dance-hall', '.keepsake-stage .mini-star', '.closing-rings'];
 // Where the bird likes to hover beside each stop, in pixels from its centre (smaller on phones).
 const flightPerches = [[30, -12], [190, -150], [200, -190], [70, -46], [170, -230], [150, -105], [62, -40], [95, -60]];
 
 function readFlightWaypoints() {
   if (!flightHasStarted) return null;
-  // Reuse measurements between layout changes, but refresh a few times a second so the bird
-  // still tracks scenes that are settling into place with entrance transforms.
-  if (flightGeometry && !sceneLayoutDirty && performance.now() - flightGeometry.at < 300) return { ...flightGeometry, scroll:scrollY, width:innerWidth, height:innerHeight };
+  if (flightGeometry && !sceneLayoutDirty) return { ...flightGeometry, scroll:scrollY, width:innerWidth, height:innerHeight };
   const positions = flightStops.map((selector) => {
     const element = $(selector);
     const rect = element.getBoundingClientRect();
@@ -559,7 +567,7 @@ function readFlightWaypoints() {
     const rect=space.getBoundingClientRect();
     return {element,kind:element.dataset.birdVisit,space,left:rect.left,top:rect.top+scrollY,width:rect.width,height:rect.height};
   });
-  flightGeometry = { positions, visits, at: performance.now() };
+  flightGeometry = { positions, visits };
   return { ...flightGeometry, scroll: scrollY, width: innerWidth, height: innerHeight };
 }
 function placeBird(x, y, rotation = 0, scale = 1, facing = 1) {
@@ -574,19 +582,11 @@ function placeBird(x, y, rotation = 0, scale = 1, facing = 1) {
 }
 function paintBirdWake(x, y) {
   const now = performance.now();
+  // The bird stays smooth; its short-lived ink trail only needs 30 updates per second.
+  if (now - wakePaintedAt < 32) return;
+  wakePaintedAt = now;
   const particles = advanceBirdWake(birdWake, { x, y }, now);
-  const canvas = $('#flight-canvas');
-  const viewBox = `0 0 ${innerWidth} ${innerHeight}`;
-  if (canvas.getAttribute('viewBox') !== viewBox) canvas.setAttribute('viewBox',viewBox);
-  wakeMarks.forEach((mark, index) => {
-    const p = particles[index];
-    if (!p) { if (mark.style.opacity !== '0') mark.style.opacity = '0'; return; }
-    const age = (now - p.born) / p.life;
-    const opacity = Math.min(1, age / .12) * Math.pow(1 - age, 1.7);
-    mark.setAttribute('d', p.glint ? 'M -2 0 L 2 0 M 0 -2 L 0 2' : `M ${-p.size / 2} 0 Q 0 -2 ${p.size / 2} 0`);
-    mark.setAttribute('transform', `translate(${p.x} ${p.y}) rotate(${p.glint ? 45 : p.angle}) scale(${1 + age * .45})`);
-    mark.style.opacity = String(opacity * (p.glint ? .65 : .48));
-  });
+  drawBirdWake(wakeCanvas,particles,now,getActiveTheme().colors.gold,devicePixelRatio);
 }
 function updateStoryFlight(reading) {
   if (!reading || entranceFlight || motion.matches) return;
@@ -612,11 +612,6 @@ function beginStoryFlight() {
   if (typeof layer.showPopover === 'function') layer.showPopover();
   else layer.classList.add('flight-fallback-open');
   flightHasStarted = true; entranceFlight = true;
-  wakeMarks = Array.from({ length: 32 }, () => {
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.classList.add('flight-wisp'); path.style.opacity = '0';
-    $('#flight-wake').append(path); return path;
-  });
   const control1 = { x: start.x + Math.min(200, innerWidth * .25), y: Math.max(55, start.y - 220) };
   const control2 = { x: target.x - Math.min(180, innerWidth * .22), y: Math.max(80, target.y - 170) };
   const began = performance.now();
@@ -646,6 +641,7 @@ let birdBody = null;
 let birdDestination = null;
 let birdRaf = 0;
 let birdLastFrame = 0;
+const birdFrameInterval = matchMedia('(pointer:coarse)').matches ? 32 : 15;
 let birdLastScrollAt = 0;
 let birdLastMeasurement = 0;
 let birdPreviousScroll = 0;
@@ -884,6 +880,10 @@ function startBirdHeartbeat() {
 function animateLivingBird(now) {
   birdRaf = 0;
   if (!birdDestination || !birdBody || motion.matches || document.hidden) return;
+  if (now-birdLastFrame < birdFrameInterval) {
+    birdRaf=requestAnimationFrame(animateLivingBird);
+    return;
+  }
   const dt = bounded((now - birdLastFrame) / 1000, .001, .033);
   birdLastFrame = now;
   const idle = now - birdLastScrollAt;
@@ -1012,11 +1012,13 @@ function playKeepsakeRitual(name,signal) {
   });
 }
 function initialize() {
+  document.documentElement.classList.toggle('is-page-hidden',document.hidden);
   initializeThemePreview(content, showDialog);
   document.documentElement.classList.replace('no-js', 'js');
   renderLanguage('ar');
   for (const button of $$('[data-language-toggle]')) button.addEventListener('click', () => renderLanguage(language === 'ar' ? 'en' : 'ar'));
   const opening = $('#opening-dialog');
+  opening.addEventListener('close',syncDialogState);
   let pointer;
   let pointerFrame = 0;
   opening.addEventListener('pointermove', (event) => {
@@ -1040,7 +1042,7 @@ function initialize() {
     else if (musicIntent) void startMusic();
   });
   for (const dialog of $$('.modal')) {
-    dialog.addEventListener('close', () => { if(dialog.id==='keepsake-dialog') keepsakeExportController?.abort(); leaveBirdDialog(dialog); });
+    dialog.addEventListener('close', () => { syncDialogState(); if(dialog.id==='keepsake-dialog') keepsakeExportController?.abort(); leaveBirdDialog(dialog); });
     dialog.addEventListener('scroll', requestSceneFrame, { passive: true });
     dialog.querySelector('[data-close-dialog]').addEventListener('click', () => closeDialog(dialog));
     dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeDialog(dialog); });
@@ -1103,6 +1105,7 @@ function initialize() {
   initializeScenes();
   document.fonts.ready.then(requestSceneFrame);
   if (!opening.open) opening.showModal();
+  syncDialogState();
   $('#open-invitation').disabled = false;
   $('#open-alternative').disabled = false;
   opening.querySelector('[data-language-toggle]').disabled = false;

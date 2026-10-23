@@ -102,7 +102,7 @@ h3 { font-size: 1.1rem; font-weight: 400; }
 .music-bars i:nth-child(4) { animation-delay: -.2s !important; }
 .toast { position: fixed; z-index: 40; inset-block-end: 5.5rem; inset-inline: 1rem; max-inline-size: 420px; margin-inline: auto; padding: .8rem 1.2rem; background: var(--ink); color: var(--white); border-radius: 3px; font-size: .8rem; text-align: center; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .25s, transform .25s; }
 .toast.is-visible { opacity: 1; transform: none; }
-html: has(dialog[open]) { overflow: hidden; }
+html.dialog-open { overflow: hidden; }
 dialog { color: var(--ink); font-family: var(--body); }
 dialog::backdrop { background: color-mix(in srgb, var(--night-deep, #15231b) 76.08%, transparent); backdrop-filter: blur(5px); }
 .modal { inline-size: min(94vw, 520px); max-block-size: calc(100dvh - 2rem); overflow-y: auto; padding: clamp(1.5rem, 5vw, 2.5rem); border: 1px solid var(--soft); background: var(--paper); border-radius: 3px; }
@@ -130,9 +130,9 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep, #15231b) 76.
 #download-preview { inline-size: 210px; block-size: auto; margin-inline: auto; border: 1px solid var(--line); }
 .download-result .text-button { margin-block-start: .7rem; }
 .opening-dialog { --fr: clamp(10px, 1.8vw, 22px); position: fixed; inset: 0; inline-size: 100%; max-inline-size: none; block-size: 100%; block-size: 100dvh; max-block-size: none; margin: 0; padding: 2.2rem var(--gutter); overflow-y: auto; border: 0; color: var(--cream); background: radial-gradient(ellipse 80% 62% at 50% 46%, var(--night) 0%, var(--night) 50%, var(--night-deep) 100%); }
-.opening-dialog[open] { display: flex; flex-direction: column; justify-content: space-between; animation: opening-in 1s ease both; }
+.opening-dialog[open] { display: flex; flex-direction: column; justify-content: space-between; animation: none; }
 /* Older mobile browsers do not pass :root custom properties into ::backdrop; the literal keeps the page hidden behind the envelope while it fades in. */
-.opening-dialog::backdrop { background: var(--night-deep, #15231b); }
+.opening-dialog::backdrop { background: var(--night-deep, #15231b); backdrop-filter:none; }
 .opening-top, .opening-bottom { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; position: relative; z-index: 1; font-size: .72rem; color: var(--soft); animation: fade-in 1.4s 1.7s both; }
 .opening-top { animation-delay: .3s; }
 .language-button--light { border-color: var(--muted); color: var(--cream); }
@@ -200,11 +200,11 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep, #15231b) 76.
 @keyframes branch-sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg) translateY(-6px); } }
 @keyframes music-bar { to { block-size: 18px; } }
 @keyframes scroll-line { 0% { transform: translateY(-100%); } 70%, 100% { transform: translateY(100%); } }
-@keyframes hero-in { from { opacity: 0; transform: translateY(22px); filter: blur(3px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes hero-in { from { opacity: 0; transform: translateY(22px); filter: none; } to { opacity: 1; transform: none; filter: blur(0); } }
 @keyframes opening-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes opening-out { 0%, 55% { opacity: 1; transform: none; } 100% { opacity: 0; transform: scale(1.05); } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes rise-in { from { opacity: 0; transform: translateY(26px); filter: blur(6px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(26px); filter: none; } to { opacity: 1; transform: none; filter: blur(0); } }
 @keyframes stage-in { from { opacity: 0; transform: translateY(70px) scale(.9) rotate(-2.5deg); } to { opacity: 1; transform: none; } }
 @keyframes title-shimmer { 0%, 50% { background-position: 100% 0; } 100% { background-position: 0 0; } }
 @keyframes line-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }

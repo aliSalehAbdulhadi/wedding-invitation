@@ -1,4 +1,4 @@
-if (location.protocol === 'file:') {
+﻿if (location.protocol === 'file:') {
   const note = document.createElement('aside');
   note.className = 'local-preview-notice';
   note.setAttribute('aria-label', 'Local preview / المعاينة المحلية');
@@ -23,10 +23,11 @@ if (location.protocol === 'file:') {
       opening.addEventListener('cancel', event => {
         if (document.getElementById('open-invitation').disabled) event.preventDefault();
       });
-      scrollTo({ top: 0, behavior: 'instant' });
+      scrollTo({top:0,behavior:'instant'});
+      document.documentElement.classList.add('dialog-open');
       opening.showModal();
       document.documentElement.classList.remove('opening-pending');
-      import('./main.js?v=20261023-25').catch(() => startup?.fail());
+      import('./main.js?v=20261024-1').catch(() => startup?.fail());
     } catch { startup?.fail(); }
   }
 }

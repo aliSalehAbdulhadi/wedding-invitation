@@ -25,7 +25,7 @@
 [data-bird-moment='date'] .date-lure svg { animation:bird-star-chase 2.5s var(--ease); }
 [data-bird-moment='blossom'] .blossom-lure svg { animation:bird-flower-tickle 1.6s ease-in-out; }
 [data-bird-moment='couple'] .couple-heart { animation:bird-draw-heart 3.1s ease both; }
-[data-bird-moment='couple'] .stage-light { filter:brightness(1.2); }
+[data-bird-moment='couple'] .stage-light { opacity:1; }
 [data-bird-moment='letter'] .mini-star { animation:bird-friend-bow 2s ease-in-out; }
 [data-bird-moment='closing'] .closing-rings { animation:bird-friend-bow 2s ease-in-out; }
 .story-flight .is-bowing svg { animation:bird-friend-bow 1.6s ease-in-out; }
@@ -176,7 +176,7 @@
 
 /* Arrive while the guest is still moving, then settle into a readable composition. */
 .rise { opacity:1; translate:0; filter:none; transition:opacity 1.2s cubic-bezier(.4,0,.2,1) min(var(--d,0s),.2s),translate 1.25s var(--ease) min(var(--d,0s),.2s),filter 1.2s ease min(var(--d,0s),.2s); }
-.motion-ready .rise:not(.has-arrived) { opacity:.04; translate:0 8px; filter:blur(.6px); }
+.motion-ready .rise:not(.has-arrived) { opacity:.04; translate:0 8px; filter:none; }
 .split .word { overflow:visible; }
 .split .word > span { opacity:1; translate:0; transition:opacity 1.25s cubic-bezier(.4,0,.2,1) calc(var(--w,0) * 25ms),translate 1.3s var(--ease) calc(var(--w,0) * 25ms); }
 .motion-ready .split:not(.has-arrived) .word > span { opacity:.04; translate:0 .14em; }
@@ -258,8 +258,8 @@
 @keyframes magic-edge { 0% { --magic-edge-angle:-90deg; opacity:0; } 12% { opacity:1; } 80% { opacity:1; } 100% { --magic-edge-angle:270deg; opacity:0; } }
 
 /* One shared turn keeps the silhouettes, dress and veil attached to each other. */
-.pair-turn { transform-box:fill-box; transform-origin:50% 96%; transition:none; }
-.motion-ready .dance-hall.has-arrived .pair-turn { animation:couple-twirl-in 2.8s cubic-bezier(.22,.61,.36,1) both; }
+.dance-turn { block-size:100%; transform-origin:56.5% 83%; transition:none; }
+.motion-ready .dance-hall.has-arrived .dance-turn { animation:couple-twirl-in 2.8s cubic-bezier(.22,.61,.36,1) both; }
 .dance-turn-trace { fill:none; stroke:var(--gold); stroke-width:.9; stroke-linecap:round; stroke-dasharray:.18 .82; opacity:0; }
 .motion-ready .dance-hall.has-arrived .dance-turn-trace { animation:dance-turn-light 2.8s ease-out both; }
 @keyframes couple-twirl-in {
@@ -267,7 +267,7 @@
   32% { opacity:.85; translate:7px -2px; transform:perspective(850px) rotateY(-168deg) rotateZ(2deg) scale(.97); }
   65% { opacity:1; translate:-3px 0; transform:perspective(850px) rotateY(-32deg) rotateZ(-1deg) scale(1.01); }
   84% { opacity:1; translate:1px 0; transform:perspective(850px) rotateY(6deg) rotateZ(.4deg) scale(1); }
-  100% { opacity:1; translate:0; transform:perspective(1600px) rotateY(0deg) rotateZ(0deg) scale(1); }
+  100% { opacity:1; translate:0; transform:none; }
 }
 @keyframes dance-turn-light { 0% { opacity:0; stroke-dashoffset:1; } 28% { opacity:.6; } 72% { opacity:.45; } 100% { opacity:0; stroke-dashoffset:0; } }
 
@@ -354,7 +354,7 @@
 .arrival-interior { position:absolute; inset:5% 7.5% 6%; border-radius:50% 50% 0 0 / 35% 35% 0 0; overflow:hidden; background:linear-gradient(180deg,var(--white),var(--paper) 85%); box-shadow:inset 0 0 50px color-mix(in srgb,var(--gold) 8%,transparent),0 24px 48px color-mix(in srgb,var(--ink) 6%,transparent); }
 .arrival-lumen { position:absolute; inset:-30%; background:radial-gradient(ellipse at 45% 20%,color-mix(in srgb,var(--glow) 34%,transparent),transparent 55%); animation:arrival-light-breathe 8s ease-in-out infinite alternate; }
 .arrival-door { position:absolute; z-index:1; top:5%; bottom:6%; inline-size:42.5%; transition:transform 1.8s cubic-bezier(.4,0,.18,1) .12s; backface-visibility:visible; }
-.arrival-door-art { display:block; inline-size:100%; block-size:100%; overflow:visible; filter:drop-shadow(0 6px 7px color-mix(in srgb,var(--ink) 7%,transparent)); }
+.arrival-door-art { display:block; inline-size:100%; block-size:100%; overflow:visible; filter:none; }
 .arrival-door-paper { fill:url(#arrival-paper); stroke:var(--gold); stroke-width:.9; }
 .arrival-door-inset { fill:none; stroke:var(--gold); stroke-width:.6; opacity:.42; }
 .arrival-door-handle { fill:none; stroke:var(--gold-ink); stroke-width:1.3; stroke-linecap:round; }
@@ -463,5 +463,55 @@
 .motion-ready .arrival-portal:not(.has-arrived) .arrival-door { transition:none; }
 @media print { .chapter.chapter--story,.chapter.chapter--promise,.chapter.chapter--garden,.chapter.chapter--closing,.chapter.chapter--celebration { padding-block:1.5rem; } }
 
-/* A hidden tab has nothing to show; resume exactly where it left off. */
+/* Separate the still stage lighting from the moving figures. Only the pair's HTML
+   wrapper travels across the floor; hands, heads and veil stay attached. */
+.dance-scenery,.dance-motion,.dance-effects { position:absolute; inset:0; inline-size:100%; block-size:100%; pointer-events:none; }
+.dance-scenery { overflow:visible; }
+.dance-motion { transform-origin:50% 83%; animation:dance-waltz 9s ease-in-out 2.4s infinite; }
+.dance-hall:not(.has-arrived) .dance-motion { animation-play-state:paused; }
+.dance-hall .pair-sway,.dance-hall .pair-orbit,.dance-hall .pair-depth,.dance-hall .pair-bob,
+.dance-hall .hem-flare,.dance-hall .groom-arm,.dance-hall .bride-arm,
+.dance-hall .groom-head,.dance-hall .bride-head,.dance-hall .silhouette-veil,
+.dance-hall .bride-skirt,.dance-hall .groom-step,.dance-hall .groom-tail,
+.dance-hall .dance-shadow,.dance-hall .waltz-orbit,.dance-hall .stage-dust { animation:none; }
+.dance-hall .silhouette-veil { transform:none; }
+.dance-hall .stage-light { animation:none; clip-path:none; transition:opacity 1.6s ease; }
+.motion-ready .dance-hall:not(.has-arrived) .stage-light { clip-path:none; }
+/* Keep the finished haze still: the door swing and bird echo provide the motion. */
+.garden-glow,.arrival-lumen,.arrival-running-light,.arrival-stars { animation:none; }
+.arrival-stars { opacity:.55; }
+.arrival-lumen { opacity:.65; }
+.arrival-running-light { opacity:0; }
+/* Most stars are still points of light; a sparse handful twinkle. */
+.star { animation:none; }
+.star:nth-child(6n) { animation:twinkle var(--td,5s) ease-in-out var(--tw,0s) infinite alternate; }
 .is-page-hidden *,.is-page-hidden *::before,.is-page-hidden *::after { animation-play-state:paused !important; }
+/* Dialogs obscure these scenes; their atmosphere should not keep rendering underneath. */
+.scene-covered .chapter *,.scene-covered .chapter *::before,.scene-covered .chapter *::after {
+  animation-play-state:paused !important;
+}
+@keyframes dance-waltz {
+  0%,100% { transform:translate3d(-12px,0,0) rotate(-.8deg); }
+  50% { transform:translate3d(12px,-4px,0) rotate(.8deg); }
+}
+@media(prefers-reduced-motion:reduce), print {
+  .dance-hall .dance-motion { animation:none; transform:none; }
+}
+
+.dance-beam { position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 13% 80% at 50% 3%,color-mix(in srgb,var(--glow) 70%,transparent),transparent 85%); opacity:.8; transition:opacity 1.6s ease; }
+.motion-ready .dance-hall:not(.has-arrived) .dance-beam { opacity:0; }
+@media(prefers-reduced-motion:reduce), print { .motion-ready .dance-hall .dance-beam { opacity:.8; transition:none; } }
+
+.flight-canvas { inset:0 auto auto 0; inline-size:512px; block-size:512px; max-inline-size:none; }
+.hero:not(.is-live) *,.hero:not(.is-live) *::before,.hero:not(.is-live) *::after { animation-play-state:paused !important; }
+.chapter.is-live .dance-motion { will-change:transform; }
+
+/* The SVG figures are a still image. Both the entrance and waltz transform HTML
+   layers, so moving a hand or an SVG group cannot repaint the whole vignette. */
+.dance-hall .pair-turn { opacity:1; translate:0; transform:none; }
+.motion-ready .dance-hall:not(.has-arrived) .pair-turn { opacity:1; translate:0; }
+.motion-ready .dance-hall:not(.has-arrived) .couple-dance { opacity:1; scale:1; }
+.motion-ready .dance-hall:not(.has-arrived) .dance-turn { opacity:.04; transform:perspective(850px) rotateY(-300deg) rotateZ(-3deg) scale(.9); }
+@media(prefers-reduced-motion:reduce), print {
+  .motion-ready .dance-hall .dance-turn { animation:none !important; opacity:1 !important; translate:0 !important; transform:none !important; }
+}

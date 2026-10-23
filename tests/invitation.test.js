@@ -18,7 +18,7 @@ test('the wake follows real movement, drifts and expires at rest, and stays boun
   const wake = {previous:null, emittedAt:0, particles:[]};
   advanceBirdWake(wake, {x:0,y:0}, 0);
   for (let time=50;time<=2000;time+=50) advanceBirdWake(wake, {x:time/10,y:time/20}, time);
-  assert.ok(wake.particles.length>0 && wake.particles.length<=32);
+  assert.ok(wake.particles.length>0 && wake.particles.length<=20);
   const p = wake.particles.at(-1), before = p.y, born = p.born;
   advanceBirdWake(wake, {x:200,y:100}, 2050);
   assert.notEqual(p.y, before);
