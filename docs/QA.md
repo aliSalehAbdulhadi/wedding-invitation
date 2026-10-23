@@ -101,3 +101,11 @@ Ring pacing and missing gate-opening fix (23 October):
 - Rings compute 1.65s movement with .2s delay; both names were opacity 1 during approach. They settle with translate:none, names opacity 0 and together opacity 1. The name fade starts at 2.05s; together finishes at 3s. The 35% visibility gate is shared by the ring art and portal only; ordinary text still arrives early at 8%.
 - Checked 320px/551px Arabic and 1280px English. No horizontal overflow (305/305 and 1265/1265). English names localized correctly and the exact supplied Maps link remains unchanged. Background music stayed off. No application warnings/errors captured.
 - Static HTML/assets check (71 references), main syntax check and all 14 Node tests pass. Existing reduced-motion and print rules remain; OS preference switching, 200% browser zoom and physical devices were not exercised in this revision. No event facts, download behavior, or public deployment were changed.
+
+
+Live Vercel verification (23 October 2026):
+- Production deployment `dpl_79TQ2f4mbf8J8rCHQSUq5QKW5haf` is READY at https://wedding-invitation-ochre-nu.vercel.app. The first CLI upload was automatically classified as production; the couple explicitly approved keeping it. A separate protected preview is also READY. No existing deployment was removed.
+- Public HTTPS requests to all 25 deployed files returned HTTP 200 and matched local SHA-256 hashes. Configuration serves only public/; the upload dry run excluded source instructions, docs, tests, artifacts, local link metadata and environment files.
+- Opened the real live URL without a Vercel login gate, completed the envelope opening, inspected Arabic at 551px and English at 1280px, and generated a guest keepsake through the real form. Its completed PNG preview reported 1200 x 1600. The original submit action hid after success.
+- Page client/scroll widths matched at 536/536 and 1265/1265. The developer color control was absent on the public host and the configured olive palette was active. Music remained off; no browser warnings/errors captured. Existing noindex behavior was preserved.
+- OS reduced motion, 200% zoom, physical phones and native save/import sheets were not exercised in this hosted check. No calendar event was saved and no new app features were added.

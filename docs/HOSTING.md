@@ -60,6 +60,16 @@ Verify the generated preview URL over HTTPS before publishing to production. Onc
 
 The invitation retains its existing noindex/robots settings. On a public hostname, the local-only developer theme picker is hidden and the configured public palette is used. Guest-name PNGs are still generated entirely on the guest's device. There are no environment variables or backend services to configure.
 
-Current status: prepared locally; no Vercel deployment or public URL has been created yet. Account authentication and the target project are the remaining setup steps.
+Current status: deployed and verified on 23 October 2026. The couple approved keeping the initial production deployment for checking the invitation.
+
+- Live URL: https://wedding-invitation-ochre-nu.vercel.app
+- Workspace/project: `ali-saleh2/wedding-invitation`.
+- Application source commit: `2eb1ba9b2802ac931fcaa072beb5e4347c25fe22`.
+- Production deployment: `dpl_79TQ2f4mbf8J8rCHQSUq5QKW5haf`, status READY; build duration 1 second.
+- A separate preview also exists at https://wedding-invitation-4t0yohesy-ali-saleh2.vercel.app (Vercel Authentication protected).
+- Published through Vercel CLI 65.2.0 after deliberate account authorization; the installed MCP deployment tools were not exposed in the chat.
+- Only the 25 public files and `vercel.json` were uploaded. All 25 public files returned HTTP 200 over HTTPS and matched local source bytes.
+- The Git repository is pushed to GitHub, but automatic Git-to-Vercel deployments have not been connected. Future changes require another CLI deployment unless Git integration is configured.
+- Local `.vercel/` and environment files remain ignored and were not uploaded or committed. No custom domain or DNS changes were made.
 
 Official references: [Static configuration](https://vercel.com/docs/project-configuration/vercel-json), [.vercelignore](https://vercel.com/docs/deployments/vercel-ignore), and [CLI deployment](https://vercel.com/docs/projects/deploy-from-cli).
