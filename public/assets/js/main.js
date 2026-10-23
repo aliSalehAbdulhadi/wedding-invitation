@@ -1,7 +1,12 @@
+import { playOpeningChime } from './opening-sound.js';
+import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-3';
 import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js';
+
+import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261023-3';
 
 const words = {
   ar: {
+    birdHero:'دع الطائر يوقظ النجمة', birdRings:'دع الطائر يلعب بين الخاتمين', birdDate:'دع الطائر يلاحق نجمة صغيرة', birdBlossom:'دع الطائر يكتشف زهرة الياسمين', birdLantern:'دع الطائر يوقظ فانوس الياسمين', birdCouple:'دع الطائر يرسم قلبًا للعروسين', birdLetter:'دع الطائر يحيّي صديقه', birdClosing:'دع الطائر يرسل قبلة الوداع',
     storyWhisper: 'ومن هذا اللقاء، أضاءت ليلة.', nightWhisper: 'ولكل ليلةٍ مضيئة، وعد.', promiseWhisper: 'حتى تزهر الحكاية، ونلتقي.', gardenWhisper: 'وبقي في الرسالة مكانٌ لاسمك.',
     skip: 'انتقل إلى الدعوة', demo: 'دعوة تجريبية · جميع التفاصيل للمعاينة', brand: 'تبدأ الحكاية', navigation: 'التنقل', navDetails: 'تفاصيل الليلة', navLocation: 'المكان', navKeepsake: 'دعوتك الخاصة',
     heroEyebrow: 'بكل الحب، ندعوكم لحفل زفاف', heroTagline: 'حكاية واحدة. وعمرٌ من الحب.', scroll: 'والحكاية تبدأ هنا', heroNote: 'معكم، تصبح أجمل',
@@ -14,6 +19,7 @@ const words = {
     modalKeepsakeTitle: 'لنكتب اسمك في الحكاية.', modalKeepsakeCopy: 'بطاقة أنيقة بحجم ١٢٠٠ × ١٦٠٠ بكسل، باسمك وبكل الحب.', guestLabel: 'اسم الضيف', guestPlaceholder: 'الاسم الذي تحب أن نناديك به', guestHelp: 'حتى ٦٠ حرفًا. الاسم لن يُرسل إلى أي جهة.', downloadPng: 'حمّل دعوتك PNG', preparing: 'نكتبها لك بكل الحب…', previewAlt: 'معاينة دعوتك الشخصية', saveAgain: 'حفظ الصورة مجددًا', saveHint: 'على iPhone، يمكنك فتح الصورة ثم الضغط مطولًا لحفظها في الصور.', invalidGuest: 'اكتب اسمًا من حرف واحد إلى ٦٠ حرفًا.', exportError: 'تعذّر إنشاء الصورة. تحقق من الاتصال بالخطوط المحلية وحاول مجددًا.', imageReady: 'دعوتك جاهزة. يمكنك حفظها أيضًا من المعاينة.', audioError: 'لم يبدأ الصوت. يمكنك تشغيله من زر الموسيقى.', configError: 'تعذّر تحميل تفاصيل الدعوة. حدّث الصفحة أو تحقق من ملف content.json.',
   },
   en: {
+    birdHero:'Let the bird wake the star', birdRings:'Let the bird play between the rings', birdDate:'Let the bird chase a little star', birdBlossom:'Let the bird discover the jasmine', birdLantern:'Let the bird wake the jasmine lantern', birdCouple:'Let the bird draw a heart for the couple', birdLetter:'Let the bird greet its paper friend', birdClosing:'Let the bird send a farewell kiss',
     storyWhisper: 'And from that meeting, an evening began to glow.', nightWhisper: 'Every luminous evening holds a promise.', promiseWhisper: 'Until the story blooms, and we meet.', gardenWhisper: 'There is still a place in the letter for your name.',
     skip: 'Skip to invitation', demo: 'Demo invitation · all details are for preview', brand: 'Our story begins', navigation: 'Navigation', navDetails: 'The evening', navLocation: 'The setting', navKeepsake: 'Your keepsake',
     heroEyebrow: 'Together with love, we invite you to the wedding of', heroTagline: 'One story. A lifetime of love.', scroll: 'A little more of our story', heroNote: 'Sweeter with you here',
@@ -105,6 +111,7 @@ function renderLanguage(next) {
   $('#export-error').textContent = '';
   updateMusicButton();
   enhanceTypography();
+  renderThemePreview(language);
   requestSceneFrame();
 }
 
@@ -141,16 +148,25 @@ function scheduleMusic() {
     sequence += 1; nextNote += 1.55;
   }
 }
+function ensureAudioContext() {
+  const Context=window.AudioContext || window.webkitAudioContext;
+  if (!Context) throw new Error('Web Audio unavailable');
+  if (!audioContext) {
+    audioContext=new Context(); master=audioContext.createGain();
+    master.gain.value=0; master.connect(audioContext.destination);
+  }
+  return audioContext;
+}
+async function soundTheOpening() {
+  try {
+    const context=ensureAudioContext();
+    await context.resume();
+    if (!document.hidden && context.state==='running') playOpeningChime(context);
+  } catch { /* The invitation still opens if sound is unsupported or blocked. */ }
+}
 async function startMusic() {
   try {
-    const Context = window.AudioContext || window.webkitAudioContext;
-    if (!Context) throw new Error('Web Audio unavailable');
-    if (!audioContext) {
-      audioContext = new Context();
-      master = audioContext.createGain();
-      master.gain.value = 0;
-      master.connect(audioContext.destination);
-    }
+    ensureAudioContext();
     await audioContext.resume();
     if (audioContext.state !== 'running') throw new Error('Audio was blocked');
     if (!musicIntent || document.hidden) return;
@@ -183,6 +199,7 @@ function updateMusicButton() {
 function startInvitation(withMusic) {
   if (openingStarted) return;
   openingStarted = true;
+  void soundTheOpening();
   if (withMusic) { musicIntent = true; void startMusic(); }
   window.scrollTo({ top: 0, behavior: 'instant' });
   const opening = $('#opening-dialog');
@@ -197,10 +214,12 @@ function startInvitation(withMusic) {
 
 function closeDialog(dialog) {
   if (!dialog.open || dialog.classList.contains('is-closing')) return;
+  if (dialog.id==='keepsake-dialog') keepsakeExportController?.abort();
   dialog.classList.add('is-closing');
   setTimeout(() => { dialog.close(); dialog.classList.remove('is-closing'); }, motion.matches ? 0 : 200);
 }
 function showDialog(dialog) {
+  if (dialog.id!=='keepsake-dialog') keepsakeExportController?.abort();
   dialog.classList.remove('is-closing');
   dialog.showModal();
   visitBirdDialog(dialog);
@@ -216,13 +235,13 @@ function downloadBlob(blob, filename, keepUrl = false) {
 }
 
 
-function drawPaperBird(ctx, x, y) {
+function drawPaperBird(ctx, x, y, palette) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(-.18); ctx.scale(1.25, 1.25); ctx.translate(-36, -32);
   const pieces = [
-    ['M29 35 6 44 23 27Z', '#bba67a'], ['M26 34 16 4 49 32Z', '#d8c69d'],
-    ['M21 36 53 15 66 25 54 29 38 48Z', '#ebe2c9'], ['M28 35 35 4 50 33 38 48Z', '#f7f1df'],
+    ['M29 35 6 44 23 27Z', palette['gold']], ['M26 34 16 4 49 32Z', palette['glow']],
+    ['M21 36 53 15 66 25 54 29 38 48Z', palette['soft']], ['M28 35 35 4 50 33 38 48Z', palette['white']],
   ];
-  for (const [shape, color] of pieces) { const path = new Path2D(shape); ctx.fillStyle = color; ctx.strokeStyle = '#a08a5c'; ctx.lineWidth = .65; ctx.fill(path); ctx.stroke(path); }
+  for (const [shape, color] of pieces) { const path = new Path2D(shape); ctx.fillStyle = color; ctx.strokeStyle = palette['gold']; ctx.lineWidth = .65; ctx.fill(path); ctx.stroke(path); }
   ctx.restore();
 }
 
@@ -236,6 +255,7 @@ function fittedText(ctx, value, y, size, font, color, maxWidth = 960) {
   ctx.fillStyle = color; ctx.fillText(value, 600, y);
 }
 async function createKeepsake(name, exportLanguage) {
+  const palette = getActiveTheme().colors;
   const isArabic = exportLanguage === 'ar';
   const ui = words[exportLanguage];
   const font = isArabic ? 'Amiri' : 'Cormorant Garamond';
@@ -252,26 +272,26 @@ async function createKeepsake(name, exportLanguage) {
   const canvas = document.createElement('canvas');
   canvas.width = 1200; canvas.height = 1600;
   const ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#f7f5ee'; ctx.fillRect(0, 0, 1200, 1600);
-  ctx.strokeStyle = '#b5ba9f'; ctx.lineWidth = 1.5; ctx.strokeRect(49, 49, 1102, 1502);
-  ctx.strokeStyle = '#d9dacb'; ctx.strokeRect(62, 62, 1076, 1476);
-  ctx.strokeStyle = '#d4d7c3'; ctx.lineWidth = 1.5;
+  ctx.fillStyle = palette['paper']; ctx.fillRect(0, 0, 1200, 1600);
+  ctx.strokeStyle = palette['gold']; ctx.lineWidth = 1.5; ctx.strokeRect(49, 49, 1102, 1502);
+  ctx.strokeStyle = palette['line']; ctx.strokeRect(62, 62, 1076, 1476);
+  ctx.strokeStyle = palette['line']; ctx.lineWidth = 1.5;
   ctx.beginPath(); ctx.moveTo(160, 1390); ctx.lineTo(160, 590); ctx.bezierCurveTo(160, 100, 1040, 100, 1040, 590); ctx.lineTo(1040, 1390); ctx.stroke();
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.direction = isArabic ? 'rtl' : 'ltr';
-  fittedText(ctx, ui.miniEyebrow, 185, isArabic ? 32 : 27, isArabic ? 'Noto Sans Arabic' : 'Cormorant Garamond', '#67715c', 800);
-  drawPaperBird(ctx, 600, 335);
-  fittedText(ctx, content.couple.first[exportLanguage], 510, isArabic ? 154 : 132, font, '#293e32', 820);
-  fittedText(ctx, '&', 645, 76, 'Cormorant Garamond', '#a48d63', 300);
-  fittedText(ctx, content.couple.second[exportLanguage], 775, isArabic ? 154 : 132, font, '#293e32', 820);
-  ctx.strokeStyle = '#ad966b'; ctx.beginPath(); ctx.moveTo(550, 916); ctx.lineTo(650, 916); ctx.stroke();
-  fittedText(ctx, ui.dearGuest, 1000, isArabic ? 32 : 28, font, '#67715c', 850);
+  fittedText(ctx, ui.miniEyebrow, 185, isArabic ? 32 : 27, isArabic ? 'Noto Sans Arabic' : 'Cormorant Garamond', palette['muted'], 800);
+  drawPaperBird(ctx, 600, 335, palette);
+  fittedText(ctx, content.couple.first[exportLanguage], 510, isArabic ? 154 : 132, font, palette['ink'], 820);
+  fittedText(ctx, '&', 645, 76, 'Cormorant Garamond', palette['gold-ink'], 300);
+  fittedText(ctx, content.couple.second[exportLanguage], 775, isArabic ? 154 : 132, font, palette['ink'], 820);
+  ctx.strokeStyle = palette['gold']; ctx.beginPath(); ctx.moveTo(550, 916); ctx.lineTo(650, 916); ctx.stroke();
+  fittedText(ctx, ui.dearGuest, 1000, isArabic ? 32 : 28, font, palette['muted'], 850);
   ctx.direction = /[\u0600-\u06ff]/u.test(name) ? 'rtl' : 'ltr';
-  fittedText(ctx, name, 1093, 73, guestFont, '#293e32', 860);
+  fittedText(ctx, name, 1093, 73, guestFont, palette['ink'], 860);
   ctx.direction = isArabic ? 'rtl' : 'ltr';
-  fittedText(ctx, date, 1247, isArabic ? 33 : 30, font, '#5e6c55', 840);
-  fittedText(ctx, `${content.venue.name[exportLanguage]} · ${time}`, 1315, 30, font, '#5e6c55', 840);
-  fittedText(ctx, content.venue.address[exportLanguage], 1368, 26, font, '#6b7265', 840);
-  if (content.demo) fittedText(ctx, isArabic ? 'دعوة تجريبية · ليست مناسبة حقيقية' : 'DEMO INVITATION · NOT A REAL EVENT', 1495, 20, font, '#727862', 900);
+  fittedText(ctx, date, 1247, isArabic ? 33 : 30, font, palette['muted'], 840);
+  fittedText(ctx, `${content.venue.name[exportLanguage]} · ${time}`, 1315, 30, font, palette['muted'], 840);
+  fittedText(ctx, content.venue.address[exportLanguage], 1368, 26, font, palette['muted'], 840);
+  if (content.demo) fittedText(ctx, isArabic ? 'دعوة تجريبية · ليست مناسبة حقيقية' : 'DEMO INVITATION · NOT A REAL EVENT', 1495, 20, font, palette['muted'], 900);
   return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('PNG export failed')), 'image/png'));
 }
 
@@ -318,23 +338,42 @@ function initializeScenes() {
   addEventListener('scroll', requestSceneFrame, { passive: true });
   addEventListener('resize', requestSceneFrame, { passive: true });
   motion.addEventListener('change', requestSceneFrame);
+  window.visualViewport?.addEventListener('resize',requestSceneFrame);
+  window.visualViewport?.addEventListener('scroll',requestSceneFrame);
   requestSceneFrame();
 }
 
-// A chapter wakes once (its entrance plays a single time) and runs its quiet loops only while on screen.
+// Chapter atmosphere stays live on screen; each foreground scene waits for its own arrival.
 function initializeChapters() {
   const chapters = $$('[data-chapter]');
-  if (motion.matches || !('IntersectionObserver' in window)) {
+  const arrivals = $$('.chapter .rise, .chapter .split, .story-art, .date-card, .timeline, .quote-text, .location-art, .location-copy, .dance-hall, .mini-invitation, .keepsake-copy, .closing-rings, .jasmine-garden');
+  const revealAll = () => {
     for (const chapter of chapters) chapter.classList.add('is-awake', 'is-live');
-    return;
-  }
-  const observer = new IntersectionObserver((entries) => {
+    for (const scene of arrivals) scene.classList.add('has-arrived');
+  };
+  if (motion.matches || !('IntersectionObserver' in window)) { revealAll(); return; }
+  const atmosphere = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       entry.target.classList.toggle('is-live', entry.isIntersecting);
       if (entry.isIntersecting) entry.target.classList.add('is-awake');
     }
-  }, { rootMargin: '0px 0px -12% 0px' });
-  for (const chapter of chapters) observer.observe(chapter);
+  });
+  const entrance = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting || entry.intersectionRatio < .08) continue;
+      entry.target.classList.add('has-arrived');
+      entrance.unobserve(entry.target);
+    }
+  }, { rootMargin: '0px 0px 0px 0px', threshold: .08 });
+  // Register after the envelope closes, so a covered scene cannot use up its entrance.
+  $('#opening-dialog').addEventListener('close', () => {
+    for (const chapter of chapters) atmosphere.observe(chapter);
+    for (const scene of arrivals) entrance.observe(scene);
+  }, { once: true });
+  motion.addEventListener('change', () => {
+    if (!motion.matches) return;
+    atmosphere.disconnect(); entrance.disconnect(); revealAll();
+  });
   document.body.classList.add('motion-ready');
 }
 
@@ -401,14 +440,40 @@ function initializeInteractions() {
     }, { passive: true });
     target.addEventListener('pointerleave', () => { target.style.setProperty('--mx', '0'); target.style.setProperty('--my', '0'); });
   }
-  const universe = $('.ring-universe');
-  universe.parentElement.addEventListener('pointerdown', () => {
-    if (motion.matches) return;
-    universe.classList.remove('is-parting');
-    void universe.offsetWidth;
-    universe.classList.add('is-parting');
-  });
-  universe.addEventListener('animationend', (event) => { if (event.animationName === 'part-one') universe.classList.remove('is-parting'); });
+  for (const point of $$('[data-bird-visit]')) {
+    point.disabled=motion.matches;
+    motion.addEventListener('change',()=>{ point.disabled=motion.matches; });
+    point.addEventListener('click', () => {
+      if (motion.matches || !flightHasStarted || entranceFlight || birdDialog) return;
+      const reading = readFlightWaypoints();
+      const visit = reading.visits.find(item => item.element === point);
+      if (visit) {
+        birdDestination.reading=reading;
+        pendingBirdPoint={element:point,at:performance.now()};
+        birdAction=null; birdRest=null; birdVisit=null; clearBirdReaction();
+        requestSceneFrame(); startBirdHeartbeat();
+      }
+    });
+  }
+  for (const event of ['wheel','touchmove']) addEventListener(event,()=>{ pendingBirdPoint=null; },{passive:true});
+  addEventListener('keydown',event=>{ if (['ArrowDown','ArrowUp','PageDown','PageUp','Home','End'].includes(event.key)) pendingBirdPoint=null; });
+  // Native actions stay immediate. The light responds without intercepting clicks or map links.
+  for (const control of $$('.button, .text-button, .calendar-option, .language-button, .dev-theme-trigger, .close-button')) {
+    control.classList.add('magic-control');
+    const edge=document.createElement('span');
+    edge.className='magic-border'; edge.setAttribute('aria-hidden','true'); control.append(edge);
+    const enchant = (event) => {
+      if (motion.matches) return;
+      if (!control.contains(edge)) control.append(edge);
+      const box = control.getBoundingClientRect();
+      control.style.setProperty('--touch-x', `${event.clientX ? event.clientX-box.left : box.width/2}px`);
+      control.style.setProperty('--touch-y', `${event.clientY ? event.clientY-box.top : box.height/2}px`);
+      control.classList.remove('is-enchanted'); void control.offsetWidth; control.classList.add('is-enchanted');
+    };
+    control.addEventListener('pointerdown',enchant,{passive:true});
+    control.addEventListener('keydown',event => { if (event.key==='Enter'||event.key===' ') enchant(event); });
+    control.addEventListener('animationend',event => { if (event.animationName==='magic-touch') control.classList.remove('is-enchanted'); });
+  }
   for (const section of $$('[data-starlight]')) {
     const layer = section.querySelector('.starlight-layer');
     let lastAt = 0;
@@ -436,6 +501,13 @@ function initializeInteractions() {
       if (motion.matches || event.target.closest('button, a, input, dialog')) return;
       for (let index = 0; index < 7; index++) spawn(event, 7 + Math.random() * 9, 44);
       const now = performance.now();
+      // A tap leaves a little light for the companion to investigate.
+      if (birdBody && !birdDialog && !entranceFlight) {
+        clearBirdReaction(); birdVisit=null; pendingBirdPoint=null; birdSwoop=null;
+        birdAction={began:now,duration:1050,from:{x:birdBody.x,y:birdBody.y},to:{x:bounded(event.clientX,35,innerWidth-35),y:bounded(event.clientY-22,65,innerHeight-75)},radius:22,direction:event.clientX>birdBody.x?1:-1,kind:'spark'};
+        $('#story-bird').classList.add('is-curious');
+        startBirdHeartbeat();
+      }
       if (now - meteorAt < 2400) return;
       meteorAt = now;
       const box = section.getBoundingClientRect();
@@ -462,7 +534,12 @@ function readFlightWaypoints() {
     const rect = element.getBoundingClientRect();
     return { x: rect.left + rect.width / 2, y: rect.top + scrollY + rect.height / 2, width: rect.width, height: rect.height, element };
   });
-  return { positions, scroll: scrollY, width: innerWidth, height: innerHeight };
+  const visits = $$('[data-bird-visit]').map(element => {
+    const space=element.closest('[data-bird-space]') || element;
+    const rect=space.getBoundingClientRect();
+    return {element,kind:element.dataset.birdVisit,space,left:rect.left,top:rect.top+scrollY,width:rect.width,height:rect.height};
+  });
+  return { positions, visits, scroll: scrollY, width: innerWidth, height: innerHeight };
 }
 function placeBird(x, y, rotation = 0, scale = 1, facing = 1) {
   const layer = $('#story-flight');
@@ -551,6 +628,12 @@ let birdLastMeasurement = 0;
 let birdPreviousScroll = 0;
 let birdScrollVelocity = 0;
 let birdAction = null;
+let birdVisit = null;
+let pendingBirdPoint = null;
+const visitedBirdPoints = new WeakMap();
+let lastBirdPoint = null;
+let birdReactionTimer;
+let birdReactionHost;
 let birdRest = null;
 let birdNextCuriosity = 0;
 let birdBehavior = '';
@@ -567,19 +650,64 @@ function moveFlightLayer(parent) {
   if (typeof layer.showPopover === 'function') layer.showPopover();
   else layer.classList.add('flight-fallback-open');
 }
+// One invisible text node keeps shaping and bidi layout intact; no span splits Arabic letters.
+let caretMirror;
+let writingBeat={at:0,kind:'stroke',value:'',heartAt:0};
+function reactToWriting(event) {
+  const value=$('#guest-name').value;
+  const kind=event.inputType?.startsWith('delete') || value.length<writingBeat.value.length ? 'correction' : /\s$/u.test(value) ? 'word' : 'stroke';
+  writingBeat.value=value;
+  if (motion.matches || !value) return;
+  const now=performance.now();
+  if (now-writingBeat.at<100 && kind===writingBeat.kind) return;
+  writingBeat.at=now; writingBeat.kind=kind;
+  const bird=$('#story-bird');
+  delete bird.dataset.writingGesture; void bird.offsetWidth; bird.dataset.writingGesture=kind;
+  if (kind==='word' && now-writingBeat.heartAt>1000 && birdBody) {
+    writingBeat.heartAt=now; birdHearts(birdBody.x,birdBody.y-12);
+  }
+}
+function measureGuestCaret(input) {
+  const box=input.getBoundingClientRect(), style=getComputedStyle(input);
+  if (!caretMirror) {
+    caretMirror=document.createElement('div');
+    caretMirror.className='caret-mirror'; caretMirror.setAttribute('aria-hidden','true');
+    caretMirror.inert=true; document.body.append(caretMirror);
+  }
+  for (const key of ['fontFamily','fontSize','fontWeight','fontStyle','fontStretch','fontVariant','letterSpacing','wordSpacing','textTransform','textIndent','textAlign','direction','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderRightWidth','borderBottomWidth','borderLeftWidth']) caretMirror.style[key]=style[key];
+  Object.assign(caretMirror.style,{left:`${box.left}px`,top:`${box.top}px`,width:`${box.width}px`,height:`${box.height}px`,lineHeight:`${input.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)}px`});
+  caretMirror.textContent=input.value || '\u200b';
+  caretMirror.scrollLeft=input.scrollLeft;
+  const range=document.createRange();
+  range.setStart(caretMirror.firstChild,Math.min(input.selectionEnd ?? input.value.length,input.value.length));
+  range.collapse(true);
+  const caret=range.getBoundingClientRect();
+  const left=box.left+parseFloat(style.paddingLeft)+1, right=box.right-parseFloat(style.paddingRight)-1;
+  return {x:bounded(caret.left || (style.direction==='rtl'?right:left),left,right),y:box.top+box.height*.68,direction:style.direction,box};
+}
 function measureBirdDialog() {
+  const glint=$('#writing-glint');
+  glint.hidden=true;
   if (!birdDialog?.open) return;
-  const perch = birdDialog.querySelector('.modal-perch').getBoundingClientRect();
-  const panel = birdDialog.getBoundingClientRect();
-  birdDialogTarget = {
-    x: perch.left + perch.width / 2,
-    y: bounded(perch.top + perch.height / 2 - 5, Math.max(45, panel.top + 34), Math.min(innerHeight - 45, panel.bottom - 34)),
-  };
+  const panel=birdDialog.getBoundingClientRect();
+  let perch=birdDialog.querySelector('.modal-perch').getBoundingClientRect();
+  if (birdDialog.id==='keepsake-dialog' && birdDialog.classList.contains('is-conjuring')) {
+    perch=$('.ritual-perch').getBoundingClientRect();
+    birdDialog.dataset.birdMode='sealing';
+  } else if (birdDialog.id==='keepsake-dialog' && document.activeElement===$('#guest-name') && $('#guest-name').value) {
+    const caret=measureGuestCaret($('#guest-name'));
+    birdDialogTarget={x:bounded(caret.x+(caret.direction==='rtl'?-14:14),30,innerWidth-30),y:bounded(caret.box.top-13,Math.max(48,panel.top+35),Math.min(innerHeight-45,panel.bottom-30)),typing:true,facing:caret.direction==='rtl'?1:-1};
+    birdDialog.dataset.birdMode='writing';
+    glint.style.left=`${caret.x}px`; glint.style.top=`${caret.y}px`; glint.hidden=false;
+    return;
+  } else delete birdDialog.dataset.birdMode;
+  birdDialogTarget={x:perch.left+perch.width/2,y:bounded(perch.top+perch.height/2-5,Math.max(45,panel.top+34),Math.min(innerHeight-45,panel.bottom-34))};
 }
 function visitBirdDialog(dialog) {
   if (!flightHasStarted || motion.matches) return;
   birdDialog = dialog;
-  birdAction = null; birdRest = null;
+  pendingBirdPoint=null;
+  birdAction = null; birdRest = null; birdVisit = null; clearBirdReaction();
   moveFlightLayer(dialog);
   measureBirdDialog();
   startBirdHeartbeat();
@@ -589,10 +717,13 @@ function visitBirdDialog(dialog) {
 function leaveBirdDialog(dialog) {
   if (birdDialog !== dialog) return;
   birdDialog = null; birdDialogTarget = null;
-  birdAction = null; birdRest = null;
+  $('#writing-glint').hidden=true; delete dialog.dataset.birdMode;
+  birdAction = null; birdRest = null; birdVisit = null; clearBirdReaction();
   birdLastScrollAt = performance.now();
   birdNextCuriosity = birdLastScrollAt + 1100;
-  moveFlightLayer(document.body);
+  const remaining = $$('.modal[open]').at(-1);
+  if (remaining) visitBirdDialog(remaining);
+  else moveFlightLayer(document.body);
   requestSceneFrame();
 }
 function setBirdDestination(point, angle, reading) {
@@ -604,14 +735,14 @@ function setBirdDestination(point, angle, reading) {
   if (birdLastMeasurement && Math.abs(delta) > .5) {
     birdLastScrollAt = now;
     birdScrollVelocity = bounded(delta / elapsed, -1600, 1600);
-    birdAction = null; birdRest = null;
-    birdNextCuriosity = now + 900;
+    birdAction = null; birdRest = null; birdVisit = null; clearBirdReaction();
+    birdNextCuriosity = now + 350;
   }
   if (reading.active !== undefined && reading.active !== birdActive) {
     if (birdActive !== -1 && !motion.matches) birdSwoop = { began: now, amp: (reading.active % 2 ? -1 : 1) * Math.min(150, reading.width * .22), duration: 1700 };
     birdActive = reading.active;
-    birdAction = null; birdRest = null;
-    birdNextCuriosity = now + 2600;
+    birdAction = null; birdRest = null; birdVisit = null; clearBirdReaction();
+    birdNextCuriosity = now + 400;
   }
   birdDestination = { x: point.x, y: point.y - reading.scroll, angle, vx: velocityX, reading };
   birdLastMeasurement = now; birdPreviousScroll = reading.scroll;
@@ -629,9 +760,68 @@ function chooseBirdPerch() {
   candidates.sort((a,b) => Math.hypot(a.x-birdBody.x,a.y-birdBody.y) - Math.hypot(b.x-birdBody.x,b.y-birdBody.y));
   return candidates[0] || null;
 }
+function clearBirdReaction() {
+  clearTimeout(birdReactionTimer);
+  if (birdReactionHost) { delete birdReactionHost.dataset.birdMoment; birdReactionHost=null; }
+  $('#story-bird')?.classList.remove('is-bowing','is-sneezing','is-delighted','is-curious');
+}
+function birdHearts(x,y) {
+  const layer=$('#story-flight');
+  if (layer.querySelectorAll('.bird-kiss').length>5) return;
+  for (let i=0;i<3;i++) {
+    const heart=chapterEl('span','bird-kiss',{'--hx':`${x}px`,'--hy':`${y}px`,'--drift':`${(i-1)*22}px`,'--wait':`${i*100}ms`});
+    heart.textContent='♡';
+    heart.addEventListener('animationend',()=>heart.remove(),{once:true});
+    layer.append(heart);
+    setTimeout(()=>heart.remove(),2200);
+  }
+}
+function reactToBird(visit) {
+  clearBirdReaction();
+  visit.element.classList.add('has-met-bird');
+  const host=visit.element.closest('.chapter') || $('#invitation');
+  birdReactionHost=host;
+  host.dataset.birdMoment=visit.kind;
+  $('#story-bird').classList.add('is-delighted');
+  if (visit.kind==='blossom') $('#story-bird').classList.add('is-sneezing');
+  if (visit.kind==='letter'||visit.kind==='closing') $('#story-bird').classList.add('is-bowing');
+  if (['blossom','letter','closing'].includes(visit.kind)) birdHearts(birdBody.x,birdBody.y-15);
+  birdReactionTimer=setTimeout(clearBirdReaction,3200);
+}
+function beginBirdVisit(visit,now) {
+  clearBirdReaction();
+  const reading=birdDestination.reading;
+  const rect={left:visit.left,top:visit.top-reading.scroll,width:visit.width,height:visit.height};
+  const route=makeBirdVisit(visit.kind,rect,reading,{x:birdBody.x,y:birdBody.y});
+  birdVisit={...route,began:now,visit,reacted:false};
+  $('#story-bird').classList.add('is-curious');
+  birdAction=null; birdRest=null; birdSwoop=null;
+  birdLastScrollAt=now-1000;
+  visitedBirdPoints.set(visit.element,now); lastBirdPoint=visit.element;
+  startBirdHeartbeat();
+}
+function chooseBirdVisit(now) {
+  const reading=birdDestination.reading;
+  const candidates=reading.visits.filter(visit => {
+    const top=visit.top-reading.scroll;
+    const entered=visit.space.closest('.chapter')?.classList.contains('is-live') || visit.kind==='hero';
+    const foreground=visit.space.closest('.story-art,.date-card,.location-art,.dance-hall,.mini-invitation');
+    return entered && (!foreground || foreground.classList.contains('has-arrived')) && top+visit.height*.65>70 && top+visit.height*.25<reading.height-35 && !visitedBirdPoints.has(visit.element);
+  });
+  const fresh=candidates.filter(visit=>visit.element!==lastBirdPoint);
+  const choices=fresh.length?fresh:candidates;
+  return choices[Math.floor(Math.random()*choices.length)];
+}
+motion.addEventListener('change',()=>{
+  if (!motion.matches) return;
+  birdVisit=null; pendingBirdPoint=null; clearBirdReaction();
+  for (const heart of $$('.bird-kiss')) heart.remove();
+});
 function beginBirdCuriosity(now) {
+  const visit=chooseBirdVisit(now);
+  if (visit) { beginBirdVisit(visit,now); return; }
   const perch = chooseBirdPerch();
-  if (!perch) { birdNextCuriosity = now + 900; return; }
+  if (!perch) { birdNextCuriosity = now + 350; return; }
   birdAction = {
     began: now, duration: 1900 + Math.random() * 1000,
     from: {x:birdBody.x,y:birdBody.y}, to: perch,
@@ -668,7 +858,15 @@ function animateLivingBird(now) {
       behavior = 'exploring';
     }
   }
-  if (!birdDialog && idle > 850 && !birdAction && now > birdNextCuriosity) beginBirdCuriosity(now);
+  if (pendingBirdPoint) {
+    if (birdDialog || now-pendingBirdPoint.at>2500) pendingBirdPoint=null;
+    else if (now-pendingBirdPoint.at>70 && idle>80) {
+      const visit=birdDestination.reading.visits.find(item=>item.element===pendingBirdPoint.element);
+      pendingBirdPoint=null;
+      if (visit) beginBirdVisit(visit,now);
+    }
+  }
+  if (!birdDialog && idle > 240 && !birdAction && !birdVisit && !pendingBirdPoint && now > birdNextCuriosity) beginBirdCuriosity(now);
   if (birdAction) {
     const t = bounded((now - birdAction.began) / birdAction.duration, 0, 1);
     const easing = 1 - Math.pow(1-t, 3);
@@ -679,6 +877,10 @@ function animateLivingBird(now) {
     };
     behavior = 'exploring';
     if (t === 1) {
+      if (birdAction.kind==='spark') {
+        $('#story-bird').classList.remove('is-curious'); $('#story-bird').classList.add('is-delighted');
+        birdReactionTimer=setTimeout(clearBirdReaction,1100);
+      }
       birdRest = birdAction.to; birdAction = null;
       birdNextCuriosity = now + 2800 + Math.random() * 3300;
     }
@@ -686,8 +888,21 @@ function animateLivingBird(now) {
     target = {x: birdRest.x + Math.sin(time * .8) * 1.2, y: birdRest.y + Math.sin(time * 1.6) * 1.6};
     behavior = 'perched';
   }
+  if (birdVisit) {
+    const visit=birdVisit;
+    const t=bounded((now-visit.began)/visit.duration,0,1);
+    target=sampleBirdVisit(visit.points,t);
+    behavior='exploring';
+    if (t>=.24 && !visit.reacted) { visit.reacted=true; reactToBird(visit.visit); }
+    if (t===1) {
+      birdRest=visit.points.at(-1); birdVisit=null;
+      birdNextCuriosity=now+6000+Math.random()*4000;
+    }
+  }
   if (birdDialogTarget) {
-    target = {x: birdDialogTarget.x + Math.sin(time * .8), y: birdDialogTarget.y + Math.sin(time * 1.6)};
+    const beat=bounded((now-writingBeat.at)/680,0,1);
+    const hop=birdDialogTarget.typing ? Math.sin(beat*Math.PI)*(writingBeat.kind==='word'?12:writingBeat.kind==='correction'?-4:6) : 0;
+    target = {x: birdDialogTarget.x + Math.sin(time * .8), y: birdDialogTarget.y + Math.sin(time * 1.6)-hop};
     behavior = Math.hypot(target.x - birdBody.x, target.y - birdBody.y) < 12 ? 'perched' : 'visiting';
   }
   const {width,height} = birdDestination.reading;
@@ -695,11 +910,12 @@ function animateLivingBird(now) {
   target.y = bounded(target.y, 55, height - 55);
   advanceSpring(birdBody, target, dt);
   const speed = Math.hypot(birdBody.vx, birdBody.vy);
-  const desiredFacing = speed > 18 ? (birdBody.vx < -8 ? -1 : birdBody.vx > 8 ? 1 : birdBody.facing < 0 ? -1 : 1) : target.x > width/2 ? -1 : 1;
+  const desiredFacing = birdDialogTarget?.typing ? birdDialogTarget.facing : speed > 18 ? (birdBody.vx < -8 ? -1 : birdBody.vx > 8 ? 1 : birdBody.facing < 0 ? -1 : 1) : target.x > width/2 ? -1 : 1;
   birdBody.facing += (desiredFacing-birdBody.facing) * Math.min(1, dt*7);
   const pitch = behavior === 'perched' ? Math.sin(time*.6)*4-8 : bounded(Math.atan2(birdBody.vy, Math.abs(birdBody.vx)+60)*180/Math.PI*desiredFacing, -42, 42);
   birdBody.angle += (pitch-birdBody.angle) * Math.min(1, dt*7);
   const bird = $('#story-bird');
+  bird.classList.toggle('is-writing',Boolean(birdDialogTarget?.typing));
   if (behavior !== birdBehavior) {
     birdBehavior = behavior;
     bird.dataset.behavior = behavior;
@@ -713,7 +929,39 @@ function animateLivingBird(now) {
 }
 addEventListener('visibilitychange', () => { if (!document.hidden && flightHasStarted) requestSceneFrame(); });
 
+let keepsakeExportController;
+function clearKeepsakeRitual() {
+  $('#keepsake-dialog').classList.remove('is-conjuring');
+  $('#keepsake-ritual').hidden=true;
+  requestSceneFrame();
+}
+function playKeepsakeRitual(name,signal) {
+  if (motion.matches) return Promise.resolve();
+  $('#ritual-guest').textContent=name;
+  $('#keepsake-ritual').hidden=false;
+  $('#keepsake-dialog').classList.add('is-conjuring');
+  $('#keepsake-form').inert=true;
+  $('#keepsake-dialog [data-close-dialog]').focus({preventScroll:true});
+  requestSceneFrame();
+  for (const delay of [650,1300,1900]) setTimeout(()=>{ if (!signal.aborted) requestSceneFrame(); },delay);
+  return new Promise((resolve,reject)=>{
+    const paper=$('.ritual-paper');
+    let timeout;
+    const done=(error)=>{
+      clearTimeout(timeout); paper.removeEventListener('animationend',ended); signal.removeEventListener('abort',aborted); motion.removeEventListener('change',reduced);
+      if (error) reject(error); else resolve();
+    };
+    const ended=event=>{ if (event.target===paper && event.animationName==='keepsake-unfold') done(); };
+    const aborted=()=>done(new DOMException('The reveal was canceled','AbortError'));
+    const reduced=()=>{ if (motion.matches) done(); };
+    paper.addEventListener('animationend',ended); signal.addEventListener('abort',aborted,{once:true});
+    motion.addEventListener('change',reduced);
+    timeout=setTimeout(()=>done(),2900);
+    if (signal.aborted) aborted();
+  });
+}
 function initialize() {
+  initializeThemePreview(content, showDialog);
   document.documentElement.classList.replace('no-js', 'js');
   renderLanguage('ar');
   for (const button of $$('[data-language-toggle]')) button.addEventListener('click', () => renderLanguage(language === 'ar' ? 'en' : 'ar'));
@@ -741,7 +989,7 @@ function initialize() {
     else if (musicIntent) void startMusic();
   });
   for (const dialog of $$('.modal')) {
-    dialog.addEventListener('close', () => leaveBirdDialog(dialog));
+    dialog.addEventListener('close', () => { if(dialog.id==='keepsake-dialog') keepsakeExportController?.abort(); leaveBirdDialog(dialog); });
     dialog.addEventListener('scroll', requestSceneFrame, { passive: true });
     dialog.querySelector('[data-close-dialog]').addEventListener('click', () => closeDialog(dialog));
     dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeDialog(dialog); });
@@ -758,7 +1006,10 @@ function initialize() {
     showDialog($('#keepsake-dialog'));
     $('#guest-name').focus();
   });
-  $('#guest-name').addEventListener('input', () => {
+  for (const event of ['focus','blur','keyup','pointerup','select','scroll','compositionend']) $('#guest-name').addEventListener(event,requestSceneFrame);
+  document.addEventListener('selectionchange',()=>{ if (document.activeElement===$('#guest-name')) requestSceneFrame(); });
+  $('#guest-name').addEventListener('input', (event) => {
+    reactToWriting(event);
     $('#export-error').textContent = ''; $('#download-result').hidden = true;
     $('.mini-guest').textContent = $('#guest-name').value.trim() || text('yourName');
     requestSceneFrame();
@@ -771,9 +1022,12 @@ function initialize() {
     const button = $('#download-png');
     if (button.disabled) return;
     const exportLanguage = language;
+    const controller=new AbortController(); keepsakeExportController=controller;
+    $('#guest-name').readOnly=true; $('#keepsake-form').setAttribute('aria-busy','true'); $('#download-result').hidden=true;
     button.disabled = true; $('#download-png-label').textContent = text('preparing'); $('#export-error').textContent = '';
     try {
-      const blob = await createKeepsake(name, exportLanguage);
+      const [blob]=await Promise.all([createKeepsake(name,exportLanguage),playKeepsakeRitual(name,controller.signal)]);
+      if (controller.signal.aborted || !$('#keepsake-dialog').open) return;
       if (activeImageUrl) URL.revokeObjectURL(activeImageUrl);
       activeImageUrl = downloadBlob(blob, 'wedding-invitation.png', true);
       $('#download-preview').src = activeImageUrl;
@@ -782,8 +1036,14 @@ function initialize() {
       requestSceneFrame();
       notify(text('imageReady'));
     } catch {
-      $('#export-error').textContent = text('exportError');
-    } finally { button.disabled = false; $('#download-png-label').textContent = text('downloadPng'); }
+      if (!controller.signal.aborted) $('#export-error').textContent=text('exportError');
+    } finally {
+      if (keepsakeExportController===controller) {
+        keepsakeExportController=null; clearKeepsakeRitual();
+        $('#guest-name').readOnly=false; $('#keepsake-form').inert=false; $('#keepsake-form').removeAttribute('aria-busy');
+        button.disabled=false; $('#download-png-label').textContent=text('downloadPng');
+      }
+    }
   });
   populateAtmosphere();
   initializeChapters();

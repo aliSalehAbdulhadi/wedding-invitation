@@ -10,7 +10,7 @@ From this folder, run:
 python -m http.server 8082 --bind 127.0.0.1 --directory public
 ```
 
-Open <http://localhost:8082>. Use HTTP: loading `content.json`, ES modules, and local fonts requires a web server. Stop it with Ctrl+C. Optional `npm run dev` starts the same server on port 8080.
+Open <http://localhost:8082>. Use HTTP: loading `content.json`, ES modules, and local fonts requires a web server. A disk (`file://`) preview shows a bilingual link to this local server instead of attempting blocked ES-module imports. Stop it with Ctrl+C. Optional `npm run dev` starts the same server on port 8080.
 
 ## Edit the invitation
 
@@ -25,11 +25,13 @@ Open <http://localhost:8082>. Use HTTP: loading `content.json`, ES modules, and 
 
 UI translations and small interactions are in `public/assets/js/main.js`. Shared validation/calendar helpers are in `public/assets/js/invitation.js`. Design tokens, layouts, and motion are in `public/assets/css/styles.css`.
 
+The floating **Colors / الألوان · Dev** button appears only on localhost/loopback previews. It switches the whole invitation, SVG artwork, dialogs, bird, and PNG export among five palettes and remembers your preview locally. The hosted palette comes from `design.theme` in `public/content.json`: `olive`, `pearl`, `champagne`, `midnight`, or `sage`. Palette definitions are in `public/assets/js/themes.js`; coordinated section and studio styles are in `public/assets/css/themes.css`. Public domains never show the developer control or use a saved preview preference.
+
 ## Guest experience
 
 - Animated sealed-letter entrance: the same origami paper bird lifts out of the letter, flies into the main screen, and follows a continuous golden route through the story chapters.
 - The bird has spring-based inertia, banking turns, independent little detours, blinking, and folded-wing perches when the guest pauses. Scrolling wakes it smoothly.
-- The bird connects scroll-linked joining rings, a drawing timeline, a sticky typographic promise, a tracing garden path, and a personal letter lifting from an envelope. The same paper-bird motif appears on the downloaded card.
+- The bird connects independently triggered joining rings, a celestial date, a promise under stars, a conservatory garden, and a silhouette stage beside the guest dedication. The same paper-bird motif appears on the downloaded card.
 - Arabic RTL by default, with complete English LTR switching.
 - Locally hosted Amiri, Noto Sans Arabic, and Cormorant Garamond fonts with their OFL licenses.
 - Google Calendar and Outlook links, plus a standards-based `.ics` download for Apple Calendar and other calendar apps. Guests review and save the event in their chosen app.

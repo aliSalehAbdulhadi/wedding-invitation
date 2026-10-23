@@ -1,0 +1,118 @@
+/* Every chapter is made from the same paper, ink, and accent. */
+.button--gold { color:var(--white); background:var(--ink); border-color:var(--ink); }
+.button--gold:hover { color:var(--white); background:var(--olive); box-shadow:0 8px 24px color-mix(in srgb,var(--ink) 12%,transparent); }
+.chapter--garden, .chapter--keepsake { background:var(--paper); }
+.garden-glow { background:radial-gradient(circle,color-mix(in srgb,var(--gold) 12%,transparent),transparent 65%); }
+.garden-inner { gap:clamp(2rem,6vw,5.5rem); align-items:center; }
+.location-art { justify-self:center; inline-size:min(100%,420px); background:var(--paper); box-shadow:none; border:1px solid var(--line); }
+.location-art::after { border-color:color-mix(in srgb,var(--gold) 20%,transparent); }
+.conservatory path { stroke:var(--gold); opacity:.65; }
+.garden-sprig { color:var(--foliage); opacity:.58; }
+.g-bloom, .g-bloom--blush { color:var(--white); filter:drop-shadow(0 1px 1px color-mix(in srgb,var(--ink) 18%,transparent)); }
+.lantern-string, .lantern-cord { stroke:var(--gold); opacity:.55; }
+.lantern-body { fill:var(--soft); stroke:var(--gold); }.lantern-core { fill:var(--glow); }
+.lantern-glow { fill:color-mix(in srgb,var(--gold) 10%,transparent); }
+.gd-shine { animation:reflected-light 6s ease-in-out infinite alternate; }
+@keyframes reflected-light { from { opacity:.035; } to { opacity:.08; } }
+.garden-marker { top:78%; color:var(--gold-ink); background:var(--paper); box-shadow:0 0 0 1px var(--gold),0 0 0 6px color-mix(in srgb,var(--paper) 70%,transparent); }
+.garden-marker::before, .garden-marker::after { border-color:var(--gold); }
+.location-copy { justify-self:start; inline-size:100%; margin:0; padding:1rem 0; background:none; box-shadow:none; }
+.location-copy::before { display:none; }
+.location-copy .eyebrow, .location-address, .location-hint, .keepsake-head .eyebrow, .keepsake-actions .privacy-note { color:var(--muted); }
+.location-copy .body-copy, .keepsake-copy .body-copy { color:var(--muted); }
+.location-copy .whisper { color:var(--gold-ink); border-color:var(--line); }
+/* A single theatrical moment, followed by an unframed dedication. */
+.letter-aura { display:none; }
+.keepsake-stage { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,.85fr); align-items:center; gap:clamp(2rem,5vw,5rem); inline-size:min(100%,1020px); margin-block-start:2rem; direction:ltr; }
+.dance-hall { position:relative; flex:none; inline-size:100%; max-inline-size:510px; aspect-ratio:480/540; border-radius:0; background:none; box-shadow:none; overflow:visible; }
+.couple-dance { overflow:visible; transition:scale 2.8s var(--ease),opacity 2s ease; }
+.motion-ready .dance-hall:not(.has-arrived) .couple-dance { opacity:0; scale:.97; }
+.stage-light { transform-origin:240px 18px; clip-path:inset(0); animation:stage-light-breathe 8s ease-in-out infinite alternate; transition:opacity 2.5s ease .3s,clip-path 3.4s var(--ease) .2s; }
+.motion-ready .dance-hall:not(.has-arrived) .stage-light { opacity:0; clip-path:inset(0 49% 0 49%); }
+.stage-dust { animation:stage-dust-drift 11s ease-in-out infinite alternate; opacity:.45; }
+.silhouette { fill:url(#silhouette-ink); }
+.silhouette-edge { fill:none; stroke:url(#silhouette-rim); stroke-width:1.1; stroke-linecap:round; }
+.silhouette-fold { fill:none; stroke:var(--glow); stroke-width:.5; opacity:.14; }
+.couple-dance .silhouette-veil { fill:var(--night-deep); stroke:var(--glow); stroke-width:.5; opacity:.55; }
+.stage-thread { fill:none; stroke:var(--gold); stroke-width:.6; opacity:.3; }
+.pair-sway { animation:stage-sway 7s ease-in-out infinite alternate; }
+.pair-turn { animation:none; transition:opacity 2.2s ease .9s,translate 2.8s var(--ease) .7s; }
+.motion-ready .dance-hall:not(.has-arrived) .pair-turn { opacity:0; translate:0 8px; }
+.couple-dance.flight-near .pair-sway { animation-duration:5s; }
+.keepsake-dedication { inline-size:100%; max-inline-size:370px; text-align:center; direction:inherit; }
+html[dir='rtl'] .keepsake-dedication { direction:rtl; }
+.mini-invitation { display:flex; align-items:center; justify-content:center; gap:.45rem; inline-size:100%; margin:0; padding:0; aspect-ratio:auto; background:none; outline:0; box-shadow:none; rotate:0deg; transform:none; animation:none; font-size:.8rem; transition:opacity 1.4s ease,translate 1.8s var(--ease); }
+.mini-invitation::after { display:none; }
+.mini-star { inline-size:42px; block-size:38px; margin-block:0 1.1rem; }
+.mini-eyebrow { color:var(--muted); font-size:.75rem; }
+.mini-guest { color:var(--ink); font:400 clamp(2rem,4vw,3.2rem)/1.7 var(--display); overflow-wrap:anywhere; max-inline-size:100%; }
+.mini-line { inline-size:42px; margin-block:1rem .6rem; }
+.keepsake-copy { margin-block-start:0; padding-block-start:0; max-inline-size:100%; }
+.keepsake-copy::before { display:none; }
+.keepsake-copy .body-copy { --d:.1s; font-size:.82rem; }
+.keepsake-actions { --d:.2s; margin-block-start:1.5rem; }
+.keepsake-actions .privacy-note { font-size:.64rem; }
+.motion-ready .mini-invitation:not(.has-arrived) { translate:0 20px; }
+@keyframes stage-light-breathe { from { opacity:.7; rotate:-2deg; } to { opacity:1; rotate:2deg; } }
+@keyframes stage-dust-drift { from { translate:-3px 8px; opacity:.3; } to { translate:4px -8px; opacity:.65; } }
+@keyframes stage-sway { from { rotate:-1deg; translate:-1px 0; } to { rotate:1deg; translate:1px 0; } }
+.chapter--closing { padding-block:clamp(5rem,9vw,8rem); background:var(--paper); color:var(--ink); }
+.closing-inner { position:relative; padding-block:3rem 1rem; max-inline-size:900px; }
+.closing-inner::before { content:''; position:absolute; inset-block-start:0; left:calc(50% - 45px); inline-size:90px; block-size:1px; background:var(--gold); opacity:.5; }
+.closing-orbit { position:absolute; left:50%; top:50%; translate:-50% -50%; inline-size:min(110%,1000px); block-size:auto; fill:none; stroke:var(--gold); stroke-width:.6; opacity:.1; pointer-events:none; animation:halo-pulse 12s ease-in-out infinite alternate; }
+.closing-rings { inline-size:88px; margin-block-end:1.8rem; stroke:var(--gold); stroke-width:.55; }
+.closing-rings.flight-near .cr { stroke:var(--gold-ink); }
+.closing-line { font-size:clamp(2.2rem,4vw,3.6rem); color:var(--ink); }
+.closing-signature { font:400 clamp(2.8rem,6vw,5.5rem)/1.5 var(--display); color:var(--ink); margin-block-start:1.1rem; }
+.chapter--closing .stars { opacity:.16; }.chapter--closing .star { background:var(--gold); box-shadow:none; }
+.chapter--closing .motes { opacity:.4; }.chapter--closing .meteor { display:none; }.chapter--closing .glint { background:var(--gold); }
+
+@media(max-width:800px) {
+  .garden-inner { gap:2.7rem; }.location-copy { margin:0; padding:0; max-inline-size:480px; justify-self:center; }
+  .keepsake-stage { display:flex; flex-direction:column; align-items:center; gap:.5rem; margin-block-start:1rem; }
+  .dance-hall { flex:none; inline-size:min(115%,390px); max-inline-size:none; }
+  .mini-invitation { align-self:center; inline-size:100%; margin:0; }
+  .keepsake-copy { margin-block-start:0; }
+}
+
+/* Local-only palette studio; controls are never mounted on a public host. */
+.dev-theme-dock { position:fixed; z-index:60; inset-block-end:1.3rem; inset-inline-start:1.3rem; }
+.dev-theme-trigger { display:flex; align-items:center; gap:.5rem; min-block-size:46px; padding:.55rem .95rem; border:1px solid var(--gold); border-radius:40px; color:var(--ink); background:var(--white); box-shadow:0 3px 18px color-mix(in srgb,var(--ink) 8%,transparent); font-size:.7rem; }
+.dev-theme-trigger::before { content:''; inline-size:15px; block-size:15px; border-radius:50%; background:conic-gradient(var(--ink) 0 33%,var(--gold) 33% 66%,var(--paper) 66%); border:1px solid var(--line); }
+.theme-modal { inline-size:min(94vw,580px); }.theme-modal::backdrop { background:color-mix(in srgb,var(--night-deep) 28%,transparent); backdrop-filter:blur(2px); }
+.theme-dialog-mark { font-size:1.6rem; color:var(--gold-ink); }
+.theme-options { border:0; padding:0; margin:1.5rem 0 0; display:grid; gap:.65rem; min-inline-size:0; }
+.theme-option { display:flex; align-items:center; gap:.8rem; padding:.8rem; border:1px solid var(--line); cursor:pointer; background:var(--white); }
+.theme-option:has(input:checked) { border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink); }
+.theme-option:focus-within { outline:2px solid var(--ink); outline-offset:3px; }
+.theme-option input { accent-color:var(--ink); inline-size:17px; block-size:17px; flex:0 0 17px; margin:0; }
+.theme-swatch { position:relative; display:block; flex:0 0 56px; block-size:66px; background:var(--swatch-paper); border:1px solid color-mix(in srgb,var(--swatch-ink) 15%,transparent); overflow:hidden; }
+.theme-swatch::before { content:''; position:absolute; inset:8px 10px 18px; border:1px solid var(--swatch-gold); border-radius:50% 50% 0 0; }
+.theme-swatch i { position:absolute; bottom:7px; inline-size:9px; block-size:9px; border-radius:50%; background:var(--swatch-ink); left:10px; }
+.theme-swatch i:nth-child(2) { background:var(--swatch-gold); left:23px; }.theme-swatch i:nth-child(3) { background:var(--swatch-night); left:36px; }
+.theme-option-copy { display:grid; gap:.15rem; min-inline-size:0; }.theme-option strong { font-weight:500; font-size:.88rem; }.theme-option small { color:var(--muted); font-size:.66rem; line-height:1.8; }
+.visually-hidden { position:absolute; inline-size:1px; block-size:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+@media(max-width:400px) { .theme-option { gap:.55rem; padding:.65rem; }.theme-swatch { flex-basis:49px; }.theme-option small { font-size:.6rem; }.dev-theme-dock { inset-inline-start:.8rem; inset-block-end:1rem; }.dev-theme-trigger { padding:.5rem .7rem; font-size:.64rem; } }
+.motion-ready .dance-hall:not(.has-arrived) * { animation-play-state:paused !important; }
+@media(prefers-reduced-motion:reduce) {
+  .stage-light,.stage-dust,.pair-sway,.closing-orbit { animation:none !important; }
+  .motion-ready .dance-hall .couple-dance { opacity:1 !important; scale:1 !important; }
+  .motion-ready .dance-hall .stage-light { opacity:1; clip-path:none; }
+  .motion-ready .dance-hall .pair-turn { opacity:1; translate:0; }
+}
+.local-preview-notice { position:sticky; inset-block-start:0; z-index:100; padding:1rem; background:var(--white); color:var(--ink); border-block-end:1px solid var(--line); text-align:center; font-size:.8rem; }
+.local-preview-notice p { margin:0 0 .5rem; }
+.local-preview-notice a { display:inline-block; padding:.6rem 1rem; background:var(--ink); color:var(--white); }
+@media print { .local-preview-notice { display:none; } }
+/* Printing an unvisited chapter still includes its final, readable composition. */
+@media print {
+  .motion-ready .chapter .rise,.motion-ready .chapter .word > span,.motion-ready .chapter .quote-line > span,
+  .motion-ready .chapter .date-card strong,.motion-ready .chapter .timeline li,.motion-ready .chapter .location-copy,
+  .motion-ready .chapter .mini-invitation,.motion-ready .dance-hall .couple-dance,.motion-ready .dance-hall .pair-turn { opacity:1 !important; translate:0 !important; filter:none !important; scale:1 !important; }
+  .motion-ready .chapter .joining-ring,.motion-ready .chapter .cr { translate:0 !important; rotate:0deg !important; }
+  .motion-ready .chapter .union-word { opacity:1; scale:1; filter:none; }
+  .motion-ready .chapter .orbit-name { display:none; }
+  .motion-ready .chapter .garden-world { clip-path:none; }
+  .motion-ready .dance-hall .stage-light { opacity:1; clip-path:none; }
+}
+@media print { .dev-theme-dock { display:none !important; } }

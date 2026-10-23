@@ -1,0 +1,330 @@
+/* Touch the ornaments and the same companion answers. */
+.bird-playpoint { padding:0; border:0; background:none; color:inherit; font:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.bird-playpoint:focus-visible { outline:1px solid var(--gold-ink); outline-offset:6px; }
+.bird-playpoint:disabled { cursor:default; opacity:1; }
+.hero-lure { display:grid; place-items:center; inline-size:44px; block-size:44px; flex:none; }
+.hero-divider .hero-lure svg { margin:0; }
+.ring-universe.bird-playpoint { display:grid; }
+.date-lure { position:absolute; z-index:2; top:7%; left:calc(50% - 22px); inline-size:44px; block-size:44px; display:grid; place-items:center; color:var(--glow); }
+.date-lure svg { inline-size:17px; block-size:17px; fill:currentColor; }
+.blossom-lure { display:grid; place-items:center; inline-size:64px; block-size:64px; margin:0 auto 1.4rem; }
+.blossom-lure .quote-star { margin:0; inline-size:32px; block-size:32px; fill:var(--cream); color:var(--cream); }
+.letter-lure { display:grid; place-items:center; inline-size:64px; block-size:58px; margin:0 auto .7rem; }
+.letter-lure .mini-star { margin:0; }
+.closing-lure { display:grid; place-items:center; inline-size:110px; block-size:90px; margin-block-end:1.5rem; }
+.closing-lure .closing-rings { margin:0; }
+.bird-playpoint svg { pointer-events:none; }
+.bird-playpoint:focus-visible, .bird-playpoint:hover { --ornament-glow:1; }
+.hero-lure:hover svg,.letter-lure:hover svg,.blossom-lure:hover svg,.date-lure:hover svg { filter:drop-shadow(0 0 7px var(--gold)); }
+.hero-lure.has-met-bird svg,.date-lure.has-met-bird svg { filter:drop-shadow(0 0 5px var(--gold)); }
+.location-art.has-met-bird .wish-flower { color:var(--gold-ink); opacity:1; }
+
+/* A lantern leaves the star garden and waits over its reflection. No frame or repeated arches. */
+.garden-inner { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(1rem,5vw,4rem); }
+.chapter--garden { padding-block:clamp(5rem,10vw,9rem); }
+.location-art.bird-playpoint { inline-size:min(100%,510px); aspect-ratio:520/510; border:0; border-radius:0; background:none; box-shadow:none; overflow:visible; }
+.location-art::after { display:none; }
+.wish-world { display:block; inline-size:100%; block-size:100%; overflow:visible; }
+.wish-float { transform-origin:260px 210px; animation:wish-float 7s ease-in-out infinite alternate; }
+.wish-lantern { transform-origin:260px 140px; transition:rotate .9s var(--ease); }
+.wish-aura { transform-origin:260px 218px; animation:wish-light 6s ease-in-out infinite alternate; }
+.wish-flower { color:var(--gold); opacity:.75; }
+.wish-flame { transform-origin:260px 275px; animation:wish-flame 2.5s ease-in-out infinite alternate; }
+.wish-thread { fill:none; stroke:var(--gold); stroke-width:.7; stroke-dasharray:1; opacity:.55; transition:stroke-dashoffset 3s var(--ease) .5s; }
+.wish-water { fill:none; stroke:var(--gold); stroke-width:.7; opacity:.4; }
+.wish-water ellipse:nth-child(2) { opacity:.45; }
+.wish-ripple { transform-origin:260px 409px; animation:wish-ripple 6s ease-out infinite; }
+.wish-distance { opacity:.5; transform-origin:center; animation:distant-wishes 14s ease-in-out infinite alternate; }
+.wish-distance path:nth-child(2) { opacity:.6; }.wish-distance path:nth-child(3) { opacity:.4; }
+.wish-seeds { opacity:.45; animation:stage-dust-drift 9s ease-in-out infinite alternate; }
+.wish-release { opacity:0; }
+.wish-float { transition:translate 2.8s var(--ease),opacity 2s ease; }
+.motion-ready .location-art:not(.has-arrived) .wish-float { translate:0 65px; opacity:0; }
+.motion-ready .location-art:not(.has-arrived) .wish-thread { stroke-dashoffset:1; }
+.motion-ready .location-art:not(.has-arrived) * { animation-play-state:paused !important; }
+.location-copy { padding:0; margin:0; text-align:start; }
+.location-copy .eyebrow.rise,.location-copy .location-address,.location-copy .body-copy { --d:.15s; }
+.location-copy .whisper { margin-block-start:2rem; padding-block-start:1.6rem; }
+.location-copy h2 { font-size:clamp(3rem,5vw,4.6rem); }
+@keyframes wish-float { from { translate:0 -7px; rotate:-2deg; } to { translate:0 6px; rotate:2deg; } }
+@keyframes wish-light { from { opacity:.65; scale:.92; } to { opacity:1; scale:1.06; } }
+@keyframes wish-flame { from { scale:.8 1; opacity:.5; } to { scale:1 1.12; opacity:.9; } }
+@keyframes wish-ripple { from { scale:.6; opacity:.6; } to { scale:2.1; opacity:0; } }
+@keyframes distant-wishes { from { translate:-2px 5px; } to { translate:3px -12px; } }
+
+/* A prince and princess in silhouette, still made from the selected paper-and-ink palette. */
+.prince-lapel { fill:var(--glow); opacity:.28; }
+.princess-tiara { fill:var(--gold); stroke:var(--glow); stroke-width:.5; }
+.silhouette-veil { transform-origin:290px 200px; }
+.couple-heart { fill:none; stroke:var(--gold); stroke-width:1.1; stroke-linecap:round; stroke-dasharray:1; stroke-dashoffset:1; opacity:0; }
+
+/* Reactions belong to the place the bird actually visits. */
+[data-bird-moment='hero'] .hero-lure svg { animation:bird-star-play 2.3s var(--ease); }
+[data-bird-moment='date'] .date-lure svg { animation:bird-star-chase 2.5s var(--ease); }
+[data-bird-moment='blossom'] .blossom-lure svg { animation:bird-flower-tickle 1.6s ease-in-out; }
+[data-bird-moment='lantern'] .wish-lantern { animation:bird-lantern-nudge 2.5s ease-in-out; }
+[data-bird-moment='lantern'] .wish-release { animation:bird-wish-release 2.8s ease-out; }
+[data-bird-moment='couple'] .couple-heart { animation:bird-draw-heart 3.1s ease both; }
+[data-bird-moment='couple'] .stage-light { filter:brightness(1.2); }
+[data-bird-moment='letter'] .mini-star { animation:bird-friend-bow 2s ease-in-out; }
+[data-bird-moment='closing'] .closing-rings { animation:bird-friend-bow 2s ease-in-out; }
+.story-flight .is-bowing svg { animation:bird-friend-bow 1.6s ease-in-out; }
+.story-flight .is-sneezing svg { animation:bird-sneeze .7s ease-in-out; }
+.bird-kiss { position:absolute; left:var(--hx); top:var(--hy); color:var(--gold); font:24px/1 var(--latin); pointer-events:none; opacity:0; animation:bird-kiss 1.7s ease-out var(--wait) both; }
+@keyframes bird-star-play { 28% { transform:rotate(70deg) scale(1.35); } 65% { transform:rotate(-15deg) scale(.9); } }
+@keyframes bird-star-chase { 25% { translate:25px -10px; rotate:45deg; } 60% { translate:-18px 6px; rotate:120deg; } }
+@keyframes bird-flower-tickle { 20%,60% { rotate:-15deg; } 40%,80% { rotate:15deg; } }
+@keyframes bird-lantern-nudge { 25% { rotate:8deg; } 50% { rotate:-5deg; } 75% { rotate:3deg; } }
+@keyframes bird-wish-release { 0% { opacity:0; translate:0 0; } 15% { opacity:1; } 100% { opacity:0; translate:14px -100px; } }
+@keyframes bird-draw-heart { 0% { opacity:0; stroke-dashoffset:1; } 12% { opacity:.9; } 70% { stroke-dashoffset:0; opacity:.9; } 100% { stroke-dashoffset:0; opacity:0; } }
+@keyframes bird-friend-bow { 30% { rotate:16deg; translate:0 4px; } 60% { rotate:-5deg; } }
+@keyframes bird-sneeze { 25% { rotate:-12deg; } 40%,70% { translate:-4px 1px; } 55%,85% { translate:4px -1px; } }
+@keyframes bird-kiss { 0% { opacity:0; translate:-50% 0; scale:.6; } 20% { opacity:.85; } 100% { opacity:0; translate:var(--drift) -68px; scale:1.1; } }
+
+/* Button light travels beneath readable labels. The envelope deliberately has its own response. */
+.magic-control { position:relative; isolation:isolate; overflow:hidden; -webkit-tap-highlight-color:transparent; }
+.magic-control::before { content:''; position:absolute; z-index:-1; pointer-events:none; inset:-65% auto -65% -55%; inline-size:35%; background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--glow) 50%,transparent),transparent); rotate:20deg; opacity:0; }
+.magic-control::after { content:''; position:absolute; z-index:-1; pointer-events:none; left:var(--touch-x,50%); top:var(--touch-y,50%); inline-size:220px; aspect-ratio:1; border-radius:50%; translate:-50% -50%; background:radial-gradient(circle,color-mix(in srgb,var(--glow) 65%,transparent),transparent 68%); opacity:0; }
+.magic-control:hover::before,.magic-control:focus-visible::before { animation:magic-sweep 1.1s var(--ease); }
+.magic-control.is-enchanted::after { animation:magic-touch .85s ease-out; }
+.magic-control:active { box-shadow:0 0 22px color-mix(in srgb,var(--gold) 20%,transparent); }
+.button.magic-control:hover { transform:translateY(-1px); }
+.button.magic-control:active { transform:scale(.99); }
+#open-keepsake.magic-control::after { inset:auto; left:var(--touch-x,50%); top:var(--touch-y,50%); inline-size:220px; block-size:auto; translate:-50% -50%; background:radial-gradient(circle,color-mix(in srgb,var(--glow) 65%,transparent),transparent 68%); animation:none; }
+#open-keepsake.magic-control.is-enchanted::after { animation:magic-touch .85s ease-out; }
+@keyframes magic-sweep { 0% { translate:0 0; opacity:0; } 20% { opacity:.8; } 100% { translate:450% 0; opacity:0; } }
+@keyframes magic-touch { 0% { scale:.1; opacity:0; } 20% { opacity:.7; } 100% { scale:1.7; opacity:0; } }
+.envelope-cta,.envelope-button:hover .envelope-cta { gap:0; border:0; color:var(--cream); transition:color .4s ease; }
+.envelope-button { transform:none; -webkit-tap-highlight-color:transparent; }
+.envelope-button .envelope,.envelope-button:hover .envelope { transform:perspective(900px) rotateY(calc(var(--px,0) * 4deg)) rotateX(calc(var(--py,0) * -3deg)); transition:transform .7s ease,filter .4s ease; }
+.envelope-button:active .wax-seal { scale:1; }
+.envelope-button:hover .wax-seal { filter:brightness(1.1) drop-shadow(0 0 8px color-mix(in srgb,var(--glow) 25%,transparent)); }
+.envelope-button:active .envelope { filter:brightness(1.025); }
+.envelope-button:focus-visible .envelope-cta { box-shadow:none; text-decoration:none; }
+.envelope-button:focus-visible .wax-seal { outline:1px solid var(--gold); outline-offset:5px; }
+
+@media(max-width:900px) {
+  .garden-inner { grid-template-columns:minmax(0,1fr); gap:0; }
+  .location-art.bird-playpoint { inline-size:min(100%,430px); }
+  .location-copy { text-align:center; inline-size:100%; max-inline-size:480px; margin:0 auto; padding:0; }
+  .location-copy h2 { font-size:clamp(2.8rem,9vw,3.8rem); }
+  .location-copy .whisper { margin-block-start:2.2rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .wish-float,.wish-lantern,.wish-aura,.wish-flame,.wish-distance,.wish-seeds,.wish-ripple,.bird-playpoint svg { animation:none !important; }
+  .motion-ready .location-art .wish-float { opacity:1; translate:0; }
+  .motion-ready .location-art .wish-thread { stroke-dashoffset:0; }
+  .magic-control::before,.magic-control::after,.bird-kiss { display:none; }
+  .button.magic-control:hover,.button.magic-control:active { transform:none; }
+}
+@media print {
+  .bird-playpoint { outline:0 !important; }
+  .motion-ready .location-art .wish-float { opacity:1; translate:0; }
+  .motion-ready .location-art .wish-thread { stroke-dashoffset:0; }
+  .magic-control::before,.magic-control::after,.bird-kiss { display:none; }
+}
+
+.couple-dance .silhouette-veil { opacity:.3; }
+
+/* The promise ends in a composed pair of growing jasmine boughs, below the words. */
+.chapter--promise { padding-block:clamp(6rem,12vw,9rem) clamp(19rem,32vw,25rem); }
+.chapter--promise .promise-chapter,.chapter--promise .quote-footnote { color:var(--cream); font-size:.82rem; line-height:2; }
+.chapter--promise .whisper { color:var(--cream); font-size:clamp(1.12rem,2.2vw,1.4rem); line-height:1.9; max-inline-size:34ch; margin-inline:auto; margin-block-start:2rem; }
+.chapter--promise .constellation { opacity:.24; }
+.jasmine-garden { position:absolute; bottom:0; left:50%; translate:-50% 0; inline-size:max(100%,660px); max-inline-size:1300px; block-size:clamp(240px,30vw,350px); overflow:visible; color:var(--cream); }
+.jasmine-stem { fill:none; stroke:var(--foliage); stroke-width:1.1; stroke-linecap:round; stroke-dasharray:1; transition:stroke-dashoffset 2.6s var(--ease); }
+.jasmine-leaves { fill:var(--foliage); opacity:.38; transition:opacity 1.8s ease .5s; }
+.jasmine-flower { transform-box:fill-box; transform-origin:center; color:var(--cream); scale:1; transition:scale 1.5s var(--spring) calc(.7s + var(--petal,0) * .14s); }
+.jasmine-thread { fill:none; stroke:var(--gold); stroke-width:.7; opacity:.42; stroke-dasharray:1; transition:stroke-dashoffset 2.5s var(--ease); }
+.jasmine-center { color:var(--glow); transform-origin:500px 333px; animation:jasmine-breathe 8s ease-in-out infinite alternate; }
+.jasmine-dew { fill:var(--glow); animation:jasmine-dew 6s ease-in-out infinite alternate; }
+.motion-ready .jasmine-garden:not(.has-arrived) .jasmine-stem,.motion-ready .jasmine-garden:not(.has-arrived) .jasmine-thread { stroke-dashoffset:1; }
+.motion-ready .jasmine-garden:not(.has-arrived) .jasmine-leaves { opacity:0; }
+.motion-ready .jasmine-garden:not(.has-arrived) .jasmine-flower { scale:.15; }
+[data-bird-moment='blossom'] .jasmine-dew { animation:jasmine-answer 2s ease-in-out; }
+@keyframes jasmine-breathe { from { opacity:.6; scale:.94; } to { opacity:1; scale:1.04; } }
+@keyframes jasmine-dew { from { opacity:.25; } to { opacity:.8; } }
+@keyframes jasmine-answer { 40% { opacity:1; filter:drop-shadow(0 0 8px var(--glow)); } }
+
+/* Native top-layer backdrops become a quiet night sky around bright paper. */
+.modal::backdrop,.theme-modal::backdrop {
+  background-color:color-mix(in srgb,var(--night-deep,#15271e) 90%,transparent);
+  background-image:
+    radial-gradient(1.5px 1.5px at 9% 16%,var(--cream,#f4f0de) 90%,transparent),
+    radial-gradient(1px 1px at 31% 8%,var(--cream,#f4f0de) 90%,transparent),
+    radial-gradient(2px 2px at 74% 12%,var(--gold,#ad986e) 90%,transparent),
+    radial-gradient(1px 1px at 92% 30%,var(--cream,#f4f0de) 90%,transparent),
+    radial-gradient(1.5px 1.5px at 7% 53%,var(--gold,#ad986e) 90%,transparent),
+    radial-gradient(1px 1px at 18% 83%,var(--cream,#f4f0de) 90%,transparent),
+    radial-gradient(1.5px 1.5px at 87% 76%,var(--cream,#f4f0de) 90%,transparent),
+    radial-gradient(1px 1px at 62% 94%,var(--gold,#ad986e) 90%,transparent),
+    radial-gradient(1.5px 1.5px at 42% 87%,var(--cream,#f4f0de) 90%,transparent),
+    radial-gradient(ellipse at 18% 0%,color-mix(in srgb,var(--night,#20352b) 45%,transparent),transparent 65%);
+  backdrop-filter:blur(6px);
+  animation:modal-night-in .5s ease both,modal-sky-drift 18s ease-in-out infinite alternate;
+}
+.modal { background:var(--white); border-color:color-mix(in srgb,var(--gold) 35%,var(--line)); box-shadow:0 30px 110px color-mix(in srgb,var(--night-deep) 60%,transparent),0 0 0 1px color-mix(in srgb,var(--cream) 12%,transparent); }
+.modal.is-closing::backdrop { animation:modal-night-out .22s ease both; }
+.modal > .dev-theme-dock { inset-block-start:1.2rem; inset-block-end:auto; }
+.is-conjuring > .dev-theme-dock { visibility:hidden; }
+@keyframes modal-night-in { from { opacity:0; } to { opacity:1; } }
+@keyframes modal-night-out { to { opacity:0; } }
+@keyframes modal-sky-drift { from { background-position:0 0; } to { background-position:0 -12px; } }
+
+/* An invisible mirror preserves the native input's shaping and horizontal scroll. */
+.caret-mirror { position:fixed; box-sizing:border-box; white-space:pre; overflow:hidden; border-style:solid; border-color:transparent; opacity:0; pointer-events:none; z-index:-100; }
+.writing-glint { position:absolute; inline-size:5px; block-size:5px; border-radius:50%; translate:-50% 0; background:var(--gold); box-shadow:0 0 12px 3px color-mix(in srgb,var(--gold) 35%,transparent); pointer-events:none; animation:writing-glow 1.5s ease-in-out infinite alternate; }
+.writing-glint[hidden] { display:none; }
+@keyframes writing-glow { from { opacity:.35; scale:.7; } to { opacity:.8; scale:1; } }
+
+/* A little ceremony runs before saving; the close control stays available. */
+.keepsake-modal { position:fixed; }
+.keepsake-ritual { position:absolute; z-index:4; inset:0; display:grid; place-items:center; overflow:hidden; background:var(--white); isolation:isolate; pointer-events:none; }
+.keepsake-ritual[hidden] { display:none; }
+.ritual-halo { position:absolute; inline-size:120%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,color-mix(in srgb,var(--glow) 40%,transparent),transparent 64%); animation:keepsake-halo 1.8s ease-out both; }
+.ritual-orbit { position:absolute; inline-size:min(115%,520px); fill:none; stroke:var(--gold); stroke-width:.65; opacity:.6; animation:keepsake-orbit 1.85s var(--ease) both; }
+.ritual-orbit circle:first-child { stroke-dasharray:1; animation:keepsake-line 1.4s var(--ease) both; }
+.ritual-orbit circle:nth-child(2) { opacity:.3; stroke-dasharray:1 7; }
+.ritual-orbit use { fill:var(--gold); stroke:none; }
+.ritual-paper { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; inline-size:min(67%,270px); min-block-size:260px; aspect-ratio:3/4; padding:2rem 1rem; border:1px solid var(--gold); outline:1px solid var(--line); outline-offset:-10px; background:var(--paper); box-shadow:0 20px 50px color-mix(in srgb,var(--ink) 14%,transparent); text-align:center; animation:keepsake-unfold 2.6s var(--ease) both; }
+.ritual-perch { position:absolute; top:-12px; right:12px; inline-size:40px; block-size:34px; }
+.ritual-flower { color:var(--gold-ink); font-size:2rem; margin-block-end:.7rem; }
+.ritual-names { display:block; font:400 clamp(1.9rem,5vw,2.8rem)/1.6 var(--display); color:var(--ink); margin-block:.2rem .8rem; }
+.ritual-names i { color:var(--gold-ink); font-family:var(--latin); font-size:.65em; }
+.ritual-rule { inline-size:30px; block-size:1px; background:var(--gold); margin-block:0 1rem; }
+.ritual-name { color:var(--ink); font:400 clamp(1.45rem,4vw,2rem)/1.6 var(--display); overflow-wrap:anywhere; max-inline-size:100%; animation:keepsake-ink 1.8s ease both; }
+.ritual-seal { position:absolute; bottom:16px; color:var(--gold-ink); font-size:1.5rem; animation:keepsake-seal 1.8s var(--spring) both; }
+.ritual-status { position:absolute; bottom:1.3rem; inset-inline:1rem; text-align:center; color:var(--muted); font-size:.75rem; }
+.ritual-dust { position:absolute; left:50%; top:50%; pointer-events:none; }
+.ritual-dust i { position:absolute; inline-size:5px; block-size:5px; background:var(--gold); border-radius:50%; rotate:calc(var(--ray) * 45deg); animation:keepsake-dust 1.8s ease-out both; }
+.keepsake-modal > .modal-header { position:relative; z-index:6; }
+.is-conjuring > .eyebrow,.is-conjuring > h2,.is-conjuring > .modal-description,.is-conjuring > form { opacity:0; pointer-events:none; }
+.is-conjuring .modal-header > .icon,.is-conjuring .modal-header > .modal-perch { opacity:0; }
+.is-conjuring > .modal-header { pointer-events:none; }.is-conjuring > .modal-header .close-button { pointer-events:auto; background:var(--white); }
+@keyframes keepsake-halo { 0% { opacity:0; scale:.2; } 55% { opacity:1; } 100% { opacity:.65; scale:1.2; } }
+@keyframes keepsake-orbit { from { rotate:-65deg; scale:.65; opacity:0; } 55% { opacity:.8; } to { rotate:10deg; scale:1; opacity:.35; } }
+@keyframes keepsake-line { from { stroke-dashoffset:1; } to { stroke-dashoffset:0; } }
+@keyframes keepsake-unfold { 0%,12% { opacity:0; transform:perspective(700px) rotateY(-48deg) scale(.72); } 55% { opacity:1; transform:perspective(700px) rotateY(4deg) scale(1.02); } 100% { opacity:1; transform:perspective(700px) rotateY(0deg) scale(1); } }
+@keyframes keepsake-ink { 0%,32% { opacity:0; filter:blur(7px); clip-path:inset(0 50%); } 80%,100% { opacity:1; filter:blur(0); clip-path:inset(0); } }
+@keyframes keepsake-seal { 0%,65% { scale:0; opacity:0; } 90%,100% { scale:1; opacity:1; } }
+@keyframes keepsake-dust { 0%,65% { opacity:0; transform:translateX(30px) scale(.3); } 72% { opacity:1; } 100% { opacity:0; transform:translateX(180px) scale(.3); } }
+@media(max-width:400px) { .ritual-paper { inline-size:76%; min-block-size:250px; }.ritual-status { font-size:.65rem; } }
+@media(prefers-reduced-motion:reduce) {
+  .modal::backdrop,.theme-modal::backdrop,.jasmine-garden *,.writing-glint { animation:none !important; }
+  .motion-ready .jasmine-garden .jasmine-stem,.motion-ready .jasmine-garden .jasmine-thread { stroke-dashoffset:0; }
+  .motion-ready .jasmine-garden .jasmine-leaves { opacity:.38; }.motion-ready .jasmine-garden .jasmine-flower { scale:1; }
+}
+@media print {
+  .caret-mirror,.writing-glint,.keepsake-ritual { display:none !important; }
+  .chapter--promise { padding-block:2rem; }.jasmine-garden { display:none; }
+  .chapter--promise .whisper,.chapter--promise .quote-footnote,.chapter--promise .promise-chapter { color:var(--ink); }
+}
+
+
+/* Arrive while the guest is still moving, then settle into a readable composition. */
+.rise { opacity:1; translate:0; filter:none; transition:opacity 1.2s cubic-bezier(.4,0,.2,1) min(var(--d,0s),.2s),translate 1.25s var(--ease) min(var(--d,0s),.2s),filter 1.2s ease min(var(--d,0s),.2s); }
+.motion-ready .rise:not(.has-arrived) { opacity:.04; translate:0 8px; filter:blur(.6px); }
+.split .word { overflow:visible; }
+.split .word > span { opacity:1; translate:0; transition:opacity 1.25s cubic-bezier(.4,0,.2,1) calc(var(--w,0) * 25ms),translate 1.3s var(--ease) calc(var(--w,0) * 25ms); }
+.motion-ready .split:not(.has-arrived) .word > span { opacity:.04; translate:0 .14em; }
+.joining-ring { transition:translate 1.9s var(--ease) .1s,rotate 1.9s var(--ease) .1s; }
+.scene-closing { --d:.2s; }
+.orbit-name { transition:left 1.8s var(--ease) .1s,opacity .8s ease .55s; }
+.date-card strong { transition-delay:.15s; transition-duration:1s; }
+.timeline li { transition:opacity .8s var(--ease) calc(.1s + var(--n,0) * .16s),translate 1s var(--ease) calc(.1s + var(--n,0) * .16s); }
+.quote-line { overflow:visible; }
+.quote-line > span { opacity:1; translate:0; transition:opacity 1.3s cubic-bezier(.4,0,.2,1) calc(var(--line,0) * .14s),translate 1.35s var(--ease) calc(var(--line,0) * .14s); }
+.motion-ready .quote-text:not(.has-arrived) .quote-line > span { opacity:.04; translate:0 .14em; }
+.invitation-open .hero-content > :is(p,h1).hero-enter { animation-name:text-soft-in; animation-duration:1.35s; animation-timing-function:cubic-bezier(.4,0,.2,1); }
+@keyframes text-soft-in { from { opacity:.04; transform:translateY(8px); filter:none; } to { opacity:1; transform:none; filter:none; } }
+.location-copy { transition:opacity 1s ease .05s,translate 1.1s var(--ease) .05s; }
+.union-word { transition:opacity .9s ease 1s,scale 1.1s var(--spring) 1s,filter .9s ease 1s; }
+.motion-ready .story-art.has-arrived .ring-flash { animation-delay:1.1s; }
+[data-bird-moment='rings'] .union-word { animation:union-warmth 1.5s ease; }
+@keyframes union-warmth { 45% { text-shadow:0 0 16px var(--gold); } }
+.stage-light { transition-duration:1.5s,1.8s; transition-delay:0s; }
+.pair-turn { transition:opacity 1.3s ease .25s,translate 1.6s var(--ease) .15s; }
+.couple-dance .silhouette-veil { animation:none; transform:none; rotate:0deg; scale:1; opacity:.24; }
+.prince-profile,.princess-profile { stroke:var(--night); stroke-width:.3; stroke-linejoin:round; }
+
+/* A writing companion dips its beak, gives little hops and puzzles over corrections. */
+.story-flight .is-writing .bird-body { animation:none; }
+.story-flight .is-writing .bird-eye { animation:bird-blink 3.7s ease-in-out infinite; }
+.story-flight .is-writing[data-writing-gesture='stroke'] svg { animation:bird-quill .58s ease-out; }
+.story-flight .is-writing[data-writing-gesture='word'] svg { animation:bird-word .8s var(--spring); }
+.story-flight .is-writing[data-writing-gesture='correction'] svg { animation:bird-puzzle .75s ease-out; }
+.story-flight .is-writing:not([data-writing-gesture='correction']) .bird-wing--front { animation:quill-wing .7s ease-in-out 3 alternate; }
+.story-flight .is-curious:not(.is-writing) svg { animation:bird-question 1s ease-out; }
+.story-flight .is-delighted:not(.is-writing) svg { animation:bird-delight 1s var(--spring); }
+@keyframes bird-quill { 30% { rotate:9deg; translate:0 3px; } 65% { rotate:-5deg; } }
+@keyframes bird-word { 35% { rotate:-12deg; translate:0 -7px; } 65% { rotate:6deg; } }
+@keyframes bird-puzzle { 25% { rotate:-16deg; } 55% { rotate:10deg; } 80% { rotate:-4deg; } }
+@keyframes quill-wing { from { transform:skewY(4deg) scaleX(.48); } to { transform:skewY(-3deg) scaleX(.64); } }
+@keyframes bird-question { 25% { rotate:-9deg; } 60% { rotate:5deg; } }
+@keyframes bird-delight { 35% { translate:0 -7px; rotate:-6deg; } 65% { translate:0 2px; rotate:4deg; } }
+#keepsake-dialog:has(.download-result:not([hidden])) #download-png { display:none; }
+.letter-lure .bird-friend { inline-size:54px; block-size:48px; overflow:visible; transform:rotate(-9deg); filter:drop-shadow(0 3px 2px color-mix(in srgb,var(--ink) 14%,transparent)); }
+
+/* A larger lantern and a quiet jasmine shoreline replace the empty margins. */
+.location-art.bird-playpoint { aspect-ratio:460/420; inline-size:min(100%,470px); }
+.wish-shore > path { stroke-dasharray:1; transition:stroke-dashoffset 1.8s var(--ease) .2s; opacity:.5; }
+.motion-ready .location-art:not(.has-arrived) .wish-shore > path { stroke-dashoffset:1; }
+.wish-jasmine { opacity:.6; transform-origin:260px 300px; animation:shore-breathe 7s ease-in-out infinite alternate; }
+@keyframes shore-breathe { to { opacity:.9; translate:0 -2px; } }
+
+/* The final signature is held by light, with a small moving thread below it. */
+.closing-inner { padding-block:1.5rem .2rem; }
+.closing-inner::before { display:none; }
+.closing-orbit { inline-size:min(100%,900px); opacity:.24; animation:closing-brackets 11s ease-in-out infinite alternate; }
+.closing-lure { margin-block-end:.7rem; }
+.closing-line { max-inline-size:24ch; }
+.closing-signature { position:relative; margin-block-start:.6rem; }
+.closing-coda { inline-size:clamp(170px,32vw,280px); block-size:auto; margin-block-start:.8rem; overflow:visible; fill:none; stroke:var(--gold); stroke-width:.7; }
+.coda-thread { opacity:.45; }
+.coda-glimmer { stroke:var(--gold-ink); stroke-dasharray:.07 .93; animation:coda-travel 8s linear infinite; }
+.coda-star { fill:var(--gold); stroke:none; transform-origin:140px 30px; animation:coda-breathe 5s ease-in-out infinite alternate; }
+.coda-dew { fill:var(--gold); stroke:none; animation:coda-breathe 4s ease-in-out infinite alternate; }
+.coda-dew:last-child { animation-delay:-2s; }
+@keyframes closing-brackets { to { scale:1.025 .98; opacity:.13; } }
+@keyframes coda-travel { from { stroke-dashoffset:1; opacity:0; } 15%,75% { opacity:.8; } to { stroke-dashoffset:0; opacity:0; } }
+@keyframes coda-breathe { from { opacity:.35; scale:.85; } to { opacity:.8; scale:1.05; } }
+.theme-modal { inline-size:min(94vw,740px); }
+@media(min-width:640px) { .theme-options { grid-template-columns:repeat(2,minmax(0,1fr)); }.theme-option { gap:.55rem; }.theme-swatch { flex-basis:46px; }.theme-option strong { font-size:.8rem; } }
+@media(max-width:900px) { .garden-inner { gap:.6rem; }.location-art.bird-playpoint { inline-size:min(100%,420px); } }
+@media(prefers-reduced-motion:reduce) {
+  .story-flight .story-bird svg,.wish-jasmine,.closing-orbit,.closing-coda * { animation:none !important; }
+  .motion-ready .location-art .wish-shore > path { stroke-dashoffset:0; }
+}
+@media print { .closing-coda * { animation:none !important; }.motion-ready .location-art .wish-shore > path { stroke-dashoffset:0; } }
+
+@media(prefers-reduced-motion:reduce), print {
+  .motion-ready .rise,.motion-ready .split .word > span,.motion-ready .quote-text .quote-line > span { opacity:1 !important; translate:0 !important; filter:none !important; }
+}
+
+
+/* A short light travels around the edge without delaying the native action. */
+@property --magic-edge-angle { syntax:'<angle>'; inherits:false; initial-value:-90deg; }
+.magic-border { position:absolute; z-index:2; inset:0; border:1px solid var(--glow); border-radius:inherit; pointer-events:none; opacity:0; }
+@supports (mask-composite:exclude) {
+  .magic-border { border:0; padding:1.5px; background:conic-gradient(from var(--magic-edge-angle),transparent 0deg,var(--gold) 24deg,var(--cream) 62deg,var(--glow) 83deg,transparent 116deg); mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); mask-composite:exclude; }
+}
+.magic-control.is-enchanted > .magic-border { animation:magic-edge .85s linear both; }
+@keyframes magic-edge { 0% { --magic-edge-angle:-90deg; opacity:0; } 12% { opacity:1; } 80% { opacity:1; } 100% { --magic-edge-angle:270deg; opacity:0; } }
+
+/* One shared turn keeps the silhouettes, dress and veil attached to each other. */
+.pair-turn { transform-box:fill-box; transform-origin:50% 96%; transition:none; }
+.motion-ready .dance-hall.has-arrived .pair-turn { animation:couple-twirl-in 2.8s cubic-bezier(.22,.61,.36,1) both; }
+.dance-turn-trace { fill:none; stroke:var(--gold); stroke-width:.9; stroke-linecap:round; stroke-dasharray:.18 .82; opacity:0; }
+.motion-ready .dance-hall.has-arrived .dance-turn-trace { animation:dance-turn-light 2.8s ease-out both; }
+@keyframes couple-twirl-in {
+  0% { opacity:.04; translate:-10px 8px; transform:perspective(850px) rotateY(-300deg) rotateZ(-3deg) scale(.9); }
+  32% { opacity:.85; translate:7px -2px; transform:perspective(850px) rotateY(-168deg) rotateZ(2deg) scale(.97); }
+  65% { opacity:1; translate:-3px 0; transform:perspective(850px) rotateY(-32deg) rotateZ(-1deg) scale(1.01); }
+  84% { opacity:1; translate:1px 0; transform:perspective(850px) rotateY(6deg) rotateZ(.4deg) scale(1); }
+  100% { opacity:1; translate:0; transform:perspective(850px) rotateY(0deg) rotateZ(0deg) scale(1); }
+}
+@keyframes dance-turn-light { 0% { opacity:0; stroke-dashoffset:1; } 28% { opacity:.6; } 72% { opacity:.45; } 100% { opacity:0; stroke-dashoffset:0; } }
+@media(prefers-reduced-motion:reduce), print {
+  .magic-border,.dance-turn-trace { display:none !important; }
+  .motion-ready .dance-hall .pair-turn { animation:none !important; opacity:1 !important; translate:0 !important; transform:none !important; }
+}

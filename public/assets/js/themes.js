@@ -1,0 +1,28 @@
+// One palette supplies the page, SVG artwork, dialogs, bird, and PNG export.
+export const themes = [
+  { id: 'olive', name: {ar:'زيتوني وعاجي',en:'Olive & ivory'}, note:{ar:'ورق دافئ، حبر نباتي، ولمسة شامبانيا',en:'Warm paper, botanical ink, champagne details'}, colors: {paper:'#f7f5ee',white:'#fffef9',ink:'#293e32',olive:'#273d31',muted:'#606a5d',gold:'#ad986e','gold-ink':'#79633d',line:'#d9d9ca',soft:'#eeeee3',night:'#20352b','night-deep':'#15271e',cream:'#f4f0de',glow:'#eddbab',foliage:'#93a18b'} },
+  { id: 'pearl', name:{ar:'لؤلؤي وفحمي',en:'Pearl & graphite'}, note:{ar:'درجات لؤلؤية، فضة هادئة، وحبر فحمي',en:'Pearlescent paper, quiet silver, charcoal ink'}, colors:{paper:'#f5f4f1',white:'#fffefa',ink:'#30343b',olive:'#30343b',muted:'#64666c',gold:'#9b9a94','gold-ink':'#68675f',line:'#d9d8d2',soft:'#ecebe6',night:'#2b3038','night-deep':'#1b2028',cream:'#f4f2e9',glow:'#e5e1d4',foliage:'#969b98'} },
+  { id:'champagne', name:{ar:'عاجي وشامبانيا',en:'Ivory & champagne'}, note:{ar:'ورق عاجي، حبر ناعم، وذهب هادئ',en:'Ivory stationery, soft ink, delicate champagne gold'}, colors:{paper:'#faf7ef',white:'#fffdf8',ink:'#454239',olive:'#413e34',muted:'#6e6a5f',gold:'#b4a27d','gold-ink':'#786843',line:'#dfd9cb',soft:'#f0ece1',night:'#33332d','night-deep':'#22231f',cream:'#faf4e4',glow:'#ecdfbe',foliage:'#a5aa98'} },
+  { id:'midnight', name:{ar:'أزرق ضبابي ولؤلؤ',en:'Powder blue & pearl'}, note:{ar:'ورق لؤلؤي، أزرق ضبابي، ولمسة فضية',en:'Pearl paper, dusty blue, a quiet touch of silver'}, colors:{paper:'#f3f6f7',white:'#fcfefd',ink:'#334b5a',olive:'#304654',muted:'#5e707d',gold:'#9aaeb8','gold-ink':'#5e7380',line:'#d5dfe2',soft:'#e8eff2',night:'#293e4b','night-deep':'#192c37',cream:'#f1f5f4',glow:'#d8e8ec',foliage:'#9aadb3'} },
+  { id:'sage', name:{ar:'أخضر مريمي وحرير',en:'Sage & silk'}, note:{ar:'حرير فاتح، أخضر مريمي، ولمسات بلاتينية',en:'Silken paper, soft sage, brushed platinum details'}, colors:{paper:'#f3f6f1',white:'#fcfef9',ink:'#3c4c41',olive:'#34463b',muted:'#64705f',gold:'#a3ad97','gold-ink':'#667258',line:'#d6dfd0',soft:'#e9efe4',night:'#2d3e34','night-deep':'#1c2e24',cream:'#f1f5e9',glow:'#e0e8cf',foliage:'#a0b099'} },
+  {"id": "lilac", "name": {"ar": "ليلك وضوء القمر", "en": "Lilac & moonlight"}, "note": {"ar": "ورق بنفسجي خافت، فضة، وحبر زهري بارد", "en": "Pale lilac paper, silver, muted violet ink"}, "colors": {"paper": "#f5f2f8", "white": "#fffdfd", "ink": "#484151", "olive": "#443d4e", "muted": "#6d6376", "gold": "#b1a5bd", "gold-ink": "#766782", "line": "#dfd7e6", "soft": "#ede7f2", "night": "#35303f", "night-deep": "#231f2b", "cream": "#f8f1fc", "glow": "#e7dbf1", "foliage": "#aea0b6"}},
+  {"id": "sea-glass", "name": {"ar": "زجاج البحر وحرير", "en": "Sea glass & silk"}, "note": {"ar": "ماء أخضر خافت، لؤلؤ، وفضة دافئة", "en": "Washed sea glass, pearl, warm silver"}, "colors": {"paper": "#f0f7f5", "white": "#fbfffc", "ink": "#354e4c", "olive": "#304744", "muted": "#5e716d", "gold": "#9caeaa", "gold-ink": "#5c7570", "line": "#d1e1dc", "soft": "#e3efeb", "night": "#263e3c", "night-deep": "#1a2c2b", "cream": "#edf9f2", "glow": "#d8ece3", "foliage": "#96b4a6"}},
+  {"id": "moonstone", "name": {"ar": "حجر القمر وكشمير", "en": "Moonstone & cashmere"}, "note": {"ar": "بيج لؤلؤي، حبر رمادي بنفسجي، وضوء فضي", "en": "Pearl beige, lavender graphite, silver light"}, "colors": {"paper": "#f5f3f0", "white": "#fffdfb", "ink": "#4c4650", "olive": "#433e49", "muted": "#716874", "gold": "#afa3ad", "gold-ink": "#776778", "line": "#ded7dd", "soft": "#ede8ed", "night": "#36303b", "night-deep": "#251f2b", "cream": "#f8f1f9", "glow": "#e8dfed", "foliage": "#aaa3b0"}},
+  {"id": "oyster", "name": {"ar": "صدف وكتان", "en": "Oyster & linen"}, "note": {"ar": "كتان ناعم، حجر دافئ، وذهب أبيض", "en": "Soft linen, warm stone, white gold"}, "colors": {"paper": "#f4f2ec", "white": "#fffef9", "ink": "#47483e", "olive": "#3b4037", "muted": "#6a6d5e", "gold": "#aaa68c", "gold-ink": "#707050", "line": "#dddcce", "soft": "#eae9df", "night": "#30362c", "night-deep": "#20251e", "cream": "#f6f5e8", "glow": "#e9e5cd", "foliage": "#a9b09c"}},
+  {"id": "wisteria", "name": {"ar": "ويستيريا ولؤلؤ", "en": "Wisteria & pearl"}, "note": {"ar": "أزرق بنفسجي ضبابي، ورق حريري، ولمعة لؤلؤ", "en": "Misty periwinkle, silken paper, pearl shimmer"}, "colors": {"paper": "#f1f3fa", "white": "#fdfdff", "ink": "#434b66", "olive": "#3a425c", "muted": "#656e85", "gold": "#a4aec9", "gold-ink": "#5c6783", "line": "#d6dcee", "soft": "#e7ebf7", "night": "#2d354c", "night-deep": "#1d2438", "cream": "#f1f3ff", "glow": "#dce3fb", "foliage": "#a4b2c5"}},
+  {"id": "celadon", "name": {"ar": "سيلادون وحرير اللوز", "en": "Celadon & almond"}, "note": {"ar": "أخضر خزفي ناعم، عاجي، وتفاصيل زيتونية فضية", "en": "Soft ceramic green, almond ivory, silver olive details"}, "colors": {"paper": "#f5f6ed", "white": "#fffff8", "ink": "#425044", "olive": "#37463a", "muted": "#65715f", "gold": "#a9b599", "gold-ink": "#5d6d45", "line": "#dce1cf", "soft": "#ebefdf", "night": "#2d3c2e", "night-deep": "#1d2b20", "cream": "#f5f7e7", "glow": "#e5edc9", "foliage": "#acb99c"}},
+];
+
+export function getTheme(id) {
+  return themes.find((theme) => theme.id === id) || themes[0];
+}
+
+export function isDevelopmentHost(hostname) {
+  return ['localhost','127.0.0.1','::1','[::1]'].includes(hostname);
+}
+
+export function resolveThemeId(configured, saved, hostname) {
+  const candidate = isDevelopmentHost(hostname) && themes.some(t => t.id === saved) ? saved : configured;
+  return getTheme(candidate).id;
+}
+

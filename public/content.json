@@ -94,5 +94,8 @@
   },
   "music": {
     "startOnOpen": false
+  },
+  "design": {
+    "theme": "olive"
   }
 }
