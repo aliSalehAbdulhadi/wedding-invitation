@@ -30,6 +30,8 @@ dialog { overscroll-behavior: contain; }
 button { cursor: pointer; color: inherit; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .3em; }
 button:disabled { cursor: wait; opacity: .6; }
+/* The envelope is momentarily inert while the invitation loads; keep it looking whole. */
+.opening-dialog button:disabled { opacity: 1; }
 :focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
 input:focus-visible { outline-offset: 2px; }
 img, svg { max-inline-size: 100%; }
@@ -102,7 +104,7 @@ h3 { font-size: 1.1rem; font-weight: 400; }
 .toast.is-visible { opacity: 1; transform: none; }
 html: has(dialog[open]) { overflow: hidden; }
 dialog { color: var(--ink); font-family: var(--body); }
-dialog::backdrop { background: color-mix(in srgb, var(--night-deep) 76.08%, transparent); backdrop-filter: blur(5px); }
+dialog::backdrop { background: color-mix(in srgb, var(--night-deep, #15231b) 76.08%, transparent); backdrop-filter: blur(5px); }
 .modal { inline-size: min(94vw, 520px); max-block-size: calc(100dvh - 2rem); overflow-y: auto; padding: clamp(1.5rem, 5vw, 2.5rem); border: 1px solid var(--soft); background: var(--paper); border-radius: 3px; }
 .modal[open] { animation: modal-in .45s var(--ease) both; }
 .modal.is-closing { animation: modal-out .22s ease both; }
@@ -129,7 +131,8 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep) 76.08%, tran
 .download-result .text-button { margin-block-start: .7rem; }
 .opening-dialog { --fr: clamp(10px, 1.8vw, 22px); position: fixed; inset: 0; inline-size: 100%; max-inline-size: none; block-size: 100%; block-size: 100dvh; max-block-size: none; margin: 0; padding: 2.2rem var(--gutter); overflow-y: auto; border: 0; color: var(--cream); background: radial-gradient(ellipse 80% 62% at 50% 46%, var(--night) 0%, var(--night) 50%, var(--night-deep) 100%); }
 .opening-dialog[open] { display: flex; flex-direction: column; justify-content: space-between; animation: opening-in 1s ease both; }
-.opening-dialog::backdrop { background: var(--night-deep); }
+/* Older mobile browsers do not pass :root custom properties into ::backdrop; the literal keeps the page hidden behind the envelope while it fades in. */
+.opening-dialog::backdrop { background: var(--night-deep, #15231b); }
 .opening-top, .opening-bottom { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; position: relative; z-index: 1; font-size: .72rem; color: var(--soft); animation: fade-in 1.4s 1.7s both; }
 .opening-top { animation-delay: .3s; }
 .language-button--light { border-color: var(--muted); color: var(--cream); }

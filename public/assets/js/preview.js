@@ -23,9 +23,10 @@ if (location.protocol === 'file:') {
       opening.addEventListener('cancel', event => {
         if (document.getElementById('open-invitation').disabled) event.preventDefault();
       });
+      scrollTo({ top: 0, behavior: 'instant' });
       opening.showModal();
       document.documentElement.classList.remove('opening-pending');
-      import('./main.js?v=20261023-24').catch(() => startup?.fail());
+      import('./main.js?v=20261023-25').catch(() => startup?.fail());
     } catch { startup?.fail(); }
   }
 }

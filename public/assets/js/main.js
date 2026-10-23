@@ -1,6 +1,6 @@
 ﻿import { playOpeningChime } from './opening-sound.js';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
-import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261023-24';
+import { validateContent, buildCalendar, calendarLinks, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261023-25';
 
 import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261023-3';
 
