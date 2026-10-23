@@ -60,16 +60,19 @@ Verify the generated preview URL over HTTPS before publishing to production. Onc
 
 The invitation retains its existing noindex/robots settings. On a public hostname, the local-only developer theme picker is hidden and the configured public palette is used. Guest-name PNGs are still generated entirely on the guest's device. There are no environment variables or backend services to configure.
 
-Current status: deployed and verified on 23 October 2026. The couple approved keeping the initial production deployment for checking the invitation.
+Current status: deployed and verified on 24 October 2026. The couple approved production publishing; this update preserves their newer startup and font fixes and adds the measured venue/dance performance work.
 
 - Live URL: https://wedding-invitation-ochre-nu.vercel.app
 - Workspace/project: `ali-saleh2/wedding-invitation`.
-- Application source commit: `2eb1ba9b2802ac931fcaa072beb5e4347c25fe22`.
-- Production deployment: `dpl_79TQ2f4mbf8J8rCHQSUq5QKW5haf`, status READY; build duration 1 second.
-- A separate preview also exists at https://wedding-invitation-4t0yohesy-ali-saleh2.vercel.app (Vercel Authentication protected).
-- Published through Vercel CLI 65.2.0 after deliberate account authorization; the installed MCP deployment tools were not exposed in the chat.
-- Only the 25 public files and `vercel.json` were uploaded. All 25 public files returned HTTP 200 over HTTPS and matched local source bytes.
+- Application source commit: `0f1a63cde1562bdcb36ff7ae4a448e0c03c26795`.
+- Production deployment: `dpl_8dX7SkFaai4MHBiRavDnF5vgTK58`, status READY.
+- Unique deployment URL: https://wedding-invitation-d9ngu9gkp-ali-saleh2.vercel.app
+- A separate earlier preview remains at https://wedding-invitation-4t0yohesy-ali-saleh2.vercel.app (Vercel Authentication protected).
+- Published through Vercel CLI 65.2.0, explicitly targeting production in the existing workspace. Installed MCP deployment tools were not exposed in this chat.
+- Only the 26 public files and `vercel.json` were uploaded. All 26 public files returned HTTP 200 over the production HTTPS alias and exactly matched local source bytes. Font responses retain `public, max-age=31536000, immutable`.
+- Changed application URLs use release query `20261024-1`. The public site omits the local developer palette picker.
+- Chrome DevTools phone-emulation results and functional checks are recorded in `docs/QA.md`. Temporary profiling probes, Chrome runners, traces and tools were kept outside public/ and were not deployed.
 - The Git repository is pushed to GitHub, but automatic Git-to-Vercel deployments have not been connected. Future changes require another CLI deployment unless Git integration is configured.
-- Local `.vercel/` and environment files remain ignored and were not uploaded or committed. No custom domain or DNS changes were made.
+- Local `.vercel/` and environment files remain ignored and were not uploaded or committed. No custom domain, DNS, authentication, event content or indexing settings changed.
 
 Official references: [Static configuration](https://vercel.com/docs/project-configuration/vercel-json), [.vercelignore](https://vercel.com/docs/deployments/vercel-ignore), and [CLI deployment](https://vercel.com/docs/projects/deploy-from-cli).
