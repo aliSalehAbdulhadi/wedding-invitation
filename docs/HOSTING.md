@@ -62,7 +62,7 @@ The invitation retains its existing noindex/robots settings. On all hosts, the g
 
 Current status: GitHub auto-deployment confirmed on 24 October 2026. The couple connected GitHub and instructed that future releases should use pushes rather than manual CLI deployment.
 
-- Live URL: https://wedding-invitation-20-11.vercel.app. The project now has this hostname; the previous ochre-nu alias returns DEPLOYMENT_NOT_FOUND.
+- Live URL: https://ali-tabarak-wedding-invitation.vercel.app/. The couple reassigned the hostname on 24 October 2026. The retired 20-11 and ochre-nu aliases return DEPLOYMENT_NOT_FOUND.
 - Workspace/project: `ali-saleh2/wedding-invitation`, project ID `prj_STZJCePdAqIcWzZH8wykhxG1o2jY`.
 - Connected GitHub repository: `aliSalehAbdulhadi/wedding-invitation`, production branch `main`.
 - Application source commit: `451a6f60927e26145a59991009a8b0beb553cbd9` (device-aware map/calendar links).
@@ -78,4 +78,7 @@ Current status: GitHub auto-deployment confirmed on 24 October 2026. The couple 
 Official references: [Git deployments](https://vercel.com/docs/deployments/git), [Static configuration](https://vercel.com/docs/project-configuration/vercel-json), and [.vercelignore](https://vercel.com/docs/deployments/vercel-ignore).
 
 
-Sharing metadata is static in index.html for the confirmed 20-11 hostname. The active sharing image is assets/images/wedding-ligature.jpg (1730x909, a custom merged-initials mark, about 72KB); it requires no JavaScript or account. robots.txt permits sharing crawlers while retaining general search exclusion and HTML noindex. If the hostname or event facts change, update canonical/Open Graph/Twitter URLs and the social image as well. Native-calendar links open separately so a WebKit file handoff does not cancel future font loads in the invitation. Google calendar links retain a normal direct navigation; explicit file downloads remain available.
+Sharing metadata is static in index.html for the confirmed ali-tabarak hostname. The active sharing image is assets/images/wedding-ligature.jpg (1730x909, a custom merged-initials mark, about 72KB); it requires no JavaScript or account. robots.txt permits sharing crawlers while retaining general search exclusion and HTML noindex. If the hostname or event facts change, update canonical/Open Graph/Twitter URLs and the social image as well. Native-calendar links open separately so a WebKit file handoff does not cancel future font loads in the invitation. Google calendar links retain a normal direct navigation; explicit file downloads remain available.
+
+
+Domain migration (24 October 2026): canonical, og:url, Open Graph image URLs and Twitter image URL use https://ali-tabarak-wedding-invitation.vercel.app/. Verified that the new hostname serves the page and JPEG, while the retired hostname returns DEPLOYMENT_NOT_FOUND. GitHub pushes remain the deployment path. WhatsApp may retain a previously fetched preview per URL; actual client preview must be checked after release.

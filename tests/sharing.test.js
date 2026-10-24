@@ -6,7 +6,7 @@ test('sharing metadata and a real lightweight image use the confirmed public hos
   const root=new URL('../public/',import.meta.url);
   const html=readFileSync(new URL('index.html',root),'utf8');
   const tags=new Map([...html.matchAll(/<meta\s+(?:property|name)="([^"]+)"\s+content="([^"]*)"/g)].map(m=>[m[1],m[2]]));
-  const origin='https://wedding-invitation-20-11.vercel.app';
+  const origin='https://ali-tabarak-wedding-invitation.vercel.app';
   assert.equal(tags.get('og:url'),origin+'/');
   assert.ok(tags.get('og:title').includes('علي وتبارك'));
   assert.ok(tags.get('og:description').includes('قاعة خيال'));
