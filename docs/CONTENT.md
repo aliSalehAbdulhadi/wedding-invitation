@@ -50,3 +50,6 @@ Merged monogram (24 October 2026): the couple liked the generated interwoven ع 
 
 
 Public hostname updated by the couple on 24 October 2026: https://ali-tabarak-wedding-invitation.vercel.app/. Sharing metadata must point only to this current hostname; earlier domain references in historical QA notes are not active links.
+
+
+Arabic hero font confirmed (24 October 2026): the couple selected Aref Ruqaa, the former option 2. It now styles only the main Arabic names at the approved smaller responsive sizes. Preserve the original Cormorant Garamond italic ampersand with a 0.32em downward optical adjustment. English names and all other headings retain their existing typography. The comparison labels and duplicate Gulzar hero are removed. The licensed names-only WOFF2 subset is 7,304 bytes; provenance is in assets/fonts/sources.json.

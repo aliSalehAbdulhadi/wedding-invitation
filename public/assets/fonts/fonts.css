@@ -35,3 +35,12 @@
   font-display: swap;
   src: url(./font-05.woff2) format('woff2');
 }
+
+/* A names-only subset keeps the Arabic hero face small; other copy retains Amiri. */
+@font-face {
+  font-family: 'Aref Ruqaa Names';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./aref-ruqaa-names.woff2) format('woff2');
+}

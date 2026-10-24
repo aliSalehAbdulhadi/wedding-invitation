@@ -8,5 +8,13 @@
     "https://fonts.gstatic.com/s/notosansarabic/v33/nwpxtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlhQ5l3sQWIHPqzCf-myvuw.ttf"
   ],
   "license": "SIL Open Font License 1.1",
-  "local_encoding": "Lossless WOFF2, converted from the original files with fontTools 4.67.0; complete glyph set, shaping tables and SIL OFL licenses retained."
+  "local_encoding": "Lossless WOFF2, converted from the original files with fontTools 4.67.0; complete glyph set, shaping tables and SIL OFL licenses retained.",
+  "arabic_hero": {
+    "family": "Aref Ruqaa",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/arefruqaa/ArefRuqaa-Regular.ttf",
+    "file": "aref-ruqaa-names.woff2",
+    "license": "arefruqaa-OFL.txt",
+    "encoding": "WOFF2 subset for the confirmed names علي وتبارك; OpenType layout features preserved.",
+    "bytes": 7304
+  }
 }

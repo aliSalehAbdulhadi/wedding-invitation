@@ -162,3 +162,10 @@ Public verification: Git deployment a3cf362 reached READY. WhatsApp/facebookexte
 
 
 Merged identity pass (24 October 2026): rendered three real typeface options with the exact Arabic names; all fonts loaded and their glyph shapes were visually inspected. These remain preview-only pending the couple’s font choice. The couple liked the custom generated initials artwork. It is used as the sharing preview in a compact JPEG encoding, 1730x909 and 71,611 bytes, with matching Open Graph dimensions/type and a new filename. The original generated PNG remains in the task workspace, and generation provenance is in docs/monogram-artwork.md. No hero layout or animation changes are included in this preview-asset pass.
+
+
+## Selected Arabic hero typography — 24 October 2026
+
+Aref Ruqaa is the selected Arabic name face, with the original italic Cormorant ampersand lowered 0.32em. The temporary comparison and Gulzar assets were removed. The single names-only WOFF2 is 7,304 bytes and includes its OFL license and source provenance. English names retain the original typeface and ampersand position.
+
+Validation: static smoke check passes (79 local references), all 20 Node tests pass, and the final single-hero layout passes in isolated Chrome at 375/551/1280px plus Edge and Firefox at 551px. Each browser loaded the selected face, displayed one hero and one h1, preserved English switching, and reported no runtime errors or horizontal overflow. Chrome screenshots were inspected. WebKit could not launch in this environment (spawn UNKNOWN, repeated once); this release has no fresh WebKit/Safari validation.

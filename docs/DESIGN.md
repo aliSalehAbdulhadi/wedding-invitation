@@ -170,3 +170,6 @@ The single bird keeps its spring, routes, responses and writing reactions. Its w
 
 
 Guest palette and sharing refinement (24 October 2026): the user explicitly requested the theme button for all live visitors. This supersedes historical local-only references above. A fixed olive stationery image represents the invitation in social previews; a guest’s private palette choice does not rewrite shared metadata. No additional motion or runtime package was added.
+
+
+Arabic hero font confirmed (24 October 2026): the couple selected Aref Ruqaa, the former option 2. It now styles only the main Arabic names at the approved smaller responsive sizes. Preserve the original Cormorant Garamond italic ampersand with a 0.32em downward optical adjustment. English names and all other headings retain their existing typography. The comparison labels and duplicate Gulzar hero are removed. The licensed names-only WOFF2 subset is 7,304 bytes; provenance is in assets/fonts/sources.json.

@@ -66,6 +66,9 @@ h3 { font-size: 1.1rem; font-weight: 400; }
 .couple-names > [data-name] { overflow-wrap: anywhere; }
 .name-join { font-family: var(--latin); font-size: .46em; font-style: italic; color: var(--gold-ink); padding-block-start: .12em; }
 :lang(en) .couple-names { line-height: 1.15; margin-block: 1.4rem 1.1rem; font-size: clamp(4.5rem, 9vw, 8.7rem); }
+html[lang='ar'] .couple-names { font-family: 'Aref Ruqaa Names', var(--display); font-size: clamp(3.2rem, 8vw, 7rem); font-weight: 400; }
+/* Optical alignment with Ruqaa's visible strokes, retaining the italic Cormorant &. */
+html[lang='ar'] .couple-names .name-join { translate: 0 .32em; }
 .hero-divider { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-block: .35rem 1.15rem; color: var(--gold); }
 .hero-divider span { inline-size: 50px; block-size: 1px; background: var(--gold); }
 .hero-divider svg { inline-size: 17px; block-size: 17px; fill: none; stroke: currentColor; stroke-width: 1; }
@@ -581,6 +584,7 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep, #15231b) 76.
   .hero { min-block-size: 660px; padding-block: 3rem 6rem; }
   .hero-arch { inset-block-start: 1.6rem; inline-size: 87vw; }
   .couple-names { font-size: clamp(4rem, 19vw, 6rem); gap: .6rem; }
+  html[lang='ar'] .couple-names { font-size: clamp(3rem, 15.5vw, 5.25rem); }
   :lang(en) .couple-names { font-size: clamp(3.5rem, 14vw, 5rem); gap: .65rem; }
   .hero-branch--right { inset-block-end: 9%; inset-inline-start: -15%; inline-size: 150px; opacity: .35; }
   .hero-branch--left { inset-block-start: -4%; inset-inline-end: -12%; inline-size: 135px; opacity: .26; }

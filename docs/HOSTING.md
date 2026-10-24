@@ -68,7 +68,7 @@ Current status: GitHub auto-deployment confirmed on 24 October 2026. The couple 
 - Application source commit: `451a6f60927e26145a59991009a8b0beb553cbd9` (device-aware map/calendar links).
 - Automatic Git deployment `dpl_GjLE7M7RE4iSWzmR6qXTf6xKwqRv` reached READY for that commit. A CLI deployment of the same commit had already started before the connection was clarified; it also completed. Do not repeat manual deployments for routine changes.
 - Future workflow: verify locally, commit and push to `origin/main`, then inspect the automatic deployment and public URL. A documentation push can trigger deployment too.
-- Only public/ is served; there are 31 public files, including the two hosted calendar files. Browser test tooling, downloaded test engines and local artifacts remain outside the repository.
+- Only public/ is served; there are 33 public files, including the two hosted calendar files. Browser test tooling, downloaded test engines and local artifacts remain outside the repository.
 - Arabic and English .ics responses return HTTP 200 with `text/calendar; charset=utf-8`, `Content-Disposition: inline`, and cache revalidation. Explicit file-download links remain available. Git attributes preserve required CRLF bytes on Linux.
 - Calendar files come from `node scripts/generate-calendar.mjs`; tests reject files that drift from confirmed event details. No build/install step is introduced.
 - The title update uses main/preview release `20261024-4`; unchanged styles and other modules retain their existing release URLs. The Colors studio is available to all visitors; olive is the default for guests without a saved preference.
@@ -82,3 +82,6 @@ Sharing metadata is static in index.html for the confirmed ali-tabarak hostname.
 
 
 Domain migration (24 October 2026): canonical, og:url, Open Graph image URLs and Twitter image URL use https://ali-tabarak-wedding-invitation.vercel.app/. Verified that the new hostname serves the page and JPEG, while the retired hostname returns DEPLOYMENT_NOT_FOUND. GitHub pushes remain the deployment path. WhatsApp may retain a previously fetched preview per URL; actual client preview must be checked after release.
+
+
+Selected Arabic typography (24 October 2026): the main names use the approved Aref Ruqaa subset. styles.css and fonts.css use release 20261024-5; main JavaScript remains unchanged. The extra font is about 7KB, is self-hosted, and adds no external font request. No comparison sections or Gulzar assets are deployed.
