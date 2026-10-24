@@ -169,3 +169,12 @@ Merged identity pass (24 October 2026): rendered three real typeface options wit
 Aref Ruqaa is the selected Arabic name face, with the original italic Cormorant ampersand lowered 0.32em. The temporary comparison and Gulzar assets were removed. The single names-only WOFF2 is 7,304 bytes and includes its OFL license and source provenance. English names retain the original typeface and ampersand position.
 
 Validation: static smoke check passes (79 local references), all 20 Node tests pass, and the final single-hero layout passes in isolated Chrome at 375/551/1280px plus Edge and Firefox at 551px. Each browser loaded the selected face, displayed one hero and one h1, preserved English switching, and reported no runtime errors or horizontal overflow. Chrome screenshots were inspected. WebKit could not launch in this environment (spawn UNKNOWN, repeated once); this release has no fresh WebKit/Safari validation.
+
+
+## Recorded music — 24 October 2026
+
+Moonlight’s self-hosted quiet edit is a 4,070,678-byte stereo MP3, about 254 seconds. The original composer’s CC BY 4.0 permission and attribution format were checked on the official track and usage pages. Source URLs, file hashes and changes are recorded alongside the asset.
+
+Browser playback checks passed in isolated Chrome, Edge and Firefox at 375px: zero MP3 requests on a silent opening, decoded playback and advancing currentTime after opt-in, pause/resume preserving position, native loop enabled, English control labels and visible credit, no horizontal overflow or JavaScript errors. Chrome additionally checked the music-enabled envelope, cancellation while a cold audio request is pending, and retry after a deliberately aborted request. Existing 20 Node tests, syntax checks and the static smoke check pass. No new Safari or physical phone playback test is claimed; WebKit’s executable could not launch during the immediately preceding typography check.
+
+To recheck manually: open silently and confirm Network has no audio request; enable music and confirm the actual recording plays; pause/resume and confirm position is retained; switch languages; open with music from a fresh visit; toggle off while loading; temporarily make the MP3 unavailable, then restore it and retry. Native audio remains a normal same-origin file, with no account or third-party streaming request.

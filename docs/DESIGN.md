@@ -173,3 +173,8 @@ Guest palette and sharing refinement (24 October 2026): the user explicitly requ
 
 
 Arabic hero font confirmed (24 October 2026): the couple selected Aref Ruqaa, the former option 2. It now styles only the main Arabic names at the approved smaller responsive sizes. Preserve the original Cormorant Garamond italic ampersand with a 0.32em downward optical adjustment. English names and all other headings retain their existing typography. The comparison labels and duplicate Gulzar hero are removed. The licensed names-only WOFF2 subset is 7,304 bytes; provenance is in assets/fonts/sources.json.
+
+
+## Recorded background music — 24 October 2026
+
+The optional background is now Moonlight by Scott Buckley: a human-composed piano-and-strings recording, chosen for its restrained romantic character. Native HTML audio replaces the recurring oscillator scheduler. The full 4:14 track is self-hosted, reduced from 10.18MB to 4.07MB with a quiet level and subtle fades. preload=none keeps the recording out of the initial page load. Music starts only through the existing explicit music choice; the envelope’s brief original bell remains separate. Pause/resume retains the current position. Hidden pages pause, with the guest’s prior intent retained for return; a cancelled loading request cannot start playing later. The music toggle can retry after an unavailable download. A small visible footer attribution links to the composer, CC BY 4.0 and the quiet-edit details.

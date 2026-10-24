@@ -94,6 +94,9 @@ html[lang='ar'] .couple-names .name-join { translate: 0 .32em; }
 .text-button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-block-size: 44px; padding: .5rem .1rem; border: 0; border-block-end: 1px solid var(--foliage); background: transparent; color: var(--ink); font-size: .8rem; text-decoration: none; }
 .privacy-note { font-size: .65rem; color: var(--muted); margin-block-start: 1rem; }
 .site-footer { max-inline-size: var(--page); margin-inline: auto; padding: 1.3rem var(--gutter) 2rem; border-block-start: 1px solid var(--line); display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); font-size: .65rem; }
+.footer-copy { min-inline-size: 0; display: grid; gap: .4rem; }
+.music-credit { font-family: var(--body); font-size: .62rem; line-height: 1.8; }
+
 .back-top { display: inline-flex; gap: .6rem; text-decoration: none; min-block-size: 44px; align-items: flex-start; }
 .music-toggle { position: fixed; z-index: 15; inset-block-end: 1.3rem; inset-inline-end: 1.3rem; display: flex; align-items: center; gap: .7rem; min-block-size: 48px; padding: .6rem 1rem; color: var(--ink); background: color-mix(in srgb, var(--white) 92.94%, transparent); border: 1px solid var(--soft); border-radius: 50px; box-shadow: 0 3px 15px color-mix(in srgb, var(--ink) 5.10%, transparent); font-size: .65rem; }
 .music-state { color: var(--muted); font-size: .6rem; }

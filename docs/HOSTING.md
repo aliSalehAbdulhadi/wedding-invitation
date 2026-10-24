@@ -68,7 +68,7 @@ Current status: GitHub auto-deployment confirmed on 24 October 2026. The couple 
 - Application source commit: `451a6f60927e26145a59991009a8b0beb553cbd9` (device-aware map/calendar links).
 - Automatic Git deployment `dpl_GjLE7M7RE4iSWzmR6qXTf6xKwqRv` reached READY for that commit. A CLI deployment of the same commit had already started before the connection was clarified; it also completed. Do not repeat manual deployments for routine changes.
 - Future workflow: verify locally, commit and push to `origin/main`, then inspect the automatic deployment and public URL. A documentation push can trigger deployment too.
-- Only public/ is served; there are 33 public files, including the two hosted calendar files. Browser test tooling, downloaded test engines and local artifacts remain outside the repository.
+- Only public/ is served; there are 36 public files, including the two hosted calendar files. Browser test tooling, downloaded test engines and local artifacts remain outside the repository.
 - Arabic and English .ics responses return HTTP 200 with `text/calendar; charset=utf-8`, `Content-Disposition: inline`, and cache revalidation. Explicit file-download links remain available. Git attributes preserve required CRLF bytes on Linux.
 - Calendar files come from `node scripts/generate-calendar.mjs`; tests reject files that drift from confirmed event details. No build/install step is introduced.
 - The title update uses main/preview release `20261024-4`; unchanged styles and other modules retain their existing release URLs. The Colors studio is available to all visitors; olive is the default for guests without a saved preference.
@@ -85,3 +85,6 @@ Domain migration (24 October 2026): canonical, og:url, Open Graph image URLs and
 
 
 Selected Arabic typography (24 October 2026): the main names use the approved Aref Ruqaa subset. styles.css and fonts.css use release 20261024-5; main JavaScript remains unchanged. The extra font is about 7KB, is self-hosted, and adds no external font request. No comparison sections or Gulzar assets are deployed.
+
+
+Recorded music release (24 October 2026): main.js, preview.js and styles.css use release 20261024-6. The native player serves assets/audio/moonlight-scott-buckley.mp3 only after an explicit guest choice; retain Range support and audio/mpeg delivery on production. Audio credits and source metadata are served alongside the asset. No external audio player, YouTube embed, browser tracker, application dependency, backend or build step was added. Keep the footer attribution and the CC BY 4.0 license link. The original full-quality download and conversion tooling stay outside the repository.

@@ -134,46 +134,16 @@ function renderLanguage(next) {
   requestSceneFrame();
 }
 
-// An original, quiet pentatonic music bed; no audio files, trackers, or remote requests.
+// The opening chime stays synthesized; background music is a licensed recording.
 let audioContext;
-let master;
-let musicTimer;
 let playing = false;
-let sequence = 0;
-let nextNote = 0;
 let musicIntent = false;
-const melody = [60, 67, 72, 76, 74, 67, 64, 72, 69, 67, 64, 62, 60, 64, 67, 72];
-function playNote(midi, at, length, volume) {
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-  oscillator.type = 'sine';
-  oscillator.frequency.value = 440 * 2 ** ((midi - 69) / 12);
-  gain.gain.setValueAtTime(0, at);
-  gain.gain.linearRampToValueAtTime(volume, at + .025);
-  gain.gain.exponentialRampToValueAtTime(.0001, at + length);
-  oscillator.connect(gain); gain.connect(master);
-  oscillator.start(at); oscillator.stop(at + length + .05);
-  oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
-}
-function scheduleMusic() {
-  if (!playing) return;
-  while (nextNote < audioContext.currentTime + 1.5) {
-    playNote(melody[sequence % melody.length], nextNote, 3.4, .2);
-    if (sequence % 4 === 0) {
-      const root = [48, 45, 53, 48][Math.floor(sequence / 4) % 4];
-      playNote(root, nextNote, 6.8, .13);
-      playNote(root + 7, nextNote + .12, 6.5, .055);
-    }
-    sequence += 1; nextNote += 1.55;
-  }
-}
+let musicRequest = 0;
+const backgroundMusic = $('#background-music');
 function ensureAudioContext() {
   const Context=window.AudioContext || window.webkitAudioContext;
   if (!Context) throw new Error('Web Audio unavailable');
-  if (!audioContext) {
-    audioContext=new Context(); master=audioContext.createGain();
-    master.gain.value=0; master.connect(audioContext.destination);
-  }
+  if (!audioContext) audioContext=new Context();
   return audioContext;
 }
 async function soundTheOpening() {
@@ -184,29 +154,27 @@ async function soundTheOpening() {
   } catch { /* The invitation still opens if sound is unsupported or blocked. */ }
 }
 async function startMusic() {
+  const request=++musicRequest;
+  if (!musicIntent || document.hidden) return;
   try {
-    ensureAudioContext();
-    await audioContext.resume();
-    if (audioContext.state !== 'running') throw new Error('Audio was blocked');
-    if (!musicIntent || document.hidden) return;
+    // Retry a failed request without leaving the guest stuck until a reload.
+    if (backgroundMusic.error) backgroundMusic.load();
+    // Play immediately within the guest's gesture, including on iPhone.
+    await backgroundMusic.play();
+    if (request!==musicRequest) return;
+    if (!musicIntent || document.hidden) { backgroundMusic.pause(); return; }
     playing = true;
-    nextNote = audioContext.currentTime + .1;
-    master.gain.cancelScheduledValues(audioContext.currentTime);
-    master.gain.setValueAtTime(master.gain.value, audioContext.currentTime);
-    master.gain.linearRampToValueAtTime(.23, audioContext.currentTime + 1.8);
-    clearInterval(musicTimer);
-    scheduleMusic(); musicTimer = setInterval(scheduleMusic, 650);
     updateMusicButton();
   } catch {
+    // A newer pause/play action owns the player; ignore superseded promises.
+    if (request!==musicRequest) return;
     playing = false; musicIntent = false; updateMusicButton(); notify(text('audioError'));
   }
 }
 function stopMusic() {
-  playing = false; clearInterval(musicTimer);
-  if (audioContext && master) {
-    master.gain.cancelScheduledValues(audioContext.currentTime);
-    master.gain.setTargetAtTime(0, audioContext.currentTime, .15);
-  }
+  ++musicRequest;
+  backgroundMusic.pause();
+  playing = false;
   updateMusicButton();
 }
 function updateMusicButton() {
@@ -1044,12 +1012,22 @@ function initialize() {
   $('#open-invitation').addEventListener('click', () => startInvitation(Boolean(content.music?.startOnOpen)));
   $('#open-alternative').addEventListener('click', () => startInvitation(!content.music?.startOnOpen));
   $('#music-toggle').addEventListener('click', () => {
-    musicIntent = !playing;
+    musicIntent = !musicIntent;
     if (musicIntent) void startMusic(); else stopMusic();
   });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stopMusic();
     else if (musicIntent) void startMusic();
+  });
+  backgroundMusic.addEventListener('pause', () => {
+    if (!backgroundMusic.paused) return;
+    playing=false;
+    if (!document.hidden) musicIntent=false;
+    updateMusicButton();
+  });
+  backgroundMusic.addEventListener('error', () => {
+    if (!musicIntent) return;
+    musicIntent=false; stopMusic(); notify(text('audioError'));
   });
   for (const dialog of $$('.modal')) {
     dialog.addEventListener('close', () => { syncDialogState(); if(dialog.id==='keepsake-dialog') keepsakeExportController?.abort(); leaveBirdDialog(dialog); });

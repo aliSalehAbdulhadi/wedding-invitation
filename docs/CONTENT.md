@@ -12,7 +12,7 @@ The couple confirmed the real details on 23 October 2026, including the year 202
 - Theme: ivory stationery, deep olive, restrained champagne, botanical lines, and serif typography.
 - Default palette: `design.theme` in `public/content.json` (`olive`, `pearl`, `champagne`, `midnight`, `sage`, `lilac`, `sea-glass`, `moonstone`, `oyster`, `wisteria`, or `celadon`). The Colors button is available to every visitor and remembers each guest’s choice on their own device. It never edits event facts or the configured default. Set the JSON value when choosing the initial palette for guests without a saved choice.
 - Opening feedback: a brief original magical bell chime plays after the envelope is activated.
-- Music: an original generated melody, **off by default** during development. `music.startOnOpen` is false; guests can explicitly opt in.
+- Music: **Moonlight by Scott Buckley**, a piano-and-strings recording released under CC BY 4.0 with attribution. The full track is self-hosted as a quiet edit (lower gain, gentle entry/ending fades, stereo 128 kbps MP3). `music.startOnOpen` stays false; audio is not fetched until a guest explicitly enables it. Keep the visible footer credit, license link, and assets/audio/CREDITS.txt. The original opening bell chime is retained.
 - Personalized download: a guest-name modal reveals the invitation in a short magical ceremony, then generates a 1200 × 1600 PNG locally. Closing cancels the pending download; reduced motion skips the ceremony. No guest names are sent or stored.
 - Calendar: the main action opens the hosted .ics on Apple devices and Google’s HTTPS event editor elsewhere. Other calendars offers Google, Outlook, the device calendar, and an explicit file download. Both hosted files are generated from content.json with `node scripts/generate-calendar.mjs`; regenerate whenever event facts change. A test rejects stale hosted files. Real event titles have no demo prefix. Venue subtitles are included in calendar locations and the PNG.
 
@@ -53,3 +53,6 @@ Public hostname updated by the couple on 24 October 2026: https://ali-tabarak-we
 
 
 Arabic hero font confirmed (24 October 2026): the couple selected Aref Ruqaa, the former option 2. It now styles only the main Arabic names at the approved smaller responsive sizes. Preserve the original Cormorant Garamond italic ampersand with a 0.32em downward optical adjustment. English names and all other headings retain their existing typography. The comparison labels and duplicate Gulzar hero are removed. The licensed names-only WOFF2 subset is 7,304 bytes; provenance is in assets/fonts/sources.json.
+
+
+Recorded music chosen (24 October 2026): the couple authorized choosing a human-composed, licensed wedding-appropriate recording to replace the synthesized background melody. Moonlight is used from the composer’s own CC library, not a YouTube rip or an orchestral remix. It is licensed copyrighted music, not represented as public-domain or a live orchestra performance. Source, license, hashes, and playback-edit details are in assets/audio/source.json and CREDITS.txt.
