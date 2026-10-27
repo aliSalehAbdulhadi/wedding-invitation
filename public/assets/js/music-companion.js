@@ -1,45 +1,40 @@
-// Independent light reflections appear, fade completely, then re-enter elsewhere.
-export function advanceLightWash(state, now, energy, night, random = Math.random) {
+// A short engraved stroke passes one edge, disappears, then returns somewhere else.
+export function advanceMusicStroke(state, now, energy, random = Math.random) {
   if (state.active && now >= state.active.born + state.active.duration) {
     state.active = null;
-    state.nextAt = now + 1600 + random()*2600;
+    state.nextAt = now + 900 + random()*1500;
     return null;
   }
   if (!state.active) {
-    if (!state.nextAt) { state.nextAt = now + 650 + random()*850; return null; }
+    if (!state.nextAt) { state.nextAt = now + 250 + random()*350; return null; }
     if (now < state.nextAt || energy < .04) return null;
     let side;
     if (state.lastSide < 0) side = Math.floor(random()*4);
     else { side = Math.floor(random()*3); if (side >= state.lastSide) side++; }
-    const along = 12+random()*76;
     state.active = {
-      id:++state.id, index:state.id%2, side, born:now, duration:4600+random()*2800,
-      x:side===0?0:side===1?100:along, y:side===2?0:side===3?100:along,
-      angle:[0,180,90,270][side] + random()*26-13,
-      width:14+random()*12, height:26+random()*22, drift:10+random()*18,
+      id:++state.id, side, born:now, duration:3800+random()*1800,
+      along:24+random()*52, variant:Math.floor(random()*3),
     };
     state.lastSide = side;
   }
-  const wash=state.active, t=Math.max(0,Math.min(1,(now-wash.born)/wash.duration));
-  const eased=t*t*(3-2*t), envelope=Math.sin(Math.PI*t)**2;
-  return {...wash,
-    dx:(wash.side===0?1:wash.side===1?-1:0)*wash.drift*eased,
-    dy:(wash.side===2?1:wash.side===3?-1:0)*wash.drift*eased,
-    opacity:envelope*(night?.065:.15)*(.2+Math.min(1,energy)*.8),
+  const stroke=state.active, progress=Math.max(0,Math.min(1,(now-stroke.born)/stroke.duration));
+  return {...stroke, progress,
+    offset:.55-progress*1.55,
+    opacity:Math.sin(Math.PI*progress)**2*(.48+Math.min(1,energy)*.24),
   };
 }
 
 // Read the selected recording locally; no microphone, network service or synthetic beat.
 export function createMusicCompanion(audio) {
-  const light = document.querySelector('.music-ambience');
+  const engraving = document.querySelector('.music-engraving');
   const bird = document.querySelector('#story-bird');
-  const pools = [...light.querySelectorAll('i')];
+  const strokes = [...engraving.querySelectorAll('svg')];
   const bars = [...document.querySelectorAll('.music-bars i')];
   const scenes = [...document.querySelectorAll('.hero,.chapter')];
   let activeScene = document.querySelector('.hero');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let context, source, analyser, samples, spectrum, frame = 0, last = 0, energy = 0, swell = 0;
-  const washes = {active:null,nextAt:0,lastSide:-1,id:0};
+  const passage = {active:null,nextAt:0,lastSide:-1,id:0};
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
       for (const entry of entries) if (entry.isIntersecting) {
@@ -51,23 +46,27 @@ export function createMusicCompanion(audio) {
   }
   function paint() {
     const value = energy.toFixed(3), accent = swell.toFixed(3);
-    for (const node of [light,bird,activeScene]) {
+    for (const node of [engraving,bird,activeScene]) {
       node?.style.setProperty('--music-energy',value);
       node?.style.setProperty('--music-swell',accent);
     }
     const night = activeScene?.classList.contains('chapter--celebration') || activeScene?.classList.contains('chapter--promise');
     const tone=night?'night':'paper';
-    if (light.dataset.tone !== tone) light.dataset.tone=tone;
-    const wash = advanceLightWash(washes,performance.now(),energy,night);
-    pools.forEach((pool,index) => {
-      if (!wash || index !== wash.index) { pool.style.opacity='0'; return; }
-      if (pool.dataset.washId !== String(wash.id)) {
-        pool.dataset.washId=String(wash.id); pool.dataset.edge=['left','right','top','bottom'][wash.side];
-        pool.style.width=`clamp(100px,${wash.width.toFixed(1)}vw,220px)`;
-        pool.style.height=`clamp(200px,${wash.height.toFixed(1)}vh,430px)`;
+    if (engraving.dataset.tone !== tone) engraving.dataset.tone=tone;
+    const stroke = advanceMusicStroke(passage,performance.now(),energy);
+    strokes.forEach(mark => {
+      if (!stroke) { mark.style.opacity='0'; return; }
+      if (mark.dataset.fragmentId !== String(stroke.id)) {
+        mark.dataset.fragmentId=String(stroke.id);
+        mark.dataset.edge=['left','right','top','bottom'][stroke.side];
+        mark.dataset.variant=String(stroke.variant);
+        const vertical=stroke.side<2;
+        mark.style.left=vertical?(stroke.side===0?'16px':'calc(100% - 16px)'):`${stroke.along.toFixed(1)}%`;
+        mark.style.top=vertical?`clamp(150px,${stroke.along.toFixed(1)}vh,calc(100vh - 150px))`:(stroke.side===2?'16px':'calc(100% - 16px)');
+        mark.style.transform=`translate(-50%,-50%) rotate(${[0,180,90,270][stroke.side]}deg)`;
       }
-      pool.style.opacity=wash.opacity.toFixed(4);
-      pool.style.transform=`translate3d(${wash.x.toFixed(1)}vw,${wash.y.toFixed(1)}vh,0) translate(-50%,-50%) rotate(${wash.angle.toFixed(1)}deg) translate3d(${wash.dx.toFixed(2)}px,${wash.dy.toFixed(2)}px,0)`;
+      mark.style.opacity=stroke.opacity.toFixed(3);
+      mark.style.setProperty('--stroke-offset',stroke.offset.toFixed(4));
     });
     bars.forEach((bar,index) => {
       const start=[1,2,4,7,11,17,25,38,55][index], end=start+(index+1)*2;
@@ -78,7 +77,7 @@ export function createMusicCompanion(audio) {
   }
   function stop() {
     cancelAnimationFrame(frame); frame = 0; energy = 0; swell = 0; last = 0;
-    washes.active=null; washes.nextAt=0;
+    passage.active=null; passage.nextAt=0;
     document.body.classList.remove('music-listening');
     paint();
     if (context?.state === 'running' && audio.paused) void context.suspend().catch(() => {});

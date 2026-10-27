@@ -223,3 +223,10 @@ Chrome and Firefox again passed real playback/energy changes, pause/resume clean
 ## Calm irregular reflections — 28 October 2026
 
 All 21 tests, including a new seeded light-timing regression, pass. The regression verifies zero-opacity entry, complete fade-out before relocation, a quiet gap, varied entry edges, bounded local drift, and a lower dark-scene brightness limit. Chrome real-time observation saw three independent appearances (top/bottom/right), one reflection at a time, fully quiet intervals and a maximum target night opacity of 0.0394 during the sampled recording. The bird pseudo-element content is none. Chrome and Firefox retained real song playback, energy changes, pause/resume cleanup and reduced-motion playback without reactions. Settled paper/night screenshots were reviewed at 551px. Physical-device/Safari testing remains unperformed. No audio level or event-data changes; production main is untouched.
+
+
+## Engraved passages and annotated boundaries — 28 October 2026
+
+All 21 Node tests pass. The replaced seeded timing regression covers prompt entry, silence gating, one-way dash travel, energy-sensitive opacity, full disappearance before relocation, quiet intervals and varied edges. Chrome and Firefox played the actual selected recording: changing energy and dash offsets, visible stroke opacity, no filter on the engraving, pointer-transparent overlay, pause cleanup and reduced-motion switching while song playback continues. The previous music-ambience element is absent.
+
+Both browsers accept the unified promise clip, with no separate venue wave, and the spotlight's upper fade mask. Chrome screenshots were visually reviewed at 551px and 1280px: the central jasmine blossom remains complete, the night background ends with the same curve, and the beam has no horizontal top edge. No overflow at 320px. Existing bilingual content, twelve themes, personalized PNG, keyboard navigation and effective 200% zoom checks pass in Chrome/Firefox (zoom in Chrome). No new Safari or physical-phone check. Changes stay on codex/reel-inspired-invitation; production main is unchanged.

@@ -201,3 +201,10 @@ Music visibility correction (28 October 2026, branch only): the couple rejected 
 
 
 Calmer music direction (28 October 2026, branch only): the couple explicitly rejected circular travelling glows, bright night lighting and sharp beat responses. Replace them with brief, irregular edge reflections separated by quiet gaps; fade fully before changing location. Keep the note above Birdy removed and the bird/scene influence slow and restrained. Retain the note-and-waveform music button. Follow the official Apple motion guidance recorded in REEL-STUDY.md, with reading and the wedding artwork as the focus.
+
+
+## Engraved musical passages — 28 October 2026, branch only
+
+The couple rejected ambient edge lighting entirely. Remove its DOM, gradients and light scheduler, plus the extra music-driven promise glow and spotlight brightness change. Replace them with one short, unfiltered SVG engraving at a time: a small calligraphic curl, bowed hairline or diamond detail. Ink travels down the local stroke, fades out fully, rests briefly, then appears on a different edge. Never draw an enclosing frame or a path across the text. Palette-aware ink is stronger on paper and uses the existing gold on night scenes. The recording's gently smoothed energy changes its ink opacity; the existing quiet bird response and real spectrum control remain. Pause, hidden pages and reduced motion clear reactions while preserving native audio behavior.
+
+The promise's own surface now has a single curved bottom shared by night paper, stars and jasmine. Remove the separate venue wave and garden's low radial wash so there is no flat seam above a different dark strip. Keep the central blossom fully above the curved edge. The couple's existing static theatrical beam now has a transparent-to-opaque upper mask; it no longer starts at a visible horizontal line. No audio gain, event content or production branch changes.

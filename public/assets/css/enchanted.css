@@ -420,7 +420,9 @@
 .chapter { padding-block:clamp(3.25rem,6vw,5.5rem); }
 .chapter--story { min-block-size:0; padding-block:clamp(4.5rem,7vw,6.5rem) clamp(3.5rem,6vw,5rem); }
 .chapter--celebration { padding-block:clamp(4.5rem,7vw,6rem) clamp(3.25rem,6vw,5rem); }
-.chapter--promise { padding-block:clamp(4rem,7vw,6rem) clamp(17rem,30vw,23rem); }
+/* The garden, stars and night paper share one wavy edge. */
+.chapter--promise { --promise-wave-height:clamp(46px,7vw,100px); padding-block:clamp(4rem,7vw,6rem) calc(clamp(17rem,30vw,23rem) + var(--promise-wave-height)); clip-path:polygon(0 0,100% 0,100.00% calc(100% - var(--promise-wave-height)*0.5667),97.36% calc(100% - var(--promise-wave-height)*0.4870),94.65% calc(100% - var(--promise-wave-height)*0.4312),91.88% calc(100% - var(--promise-wave-height)*0.3966),89.05% calc(100% - var(--promise-wave-height)*0.3807),86.17% calc(100% - var(--promise-wave-height)*0.3807),83.23% calc(100% - var(--promise-wave-height)*0.3942),80.25% calc(100% - var(--promise-wave-height)*0.4184),77.23% calc(100% - var(--promise-wave-height)*0.4507),74.18% calc(100% - var(--promise-wave-height)*0.4885),71.09% calc(100% - var(--promise-wave-height)*0.5292),67.98% calc(100% - var(--promise-wave-height)*0.5701),64.85% calc(100% - var(--promise-wave-height)*0.6087),61.70% calc(100% - var(--promise-wave-height)*0.6422),58.54% calc(100% - var(--promise-wave-height)*0.6682),55.37% calc(100% - var(--promise-wave-height)*0.6839),52.20% calc(100% - var(--promise-wave-height)*0.6867),49.03% calc(100% - var(--promise-wave-height)*0.6740),45.87% calc(100% - var(--promise-wave-height)*0.6432),42.72% calc(100% - var(--promise-wave-height)*0.5916),39.58% calc(100% - var(--promise-wave-height)*0.5167),39.58% calc(100% - var(--promise-wave-height)*0.5167),36.55% calc(100% - var(--promise-wave-height)*0.4344),33.69% calc(100% - var(--promise-wave-height)*0.3624),31.00% calc(100% - var(--promise-wave-height)*0.3006),28.47% calc(100% - var(--promise-wave-height)*0.2487),26.07% calc(100% - var(--promise-wave-height)*0.2065),23.81% calc(100% - var(--promise-wave-height)*0.1739),21.68% calc(100% - var(--promise-wave-height)*0.1507),19.65% calc(100% - var(--promise-wave-height)*0.1367),17.72% calc(100% - var(--promise-wave-height)*0.1316),15.89% calc(100% - var(--promise-wave-height)*0.1354),14.13% calc(100% - var(--promise-wave-height)*0.1478),12.43% calc(100% - var(--promise-wave-height)*0.1687),10.80% calc(100% - var(--promise-wave-height)*0.1978),9.21% calc(100% - var(--promise-wave-height)*0.2349),7.65% calc(100% - var(--promise-wave-height)*0.2799),6.12% calc(100% - var(--promise-wave-height)*0.3327),4.60% calc(100% - var(--promise-wave-height)*0.3929),3.08% calc(100% - var(--promise-wave-height)*0.4604),1.55% calc(100% - var(--promise-wave-height)*0.5351),0.00% calc(100% - var(--promise-wave-height)*0.6167)); margin-block-end:calc(var(--promise-wave-height)*-.25); }
+.chapter--promise .jasmine-garden { bottom:calc(var(--promise-wave-height)*.55); }
 .chapter--garden { padding-block:clamp(4rem,7vw,6rem) 1.5rem; }
 .chapter--closing { padding-block:clamp(2.5rem,5vw,4.5rem) clamp(3.25rem,6vw,5rem); }
 .closing-inner { padding-block:2rem 1rem; }
@@ -499,7 +501,7 @@
   .dance-hall .dance-motion { animation:none; transform:none; }
 }
 
-.dance-beam { position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 13% 80% at 50% 3%,color-mix(in srgb,var(--glow) 70%,transparent),transparent 85%); opacity:.8; transition:opacity 1.6s ease; }
+.dance-beam { position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 13% 80% at 50% 12%,color-mix(in srgb,var(--glow) 70%,transparent),transparent 85%); mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent); -webkit-mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent); opacity:.8; transition:opacity 1.6s ease; }
 .motion-ready .dance-hall:not(.has-arrived) .dance-beam { opacity:0; }
 @media(prefers-reduced-motion:reduce), print { .motion-ready .dance-hall .dance-beam { opacity:.8; transition:none; } }
 
@@ -516,3 +518,5 @@
 @media(prefers-reduced-motion:reduce), print {
   .motion-ready .dance-hall .dance-turn { animation:none !important; opacity:1 !important; translate:0 !important; transform:none !important; }
 }
+
+@media print { .chapter--promise { clip-path:none; margin-block-end:0; } }

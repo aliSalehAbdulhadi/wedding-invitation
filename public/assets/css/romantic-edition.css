@@ -100,11 +100,12 @@ body.romantic-edition,.romantic-edition .chapter--closing { background:var(--pap
 
 /* The approved intertwined Arabic mark is pressed into the palette-colored wax. */
 .seal-monogram { display:block; inline-size:32px; block-size:36px; background:var(--gold-ink); mask:url('../images/seal-monogram.svg') center/contain no-repeat; -webkit-mask:url('../images/seal-monogram.svg') center/contain no-repeat; filter:drop-shadow(0 1px 0 color-mix(in srgb,var(--white) 45%,transparent)); }
-/* Fleeting, irregular reflections on stationery: never an orbit or a visible bulb. */
-.music-ambience { position:fixed; inset:0; z-index:12; pointer-events:none; overflow:hidden; --ambience-ink:var(--gold-ink); }
-.music-ambience[data-tone='night'] { --ambience-ink:var(--gold); }
-.music-ambience i { position:absolute; left:0; top:0; opacity:0; background:linear-gradient(102deg,transparent 12%,color-mix(in srgb,var(--ambience-ink) 30%,transparent) 32%,var(--ambience-ink) 50%,color-mix(in srgb,var(--ambience-ink) 30%,transparent) 66%,transparent 85%); mask-image:linear-gradient(180deg,transparent,#000 28%,#000 72%,transparent); -webkit-mask-image:linear-gradient(180deg,transparent,#000 28%,#000 72%,transparent); transition:opacity .35s ease-out; }
-.music-listening .music-ambience i { will-change:transform,opacity; }
+/* A travelling engraving, never a frame: one small crisp fragment, with quiet gaps. */
+.music-engraving { position:fixed; inset:0; z-index:12; pointer-events:none; overflow:hidden; color:var(--gold-ink); }
+.music-engraving[data-tone='night'] { color:var(--gold); }
+.music-engraving svg { position:absolute; left:0; top:0; inline-size:48px; block-size:240px; opacity:0; overflow:visible; }
+.music-engraving path { display:none; fill:none; stroke:currentColor; stroke-width:1.35; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:.55 1; stroke-dashoffset:var(--stroke-offset,1); }
+.music-engraving svg[data-variant='0'] path:nth-child(1),.music-engraving svg[data-variant='1'] path:nth-child(2),.music-engraving svg[data-variant='2'] path:nth-child(3) { display:block; }
 #story-bird .bird-wing--front { rotate:calc(var(--music-energy,0)*-6deg + var(--music-swell,0)*-6deg); transition:rotate .55s ease-out; }
 #story-bird .bird-wing--back { rotate:calc(var(--music-energy,0)*4deg + var(--music-swell,0)*4deg); transition:rotate .65s ease-out; }
 /* Small, distinct responses on the currently visible scene, using composited layers. */
@@ -113,9 +114,6 @@ body.romantic-edition,.romantic-edition .chapter--closing { background:var(--pap
 .music-listening .date-card::after { opacity:calc(var(--music-energy,0)*.14); scale:calc(1 + var(--music-swell,0)*.006); }
 .arrival-seal::after { inset:-8px; border-width:1px; }
 .music-listening .arrival-seal::after { opacity:calc(var(--music-swell,0)*.2); scale:calc(1 + var(--music-swell,0)*.08); }
-.music-listening .dance-beam { opacity:calc(.72 + var(--music-energy,0)*.08 + var(--music-swell,0)*.05); }
-.promise-inner::after { content:''; position:absolute; left:10%; bottom:8%; inline-size:150px; block-size:150px; background:radial-gradient(ellipse,var(--glow),transparent 65%); pointer-events:none; opacity:0; }
-.music-listening .promise-inner::after { opacity:calc(var(--music-energy,0)*.08 + var(--music-swell,0)*.04); scale:calc(.98 + var(--music-swell,0)*.02); }
 /* Note icon opens into a real nine-band waveform; the label remains accessible. */
 .romantic-edition .music-toggle { gap:0; min-inline-size:52px; block-size:52px; padding:0 14px; border-color:var(--line); background:var(--white); color:var(--ink); box-shadow:0 4px 18px color-mix(in srgb,var(--ink) 12%,transparent); }
 .music-note { inline-size:24px; block-size:24px; flex:none; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
@@ -123,9 +121,9 @@ body.romantic-edition,.romantic-edition .chapter--closing { background:var(--pap
 .romantic-edition .music-bars { gap:3px; block-size:26px; max-inline-size:0; overflow:hidden; opacity:0; margin-inline-start:0; transition:max-inline-size .35s var(--ease),opacity .2s,margin .35s; }
 .romantic-edition .music-toggle[aria-pressed='true'] .music-bars { max-inline-size:54px; opacity:1; margin-inline-start:10px; }
 .romantic-edition .music-bars i { flex:0 0 2px; inline-size:2px; block-size:24px; background:currentColor; border-radius:2px; transform:scaleY(var(--bar,.12)); transition:transform .09s linear; animation:none !important; }
-.scene-covered .music-ambience { visibility:hidden; }
+.scene-covered .music-engraving { visibility:hidden; }
 @media(prefers-reduced-motion:reduce), print {
- .music-ambience { display:none; }
+ .music-engraving { display:none; }
  #story-bird .bird-wing { rotate:none; transition:none; }
  .romantic-edition .music-bars { transition:none; }
  .romantic-edition .music-bars i { transform:scaleY(.35); transition:none; }

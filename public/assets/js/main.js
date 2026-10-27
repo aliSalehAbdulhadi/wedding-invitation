@@ -1,9 +1,9 @@
-import { createMusicCompanion } from './music-companion.js?v=20261028-6';
-import { drawBirdWake } from './bird-wake.js?v=20261028-6';
+import { createMusicCompanion } from './music-companion.js?v=20261028-7';
+import { drawBirdWake } from './bird-wake.js?v=20261028-7';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
 import { validateContent, calendarLinks, mapLinks, preferredApps, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-2';
 
-import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261028-6';
+import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261028-7';
 
 const words = {
   ar: {
