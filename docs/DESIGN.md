@@ -195,3 +195,6 @@ Vintage refinement (28 October 2026, branch only): retain the couple's olive-and
 
 
 Music/identity refinement (28 October 2026, branch only): Birdy gently follows the recording's real dynamics, with brighter wake, a slight lift/tilt and wing response. Faint edge candlelight appears and recedes with the music; no fixed border or crossing thread is added. All accents follow the selected palette. Pausing settles the effects; reduced motion preserves song playback without animation. The white envelope's wax seal uses the same approved interwoven Arabic initials as the sharing graphic.
+
+
+Music visibility correction (28 October 2026, branch only): the couple rejected nearly invisible, stationary side light and tiny bird responses. Use travelling perimeter candlelight with sufficient palette contrast on paper and night, clear but bounded bird accents, and different response layers within the current section. Keep text clear and avoid a permanent enclosing frame. Replace the visible music label with a note icon expanding into an actual audio-spectrum waveform; retain accessible bilingual state and controls.

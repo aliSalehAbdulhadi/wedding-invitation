@@ -100,14 +100,38 @@ body.romantic-edition,.romantic-edition .chapter--closing { background:var(--pap
 
 /* The approved intertwined Arabic mark is pressed into the palette-colored wax. */
 .seal-monogram { display:block; inline-size:32px; block-size:36px; background:var(--gold-ink); mask:url('../images/seal-monogram.svg') center/contain no-repeat; -webkit-mask:url('../images/seal-monogram.svg') center/contain no-repeat; filter:drop-shadow(0 1px 0 color-mix(in srgb,var(--white) 45%,transparent)); }
-/* Two bounded pools of light; no enclosing border or lines crossing the content. */
-.music-ambience { position:fixed; inset:0; z-index:12; pointer-events:none; overflow:hidden; }
-.music-ambience i { position:absolute; inline-size:clamp(90px,13vw,180px); block-size:min(48vh,400px); opacity:0; transition:opacity .25s ease-out; background:radial-gradient(ellipse at 0 50%,color-mix(in srgb,var(--gold) 60%,var(--glow)),transparent 72%); }
-.music-ambience i:first-child { left:-30px; top:12%; }
-.music-ambience i:last-child { right:-30px; bottom:12%; rotate:180deg; }
-.music-listening .music-ambience i:first-child { opacity:calc(var(--music-energy,0)*.28); }
-.music-listening .music-ambience i:last-child { opacity:calc(var(--music-energy,0)*.2); }
-#story-bird .bird-wing--front { rotate:calc(var(--music-energy,0)*-9deg); transition:rotate .12s ease-out; }
-#story-bird .bird-wing--back { rotate:calc(var(--music-energy,0)*7deg); transition:rotate .16s ease-out; }
+/* Moving candlelight follows the perimeter; contrast changes with the current scene. */
+.music-ambience { position:fixed; inset:0; z-index:12; pointer-events:none; overflow:hidden; --ambience-ink:color-mix(in srgb,var(--gold) 80%,var(--gold-ink)); }
+.music-ambience[data-tone='night'] { --ambience-ink:var(--glow); }
+.music-ambience i { position:absolute; left:0; top:0; inline-size:clamp(210px,30vw,380px); block-size:clamp(260px,42vh,440px); border-radius:50%; opacity:0; background:radial-gradient(ellipse,color-mix(in srgb,var(--glow) 80%,var(--white)),var(--ambience-ink) 24%,color-mix(in srgb,var(--ambience-ink) 45%,transparent) 48%,transparent 72%); transition:opacity .18s ease-out; }
+.music-listening .music-ambience i { will-change:transform,opacity; }
+.music-listening .music-ambience i:first-child { opacity:calc(var(--music-energy,0)*.7 + var(--music-pulse,0)*.16); }
+.music-listening .music-ambience i:last-child { opacity:calc(var(--music-energy,0)*.5 + var(--music-pulse,0)*.12); }
+#story-bird .bird-wing--front { rotate:calc(var(--music-energy,0)*-8deg + var(--music-pulse,0)*-28deg); transition:rotate .1s ease-out; }
+#story-bird .bird-wing--back { rotate:calc(var(--music-energy,0)*5deg + var(--music-pulse,0)*20deg); transition:rotate .12s ease-out; }
+#story-bird::before { content:'♪'; position:absolute; top:-15px; right:-8px; font:24px Georgia,serif; color:var(--gold-ink); opacity:0; pointer-events:none; }
+.music-listening #story-bird::before { opacity:calc(var(--music-pulse,0)*.95); translate:0 calc(var(--music-pulse,0)*-10px); }
+/* Small, distinct responses on the currently visible scene, using composited layers. */
+.ring-universe::after,.date-card::after,.arrival-seal::after { content:''; position:absolute; inset:3%; border:2px solid var(--gold); border-radius:50%; pointer-events:none; opacity:0; }
+.music-listening .ring-universe::after { opacity:calc(var(--music-energy,0)*.45 + var(--music-pulse,0)*.4); scale:calc(1 + var(--music-pulse,0)*.07); }
+.music-listening .date-card::after { opacity:calc(var(--music-energy,0)*.4 + var(--music-pulse,0)*.5); scale:calc(1 + var(--music-pulse,0)*.06); }
+.arrival-seal::after { inset:-8px; border-width:1px; }
+.music-listening .arrival-seal::after { opacity:calc(var(--music-pulse,0)*.85); scale:calc(1 + var(--music-pulse,0)*.9); }
+.music-listening .dance-beam { opacity:calc(.3 + var(--music-energy,0)*.6 + var(--music-pulse,0)*.15); }
+.promise-inner::after { content:''; position:absolute; left:10%; bottom:8%; inline-size:150px; block-size:150px; background:radial-gradient(ellipse,var(--glow),transparent 65%); pointer-events:none; opacity:0; }
+.music-listening .promise-inner::after { opacity:calc(var(--music-energy,0)*.28 + var(--music-pulse,0)*.25); scale:calc(.85 + var(--music-pulse,0)*.3); }
+/* Note icon opens into a real nine-band waveform; the label remains accessible. */
+.romantic-edition .music-toggle { gap:0; min-inline-size:52px; block-size:52px; padding:0 14px; border-color:var(--line); background:var(--white); color:var(--ink); box-shadow:0 4px 18px color-mix(in srgb,var(--ink) 12%,transparent); }
+.music-note { inline-size:24px; block-size:24px; flex:none; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+.music-note ellipse { fill:currentColor; stroke:none; }
+.romantic-edition .music-bars { gap:3px; block-size:26px; max-inline-size:0; overflow:hidden; opacity:0; margin-inline-start:0; transition:max-inline-size .35s var(--ease),opacity .2s,margin .35s; }
+.romantic-edition .music-toggle[aria-pressed='true'] .music-bars { max-inline-size:54px; opacity:1; margin-inline-start:10px; }
+.romantic-edition .music-bars i { flex:0 0 2px; inline-size:2px; block-size:24px; background:currentColor; border-radius:2px; transform:scaleY(var(--bar,.12)); transition:transform .09s linear; animation:none !important; }
 .scene-covered .music-ambience { visibility:hidden; }
-@media(prefers-reduced-motion:reduce), print { .music-ambience { display:none; } #story-bird .bird-wing { rotate:none; transition:none; } }
+@media(prefers-reduced-motion:reduce), print {
+ .music-ambience { display:none; }
+ #story-bird .bird-wing { rotate:none; transition:none; }
+ #story-bird::before { display:none; }
+ .romantic-edition .music-bars { transition:none; }
+ .romantic-edition .music-bars i { transform:scaleY(.35); transition:none; }
+}

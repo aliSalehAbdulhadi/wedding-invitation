@@ -1,9 +1,9 @@
-import { createMusicCompanion } from './music-companion.js?v=20261028-4';
-import { drawBirdWake } from './bird-wake.js?v=20261028-4';
+import { createMusicCompanion } from './music-companion.js?v=20261028-5';
+import { drawBirdWake } from './bird-wake.js?v=20261028-5';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
 import { validateContent, calendarLinks, mapLinks, preferredApps, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-2';
 
-import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261028-4';
+import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261028-5';
 
 const words = {
   ar: {
@@ -919,7 +919,10 @@ function animateLivingBird(now) {
     behavior = Math.hypot(target.x - birdBody.x, target.y - birdBody.y) < 12 ? 'perched' : 'visiting';
   }
   const {width,height} = birdDestination.reading;
-  if (!birdDialogTarget) target.y -= musicCompanion.energy * (behavior === 'perched' ? 3 : 5);
+  if (!birdDialogTarget) {
+    target.y -= musicCompanion.energy * 5 + musicCompanion.pulse * 18;
+    target.x += musicCompanion.pulse * 7 * birdBody.facing;
+  }
   target.x = bounded(target.x, 26, width - 26);
   target.y = bounded(target.y, 55, height - 55);
   advanceSpring(birdBody, target, dt);
@@ -927,7 +930,7 @@ function animateLivingBird(now) {
   const desiredFacing = birdDialogTarget?.typing ? birdDialogTarget.facing : speed > 18 ? (birdBody.vx < -8 ? -1 : birdBody.vx > 8 ? 1 : birdBody.facing < 0 ? -1 : 1) : target.x > width/2 ? -1 : 1;
   birdBody.facing += (desiredFacing-birdBody.facing) * Math.min(1, dt*7);
   let pitch = behavior === 'perched' ? Math.sin(time*.6)*4-8 : bounded(Math.atan2(birdBody.vy, Math.abs(birdBody.vx)+60)*180/Math.PI*desiredFacing, -42, 42);
-  if (!birdDialogTarget) pitch += musicCompanion.energy * 4;
+  if (!birdDialogTarget) pitch += musicCompanion.energy * 5 - musicCompanion.pulse * 16;
   birdBody.angle += (pitch-birdBody.angle) * Math.min(1, dt*7);
   const bird = $('#story-bird');
   bird.classList.toggle('is-writing',Boolean(birdDialogTarget?.typing));
@@ -938,7 +941,7 @@ function animateLivingBird(now) {
     bird.classList.toggle('is-exploring', behavior === 'exploring');
     bird.classList.toggle('is-visiting', behavior === 'visiting');
   }
-  const scale = (width < 600 ? .7 : .88) * (1 + Math.sin(time*2.1)*.018);
+  const scale = (width < 600 ? .7 : .88) * (1 + Math.sin(time*2.1)*.018 + (birdDialogTarget ? 0 : musicCompanion.pulse*.12));
   placeBird(birdBody.x, birdBody.y, birdBody.angle, scale, birdBody.facing);
   birdRaf = requestAnimationFrame(animateLivingBird);
 }
