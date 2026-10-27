@@ -88,3 +88,6 @@ Selected Arabic typography (24 October 2026): the main names use the approved Ar
 
 
 Recorded music release (24 October 2026): main.js, preview.js and styles.css use release 20261024-6. The native player serves assets/audio/moonlight-scott-buckley.mp3 only after an explicit guest choice; retain Range support and audio/mpeg delivery on production. Audio credits and source metadata are served alongside the asset. No external audio player, YouTube embed, browser tracker, application dependency, backend or build step was added. Keep the footer attribution and the CC BY 4.0 license link. The original full-quality download and conversion tooling stay outside the repository.
+
+
+Music replacement (27 October 2026): the active asset is assets/audio/fostanek-al-abyad-hussain-al-jassmi.mp3, supplied by the couple. It replaces the previous Moonlight asset and credits. Retain audio/mpeg and Range delivery; preload remains none and music requires explicit opt-in. The source recording is not described as CC licensed. JavaScript behavior and its release URLs are unchanged. music-preview.html is an untracked local audition page and must not be included in the release.

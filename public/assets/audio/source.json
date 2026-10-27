@@ -1,14 +1,13 @@
 {
-  "track": "Moonlight",
-  "composer": "Scott Buckley",
-  "page": "https://www.scottbuckley.com.au/library/moonlight/",
-  "original": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/07/Moonlight.mp3",
-  "license": "https://creativecommons.org/licenses/by/4.0/",
-  "originalSHA256": "7feb8c703983dbdfc97018f004cfebad8f03b86f2382c58c0ad24e375d4c17f5",
-  "outputSHA256": "6601c1e8710c18eec5f14daa428a8e242af7b1f0868453aa4a1efaf098039569",
-  "durationSeconds": 254.38,
-  "originalBytes": 10177523,
-  "outputBytes": 4070678,
-  "changes": "Full recording retained. Re-encoded as stereo MP3 at 128 kbps / 44.1 kHz, gain 0.22, 1.3-second intro fade and 2-second ending fade. No musical re-orchestration or AI generation.",
-  "retrieved": "2026-10-24"
+  "track": "فستانك الأبيض",
+  "artist": "حسين الجسمي / Hussain Al Jassmi",
+  "source": "MP3 supplied by the couple on 2026-10-27",
+  "rights": "User-supplied copyrighted recording. No Creative Commons or public-domain license is asserted.",
+  "originalSHA256": "442d13fead7b499d064c53de61180aa4417c68bdb09391b8ca42ac3984e62bee",
+  "outputSHA256": "45fdee565e2d3d8f8fa49737f8ad9b501e222d6ec629a9b8f57fd43e79c1e747",
+  "durationSeconds": 274.49,
+  "originalBytes": 6588636,
+  "outputBytes": 4392446,
+  "changes": "Full recording retained; stereo MP3 at 128 kbps / 44.1 kHz, gain 0.35, 1-second intro fade and 2-second ending fade.",
+  "updated": "2026-10-27"
 }
