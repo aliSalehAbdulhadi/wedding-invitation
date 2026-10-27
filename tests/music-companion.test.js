@@ -23,10 +23,10 @@ test('song reactions use one audio route, settle on pause, and respect reduced m
     assert.equal(contexts,0,'no audio context before a music gesture');
     reaction.prepare();assert.equal(routes,0,'native audio is not rerouted before context permission resolves');audio.paused=false;audio.dispatchEvent(new Event('playing'));await Promise.resolve();
     const [id,tick]=queued.entries().next().value;queued.delete(id);tick(100);
-    assert.ok(reaction.energy>0&&reaction.energy<1);assert.ok(reaction.pulse>0,'musical rises produce visible accents');assert.equal(classes.has('music-listening'),true);
+    assert.ok(reaction.energy>0&&reaction.energy<1);assert.ok(reaction.swell>0,'musical dynamics produce a soft swell');assert.equal(classes.has('music-listening'),true);
     assert.equal(nodes.get('.music-ambience').style.values.get('--music-energy'),nodes.get('#story-bird').style.values.get('--music-energy'));
     reaction.prepare();assert.equal(contexts,1);assert.equal(routes,2,'one source-to-analyser-to-output path');
-    audio.paused=true;audio.dispatchEvent(new Event('pause'));assert.equal(reaction.energy,0);assert.equal(reaction.pulse,0);assert.equal(queued.size,0);assert.equal(classes.size,0);
+    audio.paused=true;audio.dispatchEvent(new Event('pause'));assert.equal(reaction.energy,0);assert.equal(reaction.swell,0);assert.equal(queued.size,0);assert.equal(classes.size,0);
     reduced.matches=true;reduced.dispatchEvent(new Event('change'));audio.paused=false;const before=resumes;reaction.prepare();audio.dispatchEvent(new Event('playing'));assert.equal(resumes,before);assert.equal(queued.size,0);
     reduced.matches=false;reduced.dispatchEvent(new Event('change'));await Promise.resolve();assert.ok(queued.size>0);
     doc.hidden=true;doc.dispatchEvent(new Event('visibilitychange'));assert.equal(queued.size,0);assert.equal(reaction.energy,0);

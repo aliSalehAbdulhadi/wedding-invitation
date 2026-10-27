@@ -198,3 +198,6 @@ Music/identity refinement (28 October 2026, branch only): Birdy gently follows t
 
 
 Music visibility correction (28 October 2026, branch only): the couple rejected nearly invisible, stationary side light and tiny bird responses. Use travelling perimeter candlelight with sufficient palette contrast on paper and night, clear but bounded bird accents, and different response layers within the current section. Keep text clear and avoid a permanent enclosing frame. Replace the visible music label with a note icon expanding into an actual audio-spectrum waveform; retain accessible bilingual state and controls.
+
+
+Calmer music direction (28 October 2026, branch only): the couple explicitly rejected circular travelling glows, bright night lighting and sharp beat responses. Replace them with brief, irregular edge reflections separated by quiet gaps; fade fully before changing location. Keep the note above Birdy removed and the bird/scene influence slow and restrained. Retain the note-and-waveform music button. Follow the official Apple motion guidance recorded in REEL-STUDY.md, with reading and the wedding artwork as the focus.
