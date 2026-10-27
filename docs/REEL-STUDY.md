@@ -23,3 +23,10 @@ The story and keepsake return to a uniform paper surface; the closing explicitly
 
 
 Envelope/dance refinement (28 October 2026): at the couple's request, correspondence stays white/light ivory in every palette. Color lives in the seal, engraving and surrounding landing background. Inset border, fold shading and a small embossed flourish give the envelope its vintage detail. The dance entrance and waltz meet at 2.8 seconds and the neutral pose, removing the measured 12px handoff step. Release 20261028-3.
+
+
+## Musical companion and initials seal — 28 October 2026
+
+The couple approved Birdy reacting to music plus soft intermittent edge light, and rejected a permanent screen border or crossing thread. The existing selected recording now supplies local RMS energy through one native MediaElementAudioSource/Analyser graph, created only by a guest music gesture. Sampling is capped at 20 updates/second with gentle attack/release. Energy adds a small amount to Birdy's posture and wings and brightens the existing bounded wake; typing motion keeps priority. Two bounded noninteractive light pools at the outer edges follow the same energy and selected colors. Pausing/hidden pages stop the sampler; reduced motion removes reactions while preserving song playback. No microphone permission, service, oscillator or extra music is involved. The encoded song level stays unchanged.
+
+The wax seal uses seal-monogram.svg, a deterministic silhouette trace of the approved wedding-ligature.jpg ع / ت mark. It is a palette-colored embossed mask, not separately typed initials. The original sharing graphic remains unchanged. The white envelope is retained. Release 20261028-4.

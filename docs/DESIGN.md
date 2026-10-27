@@ -192,3 +192,6 @@ On codex/reel-inspired-invitation only: the couple supplied an Instagram reel as
 
 
 Vintage refinement (28 October 2026, branch only): retain the couple's olive-and-ivory colors by default and honor their existing saved color preference. Burgundy is optional. All correspondence colors now derive from the selected semantic palette, including envelope folds, seal and letter. Floral art is gently toned to fit the selected color family. Carry understated engraving into headings, date dial, timeline, venue and dialogs. The closing and other paper sections share the same paper background; do not reintroduce fixed blush/red surfaces.
+
+
+Music/identity refinement (28 October 2026, branch only): Birdy gently follows the recording's real dynamics, with brighter wake, a slight lift/tilt and wing response. Faint edge candlelight appears and recedes with the music; no fixed border or crossing thread is added. All accents follow the selected palette. Pausing settles the effects; reduced motion preserves song playback without animation. The white envelope's wax seal uses the same approved interwoven Arabic initials as the sharing graphic.

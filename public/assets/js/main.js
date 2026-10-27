@@ -1,8 +1,9 @@
-import { drawBirdWake } from './bird-wake.js?v=20261024-1';
+import { createMusicCompanion } from './music-companion.js?v=20261028-4';
+import { drawBirdWake } from './bird-wake.js?v=20261028-4';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
 import { validateContent, calendarLinks, mapLinks, preferredApps, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-2';
 
-import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261028-3';
+import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261028-4';
 
 const words = {
   ar: {
@@ -138,6 +139,7 @@ let playing = false;
 let musicIntent = false;
 let musicRequest = 0;
 const backgroundMusic = $('#background-music');
+const musicCompanion = createMusicCompanion(backgroundMusic);
 async function startMusic() {
   const request=++musicRequest;
   if (!musicIntent || document.hidden) return;
@@ -145,6 +147,7 @@ async function startMusic() {
     // Retry a failed request without leaving the guest stuck until a reload.
     if (backgroundMusic.error) backgroundMusic.load();
     // Play immediately within the guest's gesture, including on iPhone.
+    musicCompanion.prepare();
     await backgroundMusic.play();
     if (request!==musicRequest) return;
     if (!musicIntent || document.hidden) { backgroundMusic.pause(); return; }
@@ -548,7 +551,7 @@ function paintBirdWake(x, y) {
   if (now - wakePaintedAt < 32) return;
   wakePaintedAt = now;
   const particles = advanceBirdWake(birdWake, { x, y }, now);
-  drawBirdWake(wakeCanvas,particles,now,getActiveTheme().colors.gold,devicePixelRatio);
+  drawBirdWake(wakeCanvas,particles,now,getActiveTheme().colors.gold,devicePixelRatio,musicCompanion.energy);
 }
 function updateStoryFlight(reading) {
   if (!reading || entranceFlight || motion.matches) return;
@@ -916,13 +919,15 @@ function animateLivingBird(now) {
     behavior = Math.hypot(target.x - birdBody.x, target.y - birdBody.y) < 12 ? 'perched' : 'visiting';
   }
   const {width,height} = birdDestination.reading;
+  if (!birdDialogTarget) target.y -= musicCompanion.energy * (behavior === 'perched' ? 3 : 5);
   target.x = bounded(target.x, 26, width - 26);
   target.y = bounded(target.y, 55, height - 55);
   advanceSpring(birdBody, target, dt);
   const speed = Math.hypot(birdBody.vx, birdBody.vy);
   const desiredFacing = birdDialogTarget?.typing ? birdDialogTarget.facing : speed > 18 ? (birdBody.vx < -8 ? -1 : birdBody.vx > 8 ? 1 : birdBody.facing < 0 ? -1 : 1) : target.x > width/2 ? -1 : 1;
   birdBody.facing += (desiredFacing-birdBody.facing) * Math.min(1, dt*7);
-  const pitch = behavior === 'perched' ? Math.sin(time*.6)*4-8 : bounded(Math.atan2(birdBody.vy, Math.abs(birdBody.vx)+60)*180/Math.PI*desiredFacing, -42, 42);
+  let pitch = behavior === 'perched' ? Math.sin(time*.6)*4-8 : bounded(Math.atan2(birdBody.vy, Math.abs(birdBody.vx)+60)*180/Math.PI*desiredFacing, -42, 42);
+  if (!birdDialogTarget) pitch += musicCompanion.energy * 4;
   birdBody.angle += (pitch-birdBody.angle) * Math.min(1, dt*7);
   const bird = $('#story-bird');
   bird.classList.toggle('is-writing',Boolean(birdDialogTarget?.typing));

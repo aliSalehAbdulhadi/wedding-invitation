@@ -1,5 +1,5 @@
 // A small transparent tile replaces a full-screen SVG with dozens of changing nodes.
-export function drawBirdWake(canvas, particles, now, color, pixelRatio = 1) {
+export function drawBirdWake(canvas, particles, now, color, pixelRatio = 1, energy = 0) {
   if (!particles.length) {
     if (!canvas.hidden) canvas.hidden = true;
     return;
@@ -15,13 +15,14 @@ export function drawBirdWake(canvas, particles, now, color, pixelRatio = 1) {
   canvas.style.transform = `translate3d(${left}px,${top}px,0)`;
   ctx.setTransform(ratio,0,0,ratio,0,0);
   ctx.clearRect(0,0,size,size);
-  ctx.strokeStyle = color; ctx.lineWidth = .9; ctx.lineCap = 'round';
+  const strength = Math.min(1,Math.max(0,energy));
+  ctx.strokeStyle = color; ctx.lineWidth = .9 + strength*.25; ctx.lineCap = 'round';
   for (const p of particles) {
     const age = Math.max(0,Math.min(1,(now-p.born)/p.life));
     ctx.save(); ctx.translate(p.x-left,p.y-top);
     ctx.rotate((p.glint?45:p.angle)*Math.PI/180);
     ctx.scale(1+age*.45,1+age*.45);
-    ctx.globalAlpha = Math.min(1,age/.12)*Math.pow(1-age,1.7)*(p.glint ? .65 : .48);
+    ctx.globalAlpha = Math.min(1,age/.12)*Math.pow(1-age,1.7)*(p.glint ? .65 : .48)*(1+strength*.35);
     ctx.beginPath();
     if (p.glint) { ctx.moveTo(-2,0); ctx.lineTo(2,0); ctx.moveTo(0,-2); ctx.lineTo(0,2); }
     else { ctx.moveTo(-p.size/2,0); ctx.quadraticCurveTo(0,-2,p.size/2,0); }
