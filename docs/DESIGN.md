@@ -184,3 +184,8 @@ Recorded music updated (27 October 2026): the couple selected their supplied rec
 
 
 Audio refinement (27 October 2026): the song now uses 50% of its previous playback level. The envelope chime is removed entirely; preserve the visual opening and explicit music opt-in. The only sound is the selected recording.
+
+
+## Romantic garden branch study — 28 October 2026
+
+On codex/reel-inspired-invitation only: the couple supplied an Instagram reel as visual direction. See REEL-STUDY.md for observed references, original-art provenance and the final illustration prompt. A burgundy correspondence envelope opens onto peach stationery, a painted floral arch, paired swans and vertically arranged live names in the approved Aref Ruqaa. The supporting sentence sits below the frame so date/address stay legible. The rose palette is added alongside all eleven existing choices. Existing scenes, guide bird, doors, dancing couple, maps, calendar and personalized download remain; song-only audio remains half its preceding playback level. Main and the production domain are unchanged.

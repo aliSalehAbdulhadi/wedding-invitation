@@ -1,9 +1,9 @@
-import { themes, getTheme, resolveThemeId } from './themes.js?v=20261024-3';
+import { themes, getTheme, resolveThemeId } from './themes.js?v=20261028-1';
 
 let activeTheme = themes[0];
 let ui;
 let language = 'ar';
-const preferenceKey = 'wedding-dev-palette-v1';
+const preferenceKey = 'wedding-romantic-palette-v1';
 const labels = {
   ar: { trigger:'الألوان', title:'اختر ألوان الحكاية', note:'لوحات زفاف هادئة للدعوة والرسومات والبطاقة المحمّلة.', local:'يُحفظ اختيار الألوان على هذا الجهاز.', close:'إغلاق', legend:'لوحة ألوان الدعوة' },
   en: { trigger:'Colors', title:'Color the whole story', note:'Soft wedding palettes for the invitation, artwork, and downloaded keepsake.', local:'Your color choice is remembered on this device.', close:'Close', legend:'Invitation color palette' },

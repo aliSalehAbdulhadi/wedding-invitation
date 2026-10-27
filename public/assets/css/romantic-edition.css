@@ -1,0 +1,83 @@
+/* Branch study: painted garden stationery and burgundy correspondence. */
+:root {
+  --paper:#fbf1e8;
+  --white:#fffbf5;
+  --ink:#4b3034;
+  --olive:#683b43;
+  --muted:#78625b;
+  --gold:#b89768;
+  --gold-ink:#80623e;
+  --line:#e2cfc0;
+  --soft:#f2e1d4;
+  --night:#462b32;
+  --night-deep:#2b1922;
+  --cream:#fff0df;
+  --glow:#eed3a6;
+  --foliage:#bbb392;
+}
+
+.romantic-edition .hero { padding:1.5rem 12px 6rem; min-block-size:0; }
+.romantic-edition .hero-arch,.romantic-edition .hero-branch { display:none; }
+.romance-stationery { position:relative; inline-size:min(100%,620px); aspect-ratio:2/3; margin-inline:auto; isolation:isolate; }
+.romance-frame { position:absolute; z-index:-1; inset:0; inline-size:100%; block-size:100%; pointer-events:none; }
+.romantic-edition .hero-content { position:absolute; inset:22% 17% 22%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.8rem; }
+.romantic-edition .hero-content .eyebrow { font-size:.75rem; }
+.romantic-edition .couple-names { flex-direction:column; flex-wrap:nowrap; gap:0; margin:0; line-height:1.25; }
+html[lang='ar'] .romantic-edition .couple-names { font-size:clamp(3.2rem,9vw,5.2rem); }
+html[lang='en'] .romantic-edition .couple-names { font-size:clamp(3.3rem,9vw,5.5rem); line-height:.95; }
+html[lang='ar'] .romantic-edition .couple-names .name-join { translate:0; }
+.romantic-edition .couple-names .name-join { font-size:.38em; line-height:1.1; padding:0; margin-block:.25em; }
+.romantic-edition .hero-divider { margin:0; gap:.7rem; }
+.romantic-edition .hero-divider span { inline-size:28px; }
+.romantic-edition .hero-tagline { font-size:clamp(1.2rem,3.7vw,1.75rem); line-height:1.5; }
+.romantic-edition .hero-date { flex-direction:column; gap:.3rem; margin:0; font-size:.75rem; text-align:center; }
+.romantic-edition .hero-date .date-dot { display:none; }
+.romantic-edition .hero-bottom { inset-block-end:1.5rem; }
+.romantic-edition .hero-index { visibility:hidden; }
+.romantic-edition .site-header { border-block-end:0; }
+.romantic-edition .opening-dialog { background:radial-gradient(ellipse at 50% 40%,#6d3e48,#3d242d 65%,#28181f); --night:#58343e; --night-deep:#28181f; --cream:#fff0df; --soft:#f2e1d4; --gold:#b89768; --glow:#eed3a6; }
+.romantic-edition .opening-body h2 { animation:rise-in 1.3s .6s var(--ease) both; background:none; color:var(--cream); }
+.romantic-edition .opening-body > .eyebrow { color:#e3c9a9; }
+.romantic-edition .opening-corner { border-radius:45% 45% 0 0; opacity:.5; }
+.romantic-edition .opening-sprig { opacity:.18; }
+.romantic-edition .stage-orbit { opacity:.3; }
+.romantic-edition .stage-halo { opacity:.28; }
+.romantic-edition .envelope { background:#653943; border:1px solid #94616a; box-shadow:0 28px 55px #160d1555; }
+.romantic-edition .envelope-bottom { background:linear-gradient(150deg,#78454f,#512e39); }
+.romantic-edition .envelope-bottom::after { background:linear-gradient(135deg,#7b4b55,#603640); }
+.romantic-edition .envelope-flap { background:linear-gradient(155deg,#88525b,#633640); }
+.romantic-edition .envelope-letter { background:#fff3e5; color:#4b3034; }
+.romantic-edition .wax-seal { background:radial-gradient(circle at 35% 25%,#ead0a8,#b58a61); color:#67412f; border-color:#d4ae7d; box-shadow:0 4px 10px #21101644,inset 0 0 0 5px #f7e2be55; }
+.romantic-edition .wax-seal::before,.romantic-edition .wax-seal::after { animation:none; opacity:.45; inset:5px; }
+.romantic-edition .wax-seal svg { inline-size:22px; block-size:22px; }
+.romantic-edition .chapter--story { background:linear-gradient(180deg,var(--paper),var(--white)); }
+.romantic-edition .chapter--garden { background:var(--paper); }
+.romantic-edition .arrival-interior { background:linear-gradient(180deg,var(--white),var(--paper)); }
+.romantic-edition .arrival-copy .button { border-radius:40px; }
+.romantic-edition .chapter--keepsake { background:linear-gradient(180deg,var(--paper),var(--white)); }
+.romantic-edition .closing-inner { border-block:1px solid var(--line); padding-block:3rem; }
+@media(min-width:900px) {
+ .romantic-edition .hero { padding-block:0 5rem; }
+ .romance-stationery { inline-size:620px; aspect-ratio:3/4; }
+ .romantic-edition .hero-content { inset:21% 18% 23%; gap:1rem; }
+}
+@media(max-width:380px) {
+ .romantic-edition .hero-content { inset-inline:16%; gap:.55rem; }
+ html[lang='ar'] .romantic-edition .couple-names { font-size:2.8rem; }
+ .romantic-edition .hero-content { gap:.5rem; }
+ .romantic-edition .hero-bottom-note { display:none; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .romantic-edition .opening-body h2 { animation:none; }
+}
+@media print {
+ .romance-stationery { break-inside:avoid; }
+ .romantic-edition .hero-content { position:relative; inset:auto; padding-block:8rem; }
+}
+
+.romantic-edition .romance-caption { text-align:center; margin-block:.8rem 1.5rem; padding-inline:1rem; }
+
+html[lang='en'] .romantic-edition .hero-content .eyebrow { letter-spacing:.02em; }
+.invitation-open .romance-frame { animation:romance-arrival 1.1s var(--ease) both; }
+@keyframes romance-arrival { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@media(prefers-reduced-motion:reduce) { .invitation-open .romance-frame { animation:none; } }

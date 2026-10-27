@@ -8,9 +8,9 @@ function luminance(hex) {
 }
 const contrast=(a,b)=>(Math.max(luminance(a),luminance(b))+.05)/(Math.min(luminance(a),luminance(b))+.05);
 
-test('eleven complete bilingual palettes retain readable body, secondary, accent, and night text',()=>{
-  assert.equal(themes.length,11);
-  assert.equal(new Set(themes.map(t=>t.id)).size,11);
+test('twelve complete bilingual palettes retain readable body, secondary, accent, and night text',()=>{
+  assert.equal(themes.length,12);
+  assert.equal(new Set(themes.map(t=>t.id)).size,12);
   for (const theme of themes) {
     assert.ok(theme.name.ar&&theme.name.en&&theme.note.ar&&theme.note.en);
     assert.deepEqual(Object.keys(theme.colors).sort(),Object.keys(themes[0].colors).sort());
