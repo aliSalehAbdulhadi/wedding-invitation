@@ -33,7 +33,7 @@ test('the wake follows real movement, drifts and expires at rest, and stays boun
 
 test('configured content validates and event dates are explicit and ordered', () => {
   assert.equal(validateContent(data), data);
-  assert.equal(data.music.startOnOpen, false);
+  assert.equal(data.music.startOnOpen, true);
   for (const change of [
     (copy) => { copy.event.start = '2027-05-21T19:00:00'; },
     (copy) => { copy.event.end = copy.event.start; },

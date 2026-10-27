@@ -12,16 +12,16 @@
   },
   "event": {
     "id": "ali-tabarak-2026-11-20",
-    "start": "2026-11-20T17:00:00+03:00",
-    "end": "2026-11-20T22:00:00+03:00",
+    "start": "2026-11-20T15:00:00+03:00",
+    "end": "2026-11-20T21:00:00+03:00",
     "timeZone": "Asia/Baghdad",
     "title": {
       "ar": "حفل زفاف علي وتبارك",
       "en": "Ali & Tabarak's wedding"
     },
     "description": {
-      "ar": "نحتفل بزفاف علي وتبارك في قاعة خيال، نادي الضباط، شارع فلسطين، بغداد. التجمع الساعة ٥ مساءً، ويبدأ الحفل الساعة ٦ مساءً وينتهي الساعة ١٠ مساءً.",
-      "en": "Celebrate Ali and Tabarak's wedding at Khayal Hall, Officers’ Club, Palestine Street, Baghdad. Guests gather at 5 PM; the celebration starts at 6 PM and ends at 10 PM (Baghdad time)."
+      "ar": "نحتفل بزفاف علي وتبارك في قاعة خيال، نادي الضباط، شارع فلسطين، بغداد. التجمع الساعة ٣ مساءً، ويبدأ الحفل الساعة ٤ مساءً وينتهي قرابة الساعة ٩ مساءً.",
+      "en": "Celebrate Ali and Tabarak's wedding at Khayal Hall, Officers’ Club, Palestine Street, Baghdad. Guests gather at 3 PM; the celebration starts at 4 PM and ends around 9 PM (Baghdad time)."
     }
   },
   "venue": {
@@ -53,7 +53,7 @@
   },
   "schedule": [
     {
-      "time": "17:00",
+      "time": "15:00",
       "title": {
         "ar": "التجمع واستقبال الأحبّة",
         "en": "Gathering & welcome"
@@ -64,7 +64,7 @@
       }
     },
     {
-      "time": "18:00",
+      "time": "16:00",
       "title": {
         "ar": "بداية الحفل",
         "en": "The celebration begins"
@@ -75,7 +75,7 @@
       }
     },
     {
-      "time": "22:00",
+      "time": "21:00",
       "title": {
         "ar": "ختام الحفل",
         "en": "The evening concludes"
@@ -101,9 +101,9 @@
     }
   },
   "music": {
-    "startOnOpen": false
+    "startOnOpen": true
   },
   "design": {
-    "theme": "olive"
+    "theme": "champagne"
   }
 }

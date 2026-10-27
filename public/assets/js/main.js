@@ -1,9 +1,9 @@
-import { createMusicCompanion } from './music-companion.js?v=20261028-7';
-import { drawBirdWake } from './bird-wake.js?v=20261028-7';
+import { createMusicCompanion } from './music-companion.js?v=20261028-8';
+import { drawBirdWake } from './bird-wake.js?v=20261028-8';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
 import { validateContent, calendarLinks, mapLinks, preferredApps, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-2';
 
-import { initializeThemePreview, renderThemePreview, getActiveTheme } from './theme-preview.js?v=20261028-7';
+import { initializeTheme, getActiveTheme } from './theme.js?v=20261028-8';
 
 const words = {
   ar: {
@@ -14,7 +14,7 @@ const words = {
     quoteLabel: 'كلمات من القلب', quoteFootnote: 'معًا، تبدأ أجمل الأيام', arrivalLine:'هنا، يتحوّل الموعد إلى لقاء.', locationEyebrow: 'الفصل الثالث · كل الطرق تجمعنا', openMaps: 'افتح الموقع على الخريطة', mapArtLabel: 'رسم فني لحديقة، وليس خريطة للموقع',
     keepsakeEyebrow: 'الفصل الأخير · وأنت جزءٌ منه', keepsakeTitle: 'دعوة تحمل اسمك.', keepsakeCopy: 'لأنك جزء من الحكاية، صمّمنا لك دعوة خاصة. أضف اسمك، واحتفظ بقطعة من هذه الليلة.', personalize: 'اصنع دعوتك الخاصة', privacy: 'اسمك يبقى على جهازك. لا نجمعه ولا نرسله.',
     miniEyebrow: 'دعوة من القلب', dearGuest: 'إلى ضيفنا العزيز', yourName: 'اسمك الجميل هنا', footer: 'صُنعت بحب، لتُحفظ في القلب.', backTop: 'إلى البداية', music: 'الموسيقى', off: 'متوقفة', on: 'تعمل', musicPlay: 'تشغيل الموسيقى الهادئة', musicMute: 'كتم الموسيقى',
-    openingBrand: 'بعض الدعوات، تُفتح بالقلب.', openingEyebrow: 'إلى من يجعلون فرحتنا أجمل', openingTitle: 'هذه الدعوة، لك.', openingLetter: 'بكل الحب', openInvitation: 'افتح الدعوة', openWithMusic: 'افتح الدعوة مع موسيقى هادئة', openingHint: 'افتح الرسالة، واتبع طائرنا في الحكاية. الموسيقى اختيارية.', openSilent: 'افتح بدون موسيقى', openingFooter: 'بدايتنا الأجمل، بوجودكم',
+    openingBrand: 'بعض الدعوات، تُفتح بالقلب.', openingEyebrow: 'إلى من يجعلون فرحتنا أجمل', openingTitle: 'هذه الدعوة، لك.', openingLetter: 'بكل الحب', openInvitation: 'افتح الدعوة', openWithMusic: 'افتح الدعوة مع موسيقى هادئة', openingHint: 'افتح الرسالة، واتبع طائرنا في الحكاية.', openSilent: 'افتح بدون موسيقى', openingFooter: 'بدايتنا الأجمل، بوجودكم',
     close: 'إغلاق', calendarEyebrow: 'احتفظ بالموعد', calendarTitle: 'نلتقي في هذا اليوم.', calendarDescription: 'اختر تقويمك، واحتفظ بموعد ليلتنا.', googleHint: 'تطبيق Google أو المتصفح', outlookHint: 'Windows · الويب', appleCalendar: 'تقويم الجهاز', appleHint: 'افتح الموعد في تطبيق التقويم', calendarNote: 'يمكنك اختيار تقويم آخر أو حفظ ملف الموعد.',
     modalKeepsakeTitle: 'لنكتب اسمك في الحكاية.', modalKeepsakeCopy: 'دعوة باسمك، وذكرى من ليلتنا تبقى معك.', guestLabel: 'اسم الضيف', guestPlaceholder: 'اكتب اسمك هنا', guestHelp: 'اسمك يكمّل الحكاية.', downloadPng: 'احفظ دعوتك', preparing: 'نكتبها لك بكل الحب…', previewAlt: 'معاينة دعوتك الشخصية', saveAgain: 'حفظ الصورة مجددًا', saveHint: 'على iPhone، يمكنك فتح الصورة ثم الضغط مطولًا لحفظها في الصور.', invalidGuest: 'اكتب اسمًا من حرف واحد إلى ٦٠ حرفًا.', exportError: 'تعذّر إنشاء الصورة. تحقق من الاتصال بالخطوط المحلية وحاول مجددًا.', imageReady: 'دعوتك جاهزة. يمكنك حفظها أيضًا من المعاينة.', audioError: 'لم يبدأ الصوت. يمكنك تشغيله من زر الموسيقى.', configError: 'تعذّر تحميل تفاصيل الدعوة. حدّث الصفحة أو تحقق من ملف content.json.',
   },
@@ -26,7 +26,7 @@ const words = {
     quoteLabel: 'A note from the heart', quoteFootnote: 'The loveliest days begin together', arrivalLine:'Here, a date becomes a gathering.', locationEyebrow: 'Chapter three · All paths lead here', openMaps: 'Find the celebration', mapArtLabel: 'An artistic garden illustration, not a geographical map',
     keepsakeEyebrow: 'The final chapter · You are part of it', keepsakeTitle: 'Your name. Our invitation.', keepsakeCopy: "You're part of this story. Make a little keepsake of the evening, with your name and a whole lot of love.", personalize: 'Make your invitation', privacy: 'Your name stays on your device. It is never collected or sent.',
     miniEyebrow: 'An invitation from the heart', dearGuest: 'Especially for', yourName: 'Your lovely name', footer: 'Made with love. Kept close to the heart.', backTop: 'Back to the beginning', music: 'Music', off: 'Off', on: 'On', musicPlay: 'Play soft background music', musicMute: 'Mute background music',
-    openingBrand: 'Some invitations open the heart.', openingEyebrow: 'For the people who make our joy brighter', openingTitle: 'A little love letter. For you.', openingLetter: 'With love', openInvitation: 'Open the invitation', openWithMusic: 'Open the invitation with soft music', openingHint: 'Open the letter, and follow a little paper bird through our story. Music is optional.', openSilent: 'Open without music', openingFooter: 'Our beginning is brighter with you',
+    openingBrand: 'Some invitations open the heart.', openingEyebrow: 'For the people who make our joy brighter', openingTitle: 'A little love letter. For you.', openingLetter: 'With love', openInvitation: 'Open the invitation', openWithMusic: 'Open the invitation with soft music', openingHint: 'Open the letter, and follow a little paper bird through our story.', openSilent: 'Open without music', openingFooter: 'Our beginning is brighter with you',
     close: 'Close', calendarEyebrow: 'Keep a little space for us', calendarTitle: "It's a date.", calendarDescription: 'Choose your calendar and keep a little space for our evening.', googleHint: 'Google app or browser', outlookHint: 'Windows · Web', appleCalendar: 'Device calendar', appleHint: 'Open the date in your calendar app', calendarNote: 'Choose another calendar, or keep the calendar file.',
     modalKeepsakeTitle: "Let's put your name in the story.", modalKeepsakeCopy: 'An invitation with your name, and a little memory of our evening.', guestLabel: 'Guest name', guestPlaceholder: 'Your name', guestHelp: 'A place for you in our story.', downloadPng: 'Save your invitation', preparing: 'Making a little magic…', previewAlt: 'Preview of your personalized invitation', saveAgain: 'Save the image again', saveHint: 'On iPhone, open the image and touch and hold to save it to Photos.', invalidGuest: 'Please enter a name with 1 to 60 characters.', exportError: 'The image could not be created. Check that local fonts loaded, then try again.', imageReady: 'Your invitation is ready. You can also save it from the preview.', audioError: 'Sound could not start. Try the music button.', configError: 'The invitation details could not load. Refresh the page or check content.json.',
   },
@@ -90,7 +90,6 @@ function renderLanguage(next) {
   }
   $('#demo-banner').hidden = !content.demo;
   $('#open-invitation').setAttribute('aria-label', text(content.music?.startOnOpen ? 'openWithMusic' : 'openInvitation'));
-  $('#open-alternative').textContent = text(content.music?.startOnOpen ? 'openSilent' : 'openWithMusic');
   const apps = preferredApps(navigator);
   const maps = mapLinks(content, language);
   const otherMap = apps.maps === 'apple' ? 'google' : 'apple';
@@ -130,7 +129,6 @@ function renderLanguage(next) {
   $('#export-error').textContent = '';
   updateMusicButton();
   enhanceTypography();
-  renderThemePreview(language);
   requestSceneFrame();
 }
 
@@ -449,7 +447,7 @@ function initializeInteractions() {
     target.addEventListener('pointerleave', () => { target.style.setProperty('--mx', '0'); target.style.setProperty('--my', '0'); });
   }
   // Native actions stay immediate. The light responds without intercepting clicks or map links.
-  for (const control of $$('.button, .text-button, .calendar-option, .language-button, .dev-theme-trigger, .close-button')) {
+  for (const control of $$('.button, .text-button, .calendar-option, .language-button, .close-button')) {
     control.classList.add('magic-control');
     const edge=document.createElement('span');
     edge.className='magic-border'; edge.setAttribute('aria-hidden','true'); control.append(edge);
@@ -982,7 +980,7 @@ function playKeepsakeRitual(name,signal) {
 }
 function initialize() {
   document.documentElement.classList.toggle('is-page-hidden',document.hidden);
-  initializeThemePreview(content, showDialog);
+  initializeTheme(content);
   document.documentElement.classList.replace('no-js', 'js');
   renderLanguage('ar');
   for (const button of $$('[data-language-toggle]')) button.addEventListener('click', () => renderLanguage(language === 'ar' ? 'en' : 'ar'));
@@ -1001,7 +999,6 @@ function initialize() {
   }, { passive: true });
   opening.addEventListener('cancel', (event) => { event.preventDefault(); startInvitation(false); });
   $('#open-invitation').addEventListener('click', () => startInvitation(Boolean(content.music?.startOnOpen)));
-  $('#open-alternative').addEventListener('click', () => startInvitation(!content.music?.startOnOpen));
   $('#music-toggle').addEventListener('click', () => {
     musicIntent = !musicIntent;
     if (musicIntent) void startMusic(); else stopMusic();
@@ -1085,7 +1082,6 @@ function initialize() {
   if (!opening.open) opening.showModal();
   syncDialogState();
   $('#open-invitation').disabled = false;
-  $('#open-alternative').disabled = false;
   opening.querySelector('[data-language-toggle]').disabled = false;
   opening.removeAttribute('aria-busy');
   window.invitationStartup?.release();

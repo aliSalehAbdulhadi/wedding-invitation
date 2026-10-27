@@ -6,13 +6,13 @@ The couple confirmed the real details on 23 October 2026, including the year 202
 
 - Couple: علي وتبارك / Ali and Tabarak.
 - Venue: قاعة خيال / Khayal Hall. Secondary venue title: نادي الضباط / Officers’ Club. Address: شارع فلسطين، بغداد، العراق / Palestine Street, Baghdad, Iraq.
-- Date: Friday, 20/11/2026. Display the month numerically in both languages, including the PNG. Gathering at 17:00, celebration at 18:00, conclusion at 22:00, Asia/Baghdad (UTC+3). Calendar events cover 17:00–22:00 so guests arrive for the gathering; the description includes the 18:00 celebration start.
+- Date: Friday, 20/11/2026. Display the month numerically in both languages, including the PNG. Gathering at 15:00, celebration at 16:00, conclusion around 21:00, Asia/Baghdad (UTC+3). Calendar events cover 15:00–21:00 so guests arrive for the gathering; the description includes the 16:00 celebration start.
 - Map: https://maps.app.goo.gl/6jaVgZaiFFihzx8ZA (supplied by the couple; opens the hall listing in Baghdad).
 - Languages: Arabic RTL by default; English LTR through the language switch.
-- Theme: ivory stationery, deep olive, restrained champagne, botanical lines, and serif typography.
-- Default palette: `design.theme` in `public/content.json` (`olive`, `pearl`, `champagne`, `midnight`, `sage`, `lilac`, `sea-glass`, `moonstone`, `oyster`, `wisteria`, or `celadon`). The Colors button is available to every visitor and remembers each guest’s choice on their own device. It never edits event facts or the configured default. Set the JSON value when choosing the initial palette for guests without a saved choice.
-- Opening feedback: the envelope opens without a sound effect. Only the selected song can play, after explicit music opt-in.
-- Music: **فستانك الأبيض — حسين الجسمي / Fostanek Al Abyad — Hussain Al Jassmi**, supplied by the couple on 27 October 2026, replaces Moonlight. The full recording is self-hosted as a quiet edit (gain 0.175 (half the previous playback level), gentle entry/ending fades, stereo 128 kbps MP3). `music.startOnOpen` stays false; audio is fetched only after a guest explicitly enables it. Keep the track credit and assets/audio/CREDITS.txt; do not label this supplied recording as Creative Commons or public domain. The envelope bell chime is removed.
+- Theme: ivory and champagne stationery, botanical engraving, and ceremonial typography.
+- Default palette: `champagne` (عاجي وشامبانيا), applied to every guest. No Colors button or palette dialog is created, and former device preferences are ignored. Other palettes remain in source only.
+- Opening feedback: the envelope opens without a sound effect. Only the selected song plays, starting when the guest opens the envelope.
+- Music: **فستانك الأبيض — حسين الجسمي / Fostanek Al Abyad — Hussain Al Jassmi**, supplied by the couple on 27 October 2026, replaces Moonlight. The full recording is self-hosted as a quiet edit (gain 0.175 (half the previous playback level), gentle entry/ending fades, stereo 128 kbps MP3). `music.startOnOpen` is true; audio is fetched only after the guest clicks the envelope, and the music control can pause/resume it. Keep the track credit and assets/audio/CREDITS.txt; do not label this supplied recording as Creative Commons or public domain. The envelope bell chime is removed.
 - Personalized download: a guest-name modal reveals the invitation in a short magical ceremony, then generates a 1200 × 1600 PNG locally. Closing cancels the pending download; reduced motion skips the ceremony. No guest names are sent or stored.
 - Calendar: the main action opens the hosted .ics on Apple devices and Google’s HTTPS event editor elsewhere. Other calendars offers Google, Outlook, the device calendar, and an explicit file download. Both hosted files are generated from content.json with `node scripts/generate-calendar.mjs`; regenerate whenever event facts change. A test rejects stale hosted files. Real event titles have no demo prefix. Venue subtitles are included in calendar locations and the PNG.
 
@@ -62,3 +62,6 @@ Music selection updated (27 October 2026): the couple supplied the MP3 of فست
 
 
 Audio refinement (27 October 2026): the couple requested approximately 50% of the current song volume and no envelope sound. Re-encoded directly from their original MP3 at gain 0.175, halving the previous 0.35 gain without another lossy generation. The envelope chime code and its obsolete test are removed. The song remains the only audio source and still requires explicit opt-in.
+
+
+Confirmed update (28 October 2026, design branch): ivory and champagne is the single guest palette. The colors button and palette dialog are removed; stored guest color choices are ignored. Other palette definitions are retained in source. Opening the envelope now starts the selected song through that explicit click, with the existing music toggle available to pause it. Remove the separate music-entry link and the statement that music needs a separate choice. Event gathering is 3 PM, celebration 4 PM, conclusion around 9 PM Baghdad time.

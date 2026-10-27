@@ -3,7 +3,7 @@
   note.className = 'local-preview-notice';
   note.setAttribute('aria-label', 'Local preview / المعاينة المحلية');
   const copy = document.createElement('p');
-  copy.textContent = 'لمشاهدة الحركة والألوان، افتح المعاينة المحلية. / Open the local preview for animations and the theme studio.';
+  copy.textContent = 'لمشاهدة الحركة والألوان، افتح المعاينة المحلية. / Open the local preview for the animated invitation.';
   const link = document.createElement('a');
   link.href = 'http://127.0.0.1:8082/';
   link.textContent = 'افتح المعاينة · Open preview';
@@ -17,7 +17,6 @@
     try {
       document.documentElement.classList.replace('no-js','js');
       document.getElementById('open-invitation').disabled = true;
-      document.getElementById('open-alternative').disabled = true;
       opening.setAttribute('aria-busy','true');
       opening.querySelector('[data-language-toggle]').disabled = true;
       opening.addEventListener('cancel', event => {
@@ -27,7 +26,7 @@
       document.documentElement.classList.add('dialog-open');
       opening.showModal();
       document.documentElement.classList.remove('opening-pending');
-      import('./main.js?v=20261028-7').catch(() => startup?.fail());
+      import('./main.js?v=20261028-8').catch(() => startup?.fail());
     } catch { startup?.fail(); }
   }
 }
