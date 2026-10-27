@@ -201,3 +201,10 @@ Chrome visually checked the burgundy opening and original floral/swan hero at 37
 ## Vintage palette refinement — 28 October 2026
 
 All 19 Node tests and static references pass. Chrome and Firefox tested every one of the twelve palette choices: every opening/envelope changes, closing background equals the body background, the original olive default initializes correctly, saved choices survive reload, and no runtime errors occur. Chrome captured the olive opening, hero, schedule and closing at 375px, the hero at 1280px, and checked overflow at 320px. The painted frame uses subtle theme-dependent color toning; text remains live. The burgundy palette remains optional. No fresh Safari/device check. Screenshots and the runnable browser check are in the task QA workspace, not the deployable site.
+
+
+## Dance handoff and white stationery — 28 October 2026
+
+Chrome frame sampling found an approximately 12px translation discontinuity when dance-waltz entered its active phase at 2.4s, before the 2.8s twirl finished. The loop now waits until 2.8s, starts/ends with the neutral transform and eases through left/right poses. The twirl ends with the same explicit perspective/rotation/scale list rather than switching to none. A repeated 4.2-second sample found no initial step; the largest measured loop translation increment was about 0.066px per approximately 7ms sample. This measures movement continuity, not whole-page frame-rate performance.
+
+All 19 Node tests, static references and whitespace checks pass. Chrome and Firefox checked all twelve palettes: the envelope stays white/light ivory, seals and backgrounds remain theme-aware, closing matches paper and saved choices persist. The opening was visually reviewed at 375px. Added subtle inset engraving, paper-fold shading and a small flourish under the landing title. No new runtime loop, audio or dependency. The source study remains on codex/reel-inspired-invitation, separate from production main.

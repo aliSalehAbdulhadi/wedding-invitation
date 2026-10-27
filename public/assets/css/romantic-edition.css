@@ -27,10 +27,10 @@ html[lang='ar'] .romantic-edition .couple-names .name-join { translate:0; }
 .romantic-edition .opening-sprig { opacity:.18; }
 .romantic-edition .stage-orbit { opacity:.3; }
 .romantic-edition .stage-halo { opacity:.28; }
-.romantic-edition .envelope { background:var(--olive); border:1px solid var(--gold); box-shadow:0 28px 55px color-mix(in srgb,var(--night-deep) 35%,transparent); }
-.romantic-edition .envelope-bottom { background:linear-gradient(150deg,var(--olive),var(--night)); }
-.romantic-edition .envelope-bottom::after { background:linear-gradient(135deg,color-mix(in srgb,var(--olive) 85%,var(--gold)),var(--night)); }
-.romantic-edition .envelope-flap { background:linear-gradient(155deg,color-mix(in srgb,var(--olive) 80%,var(--gold)),var(--olive)); }
+.romantic-edition .envelope { background:var(--white); border:1px solid var(--line); box-shadow:0 28px 55px color-mix(in srgb,var(--night-deep) 35%,transparent); }
+.romantic-edition .envelope-bottom { background:linear-gradient(150deg,var(--soft),color-mix(in srgb,var(--white) 65%,var(--line))); }
+.romantic-edition .envelope-bottom::after { background:linear-gradient(135deg,var(--white),color-mix(in srgb,var(--white) 94%,var(--line))); }
+.romantic-edition .envelope-flap { background:linear-gradient(155deg,var(--white),color-mix(in srgb,var(--white) 90%,var(--line))); }
 .romantic-edition .envelope-letter { background:var(--white); color:var(--ink); }
 .romantic-edition .wax-seal { background:radial-gradient(circle at 35% 25%,var(--glow),var(--gold)); color:var(--gold-ink); border-color:var(--gold); box-shadow:0 4px 10px color-mix(in srgb,var(--ink) 20%,transparent),inset 0 0 0 5px color-mix(in srgb,var(--white) 35%,transparent); }
 .romantic-edition .wax-seal::before,.romantic-edition .wax-seal::after { animation:none; opacity:.45; inset:5px; }
@@ -92,3 +92,9 @@ body.romantic-edition,.romantic-edition .chapter--closing { background:var(--pap
 .romantic-edition .modal { border:1px solid var(--gold); outline:1px solid var(--line); outline-offset:-8px; }
 .romantic-edition .modal input { background:var(--paper); border-color:var(--gold-ink); }
 @media print { .romantic-edition .chapter--closing { background:var(--paper); } }
+
+/* Ivory correspondence: quiet engraving, with only the seal taking the accent. */
+.romantic-edition .envelope::after { content:''; position:absolute; inset:10px; z-index:2; border:1px solid color-mix(in srgb,var(--gold) 38%,var(--white)); pointer-events:none; }
+.romantic-edition .envelope-bottom::before { content:''; position:absolute; z-index:3; bottom:8px; left:50%; translate:-50% 0; inline-size:100px; block-size:22px; background:var(--gold-ink); opacity:.38; mask:url('../images/vintage-flourish.svg') center/contain no-repeat; -webkit-mask:url('../images/vintage-flourish.svg') center/contain no-repeat; }
+.romantic-edition .opening-body h2 { margin-block-end:1rem; }
+.romantic-edition .opening-body h2::after { content:''; display:block; inline-size:130px; block-size:26px; margin:.25rem auto 0; background:var(--gold); opacity:.65; mask:url('../images/vintage-flourish.svg') center/contain no-repeat; -webkit-mask:url('../images/vintage-flourish.svg') center/contain no-repeat; }

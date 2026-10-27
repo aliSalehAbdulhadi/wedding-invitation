@@ -267,7 +267,7 @@
   32% { opacity:.85; translate:7px -2px; transform:perspective(850px) rotateY(-168deg) rotateZ(2deg) scale(.97); }
   65% { opacity:1; translate:-3px 0; transform:perspective(850px) rotateY(-32deg) rotateZ(-1deg) scale(1.01); }
   84% { opacity:1; translate:1px 0; transform:perspective(850px) rotateY(6deg) rotateZ(.4deg) scale(1); }
-  100% { opacity:1; translate:0; transform:none; }
+  100% { opacity:1; translate:0; transform:perspective(850px) rotateY(0deg) rotateZ(0deg) scale(1); }
 }
 @keyframes dance-turn-light { 0% { opacity:0; stroke-dashoffset:1; } 28% { opacity:.6; } 72% { opacity:.45; } 100% { opacity:0; stroke-dashoffset:0; } }
 
@@ -467,7 +467,7 @@
    wrapper travels across the floor; hands, heads and veil stay attached. */
 .dance-scenery,.dance-motion,.dance-effects { position:absolute; inset:0; inline-size:100%; block-size:100%; pointer-events:none; }
 .dance-scenery { overflow:visible; }
-.dance-motion { transform-origin:50% 83%; animation:dance-waltz 9s ease-in-out 2.4s infinite; }
+.dance-motion { transform-origin:50% 83%; transform:translate3d(0,0,0) rotate(0deg); animation:dance-waltz 9s ease-in-out 2.8s infinite; }
 .dance-hall:not(.has-arrived) .dance-motion { animation-play-state:paused; }
 .dance-hall .pair-sway,.dance-hall .pair-orbit,.dance-hall .pair-depth,.dance-hall .pair-bob,
 .dance-hall .hem-flare,.dance-hall .groom-arm,.dance-hall .bride-arm,
@@ -491,8 +491,9 @@
   animation-play-state:paused !important;
 }
 @keyframes dance-waltz {
-  0%,100% { transform:translate3d(-12px,0,0) rotate(-.8deg); }
-  50% { transform:translate3d(12px,-4px,0) rotate(.8deg); }
+  0%,100% { transform:translate3d(0,0,0) rotate(0deg); }
+  25% { transform:translate3d(-12px,-2px,0) rotate(-.8deg); }
+  75% { transform:translate3d(12px,-2px,0) rotate(.8deg); }
 }
 @media(prefers-reduced-motion:reduce), print {
   .dance-hall .dance-motion { animation:none; transform:none; }

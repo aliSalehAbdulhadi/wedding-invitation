@@ -1,4 +1,4 @@
-import { themes, getTheme, resolveThemeId } from './themes.js?v=20261028-2';
+import { themes, getTheme, resolveThemeId } from './themes.js?v=20261028-3';
 
 let activeTheme = themes[0];
 let ui;
