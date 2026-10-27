@@ -196,3 +196,8 @@ All 19 remaining Node tests, static references and JavaScript syntax checks pass
 ## Romantic garden branch study — 28 October 2026
 
 Chrome visually checked the burgundy opening and original floral/swan hero at 375px, 551px and 1280px, with reduced motion, loaded responsive art, no horizontal overflow and no runtime errors. English names and the venue were visually inspected at 375px. Chrome and Firefox exercised bilingual switching, all twelve palette controls, switching pearl/rose, and real personalized PNG download. Chrome also checked keyboard access and an effective 200% zoom layout. All 19 Node tests pass, including twelve-palette contrast and event/calendar preservation. No fresh Safari or physical-device verification. Original transparent art is delivered as 281KB/513KB WebP variants; no image animation runs continuously. The local untracked music comparison is excluded from the branch commit.
+
+
+## Vintage palette refinement — 28 October 2026
+
+All 19 Node tests and static references pass. Chrome and Firefox tested every one of the twelve palette choices: every opening/envelope changes, closing background equals the body background, the original olive default initializes correctly, saved choices survive reload, and no runtime errors occur. Chrome captured the olive opening, hero, schedule and closing at 375px, the hero at 1280px, and checked overflow at 320px. The painted frame uses subtle theme-dependent color toning; text remains live. The burgundy palette remains optional. No fresh Safari/device check. Screenshots and the runnable browser check are in the task QA workspace, not the deployable site.
