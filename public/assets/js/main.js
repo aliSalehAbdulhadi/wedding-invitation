@@ -3,7 +3,7 @@ import { drawBirdWake } from './bird-wake.js?v=20261028-8';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
 import { validateContent, calendarLinks, mapLinks, preferredApps, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-2';
 
-import { initializeTheme, getActiveTheme } from './theme.js?v=20261028-8';
+import { initializeTheme, getActiveTheme } from './theme.js?v=20261028-9';
 
 const words = {
   ar: {

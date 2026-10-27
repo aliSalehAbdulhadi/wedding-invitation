@@ -1,4 +1,4 @@
-import { getTheme } from './themes.js?v=20261028-8';
+import { getTheme } from './themes.js?v=20261028-9';
 
 let activeTheme = getTheme('champagne');
 export const getActiveTheme = () => activeTheme;
