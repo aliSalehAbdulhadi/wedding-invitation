@@ -91,3 +91,6 @@ Recorded music release (24 October 2026): main.js, preview.js and styles.css use
 
 
 Music replacement (27 October 2026): the active asset is assets/audio/fostanek-al-abyad-hussain-al-jassmi.mp3, supplied by the couple. It replaces the previous Moonlight asset and credits. Retain audio/mpeg and Range delivery; preload remains none and music requires explicit opt-in. The source recording is not described as CC licensed. JavaScript behavior and its release URLs are unchanged. music-preview.html is an untracked local audition page and must not be included in the release.
+
+
+Audio refinement (27 October 2026): active asset assets/audio/fostanek-al-abyad-hussain-al-jassmi-soft.mp3 uses half the preceding playback level. The new filename avoids the louder cached asset. main.js, its modulepreload and preview.js now use release 20261027-1; the removed opening-sound.js is no longer imported. Only the selected song remains.

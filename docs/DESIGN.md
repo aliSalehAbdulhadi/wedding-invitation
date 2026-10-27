@@ -181,3 +181,6 @@ The optional background is now Moonlight by Scott Buckley: a human-composed pian
 
 
 Recorded music updated (27 October 2026): the couple selected their supplied recording of فستانك الأبيض by حسين الجسمي. It replaces Moonlight without changing the native opt-in player or opening bell. The full song is retained at a quieter level with short fades and 128 kbps encoding; no preload, extra audio framework, or third-party player is added. Footer and audio metadata identify the supplied recording without the previous CC BY claim.
+
+
+Audio refinement (27 October 2026): the song now uses 50% of its previous playback level. The envelope chime is removed entirely; preserve the visual opening and explicit music opt-in. The only sound is the selected recording.

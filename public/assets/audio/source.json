@@ -4,10 +4,10 @@
   "source": "MP3 supplied by the couple on 2026-10-27",
   "rights": "User-supplied copyrighted recording. No Creative Commons or public-domain license is asserted.",
   "originalSHA256": "442d13fead7b499d064c53de61180aa4417c68bdb09391b8ca42ac3984e62bee",
-  "outputSHA256": "45fdee565e2d3d8f8fa49737f8ad9b501e222d6ec629a9b8f57fd43e79c1e747",
+  "outputSHA256": "8e87713b3935b1d8e5e2fe37e76285e25193bf7af5ff5904f0f7101b757d8b25",
   "durationSeconds": 274.49,
   "originalBytes": 6588636,
   "outputBytes": 4392446,
-  "changes": "Full recording retained; stereo MP3 at 128 kbps / 44.1 kHz, gain 0.35, 1-second intro fade and 2-second ending fade.",
+  "changes": "Full recording retained; stereo MP3 at 128 kbps / 44.1 kHz, gain 0.175 (50% of the previous playback level), 1-second intro fade and 2-second ending fade. Envelope chime removed.",
   "updated": "2026-10-27"
 }

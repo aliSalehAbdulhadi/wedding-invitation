@@ -1,5 +1,4 @@
 import { drawBirdWake } from './bird-wake.js?v=20261024-1';
-import { playOpeningChime } from './opening-sound.js';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
 import { validateContent, calendarLinks, mapLinks, preferredApps, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-2';
 
@@ -134,25 +133,11 @@ function renderLanguage(next) {
   requestSceneFrame();
 }
 
-// The opening chime stays synthesized; background music is a licensed recording.
-let audioContext;
+// The selected song is the invitation's only audio.
 let playing = false;
 let musicIntent = false;
 let musicRequest = 0;
 const backgroundMusic = $('#background-music');
-function ensureAudioContext() {
-  const Context=window.AudioContext || window.webkitAudioContext;
-  if (!Context) throw new Error('Web Audio unavailable');
-  if (!audioContext) audioContext=new Context();
-  return audioContext;
-}
-async function soundTheOpening() {
-  try {
-    const context=ensureAudioContext();
-    await context.resume();
-    if (!document.hidden && context.state==='running') playOpeningChime(context);
-  } catch { /* The invitation still opens if sound is unsupported or blocked. */ }
-}
 async function startMusic() {
   const request=++musicRequest;
   if (!musicIntent || document.hidden) return;
@@ -186,7 +171,6 @@ function updateMusicButton() {
 function startInvitation(withMusic) {
   if (openingStarted) return;
   openingStarted = true;
-  void soundTheOpening();
   if (withMusic) { musicIntent = true; void startMusic(); }
   window.scrollTo({ top: 0, behavior: 'instant' });
   const opening = $('#opening-dialog');
