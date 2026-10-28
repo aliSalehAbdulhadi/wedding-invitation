@@ -259,3 +259,10 @@ Both browsers passed the normal reveal ceremony, close-to-cancel before download
 Firefox tracing exposed a prior 41px movement between press and release of the opening button. A/B checks isolated its floating press pseudo-element; bounding that gradient to the button preserved the animation and restored normal reopen clicks. The complete suite passed after that fix. No fresh Safari or physical iPhone/Android keyboard check.
 
 Final compact-view check: Chrome also verified the finished English actions and blank-name reset in a 640x442 effective 200% zoom layout; actions remained visible and there was no horizontal overflow. The ceremony status sits below its scaled paper card.
+
+
+## Full reveal ordering and restored subtitle — 28 October 2026
+
+Chrome and Firefox passed the complete export/reopen/new-name/retry/cancel flow after separating compact entry from the full viewer. Entry is about 303px / 312px at 375x812; reveal and finished viewer are 788px high. The chapter subtitle is visible in entry and result. Every observed paper-animation start had the expanded class and full viewer geometry. PNG failure cancels any pending expansion/reveal and leaves a usable compact form.
+
+Chrome simulated a keyboard-only visual viewport (height 350, offset 90, unchanged innerHeight 812). Recorded event order was Save with expanded=true and animating=false; keyboard resize ended; then paper animation at viewer height 788 and visualViewport height 812, with the name input unfocused. Both finished actions were visible at 375x812, 1440x900 and 640x442 effective zoom. Entry, full ceremony, mobile result and desktop result screenshots were visually inspected. All 21 Node tests and static/syntax/whitespace checks pass. Physical phone keyboards and Safari remain untested.

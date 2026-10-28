@@ -152,7 +152,7 @@
 .ritual-dust { position:absolute; left:50%; top:50%; pointer-events:none; }
 .ritual-dust i { position:absolute; inline-size:5px; block-size:5px; background:var(--gold); border-radius:50%; rotate:calc(var(--ray) * 45deg); animation:keepsake-dust 1.8s ease-out both; }
 .keepsake-modal > .modal-header { position:relative; z-index:6; }
-.is-conjuring > .keepsake-entry { opacity:0; pointer-events:none; }
+.is-conjuring > .keepsake-entry,.is-expanding > .keepsake-entry { opacity:0; pointer-events:none; }
 .is-conjuring .modal-header > .icon,.is-conjuring .modal-header > .modal-perch { opacity:0; }
 .is-conjuring > .modal-header { pointer-events:none; }.is-conjuring > .modal-header .close-button { pointer-events:auto; background:var(--white); }
 @keyframes keepsake-halo { 0% { opacity:0; scale:.2; } 55% { opacity:1; } 100% { opacity:.65; scale:1.2; } }
@@ -526,7 +526,7 @@
 #keepsake-dialog { inline-size:min(92vw,440px); padding:clamp(.9rem,3.5vw,1.5rem); max-block-size:calc(var(--keepsake-viewport-height,100dvh) - 24px); inset-block-start:calc(var(--keepsake-viewport-top,0px) + var(--keepsake-viewport-height,100dvh)/2); inset-block-end:auto; margin-block:0; translate:0 -50%; scroll-padding-block:12px; }
 #keepsake-dialog .modal-header { min-block-size:44px; margin-block-end:.4rem; }
 #keepsake-dialog .modal-perch { block-size:40px; inline-size:56px; left:calc(50% - 28px); }
-#keepsake-dialog .keepsake-entry > .eyebrow { display:none; }
+#keepsake-dialog .keepsake-subtitle { margin-block:0 .55rem; font-size:.7rem; line-height:1.7; color:var(--gold-ink); }
 #keepsake-dialog h2 { font-size:clamp(1.55rem,5.5vw,1.9rem); line-height:1.45; margin-block:.15rem .5rem; }
 #keepsake-dialog .modal-description { margin:0; font-size:.75rem; line-height:1.7; }
 #keepsake-form { margin-block-start:.8rem; gap:.3rem; }
@@ -543,7 +543,7 @@
 #keepsake-dialog .button--outline { color:var(--ink); background:transparent; border-color:var(--gold); }
 #keepsake-dialog .modal-footnote { margin-block:.5rem 0; font-size:.62rem; line-height:1.6; text-align:center; }
 #keepsake-dialog.is-condensed { padding:.65rem .85rem; }
-#keepsake-dialog.is-condensed .modal-description,#keepsake-dialog.is-condensed #guest-help,#keepsake-dialog.is-condensed .modal-footnote { display:none; }
+#keepsake-dialog.is-condensed .modal-description:not(.keepsake-subtitle),#keepsake-dialog.is-condensed #guest-help,#keepsake-dialog.is-condensed .modal-footnote { display:none; }
 #keepsake-dialog.is-condensed h2 { font-size:1.4rem; margin-block:0 .3rem; }
 #keepsake-dialog.is-condensed #keepsake-form { margin-block-start:.3rem; }
 #keepsake-dialog .ritual-paper { scale:.72; }
@@ -552,3 +552,13 @@
 #keepsake-dialog.is-condensed .ritual-status { bottom:.5rem; }
 @keyframes keepsake-result-in { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:none; } }
 @media(prefers-reduced-motion:reduce),print { #keepsake-dialog .download-result { animation:none; } }
+
+/* Save opens the full viewer before the reveal; only name entry stays compact. */
+#keepsake-dialog.is-expanded { inline-size:min(94vw,620px); block-size:calc(var(--keepsake-viewport-height,100dvh) - 24px); padding:clamp(1rem,3vw,1.8rem); }
+#keepsake-dialog.is-expanded[open] { display:flex; flex-direction:column; }
+#keepsake-dialog.is-expanded .modal-header { flex:none; }
+#keepsake-dialog.is-expanded .download-result { display:flex; flex-direction:column; align-items:center; flex:1; min-block-size:0; }
+#keepsake-dialog.is-expanded #download-preview { block-size:max(96px,min(calc(var(--keepsake-viewport-height,100dvh) - 310px),calc((min(94vw,620px) - clamp(2rem,6vw,3.6rem))*4/3))); flex:none; }
+#keepsake-dialog.is-expanded .keepsake-result-actions { inline-size:100%; margin-block-start:auto; padding-block-start:.8rem; flex:none; }
+#keepsake-dialog.is-expanded .ritual-paper { scale:1; }
+#keepsake-dialog.is-expanded .ritual-status { bottom:1.5rem; }

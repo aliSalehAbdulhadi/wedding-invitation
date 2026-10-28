@@ -47,13 +47,13 @@
   </script>
   <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg">
   <link rel="preload" href="./assets/fonts/font-01.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="modulepreload" href="./assets/js/main.js?v=20261028-11">
+  <link rel="modulepreload" href="./assets/js/main.js?v=20261028-12">
   <link rel="stylesheet" href="./assets/fonts/fonts.css?v=20261024-5">
   <link rel="stylesheet" href="./assets/css/styles.css?v=20261028-10">
   <link rel="stylesheet" href="./assets/css/themes.css?v=20261024-3">
-  <link rel="stylesheet" href="./assets/css/enchanted.css?v=20261028-11">
+  <link rel="stylesheet" href="./assets/css/enchanted.css?v=20261028-12">
   <link rel="stylesheet" href="./assets/css/romantic-edition.css?v=20261028-8">
-  <script defer src="./assets/js/preview.js?v=20261028-11"></script>
+  <script defer src="./assets/js/preview.js?v=20261028-12"></script>
 </head>
 <body class="romantic-edition">
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -318,11 +318,12 @@
   </div>
   <div class="modal-header"><span class="modal-perch" aria-hidden="true"><svg class="still-bird"><use href="#icon-paper-bird"/></svg></span><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><button class="close-button" type="button" data-close-dialog aria-label="إغلاق" data-i18n-aria="close"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
   <div class="keepsake-entry" id="keepsake-entry">
-  <p class="eyebrow" data-i18n="keepsakeEyebrow">ذكرى صغيرة، لك</p><h2 id="keepsake-modal-title" data-i18n="modalKeepsakeTitle">لنكتب اسمك في الحكاية.</h2><p class="modal-description" data-i18n="modalKeepsakeCopy">دعوة باسمك، وذكرى من ليلتنا تبقى معك.</p>
+  <h2 id="keepsake-modal-title" data-i18n="modalKeepsakeTitle">لنكتب اسمك في الحكاية.</h2><p class="modal-description keepsake-subtitle" data-i18n="keepsakeEyebrow">الفصل الأخير · وأنت جزءٌ منه</p>
   <form id="keepsake-form"><label for="guest-name" data-i18n="guestLabel">اسم الضيف</label><input id="guest-name" name="guestName" type="text" required maxlength="60" dir="auto" autocomplete="name" placeholder="اكتب اسمك هنا" data-i18n-placeholder="guestPlaceholder" aria-describedby="guest-help export-error"><small id="guest-help" data-i18n="guestHelp">اسمك يكمّل الحكاية.</small><p class="form-error" id="export-error" role="alert"></p><button class="button button--dark" type="submit" id="download-png"><svg class="icon" aria-hidden="true"><use href="#icon-download"/></svg><span id="download-png-label" data-i18n="downloadPng">احفظ دعوتك</span></button></form>
   </div>
   <div class="download-result" id="download-result" hidden>
     <h2 id="keepsake-result-title" tabindex="-1" data-i18n="keepsakeReadyTitle">دعوتك جاهزة.</h2>
+    <p class="modal-description keepsake-subtitle" data-i18n="keepsakeEyebrow">الفصل الأخير · وأنت جزءٌ منه</p>
     <img id="download-preview" alt="معاينة دعوتك الشخصية" data-i18n-alt="previewAlt" width="300" height="400">
     <div class="keepsake-result-actions">
       <a id="save-png-link" class="button button--dark" download="wedding-invitation.png" data-i18n="saveAgain">احفظها مجددًا</a>

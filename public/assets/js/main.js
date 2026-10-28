@@ -205,7 +205,7 @@ function syncKeepsakeViewport() {
     const viewport=window.visualViewport, height=viewport?.height ?? innerHeight;
     dialog.style.setProperty('--keepsake-viewport-height',`${height}px`);
     dialog.style.setProperty('--keepsake-viewport-top',`${viewport?.offsetTop ?? 0}px`);
-    dialog.classList.toggle('is-condensed',height<480);
+    dialog.classList.toggle('is-condensed',height<480 && !dialog.classList.contains('is-expanded'));
   }
   requestSceneFrame();
 }
@@ -961,9 +961,33 @@ addEventListener('visibilitychange', () => {
 
 let keepsakeExportController;
 function clearKeepsakeRitual() {
-  $('#keepsake-dialog').classList.remove('is-conjuring');
+  $('#keepsake-dialog').classList.remove('is-conjuring','is-expanding');
   $('#keepsake-ritual').hidden=true;
   requestSceneFrame();
+}
+// Expand first; let the keyboard's viewport resize settle before the ceremony starts.
+async function expandKeepsake(signal) {
+  const dialog=$('#keepsake-dialog'), viewport=window.visualViewport;
+  dialog.classList.add('is-expanded','is-expanding');
+  $('#guest-name').blur();
+  dialog.querySelector('[data-close-dialog]').focus({preventScroll:true});
+  syncKeepsakeViewport();
+  await new Promise((resolve,reject)=>{
+    let quiet, deadline;
+    const done=error=>{
+      clearTimeout(quiet); clearTimeout(deadline);
+      viewport?.removeEventListener('resize',resized); signal.removeEventListener('abort',aborted);
+      if (error) reject(error); else resolve();
+    };
+    const resized=()=>{ syncKeepsakeViewport(); clearTimeout(quiet); quiet=setTimeout(()=>done(),150); };
+    const aborted=()=>done(new DOMException('The reveal was canceled','AbortError'));
+    viewport?.addEventListener('resize',resized); signal.addEventListener('abort',aborted,{once:true});
+    deadline=setTimeout(()=>done(),900); resized();
+    if (signal.aborted) aborted();
+  });
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  if (signal.aborted) throw new DOMException('The reveal was canceled','AbortError');
+  dialog.classList.remove('is-expanding');
 }
 function playKeepsakeRitual(name,signal) {
   if (motion.matches) return Promise.resolve();
@@ -1052,6 +1076,7 @@ function initialize() {
     activeImageUrl=null;
     $('#download-preview').removeAttribute('src'); $('#save-png-link').removeAttribute('href');
     $('#download-result').hidden=true; $('#keepsake-entry').hidden=false;
+    $('#keepsake-dialog').classList.remove('is-expanded');
     $('#keepsake-dialog').setAttribute('aria-labelledby','keepsake-modal-title');
     $('#guest-name').value=''; $('#export-error').textContent='';
     syncGuestDirection(); $('.mini-guest').textContent=text('yourName');
@@ -1080,7 +1105,7 @@ function initialize() {
     $('#guest-name').readOnly=true; $('#keepsake-form').setAttribute('aria-busy','true'); $('#download-result').hidden=true;
     button.disabled = true; $('#download-png-label').textContent = text('preparing'); $('#export-error').textContent = '';
     try {
-      const [blob]=await Promise.all([createKeepsake(name,exportLanguage),playKeepsakeRitual(name,controller.signal)]);
+      const [blob]=await Promise.all([createKeepsake(name,exportLanguage),expandKeepsake(controller.signal).then(()=>playKeepsakeRitual(name,controller.signal))]);
       if (controller.signal.aborted || !$('#keepsake-dialog').open) return;
       if (activeImageUrl) URL.revokeObjectURL(activeImageUrl);
       activeImageUrl = downloadBlob(blob, 'wedding-invitation.png', true);
@@ -1094,10 +1119,12 @@ function initialize() {
       syncKeepsakeViewport();
       notify(text('imageReady'));
     } catch {
-      if (!controller.signal.aborted) $('#export-error').textContent=text('exportError');
+      if (!controller.signal.aborted) { controller.abort(); $('#export-error').textContent=text('exportError'); }
     } finally {
       if (keepsakeExportController===controller) {
         keepsakeExportController=null; clearKeepsakeRitual();
+        if ($('#download-result').hidden) $('#keepsake-dialog').classList.remove('is-expanded');
+        syncKeepsakeViewport();
         $('#guest-name').readOnly=false; $('#keepsake-form').inert=false; $('#keepsake-form').removeAttribute('aria-busy');
         button.disabled=false; $('#download-png-label').textContent=text('downloadPng');
       }
