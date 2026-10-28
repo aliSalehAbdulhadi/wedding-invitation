@@ -7,6 +7,7 @@ import { initializeTheme, getActiveTheme } from './theme.js?v=20261028-9';
 
 const words = {
   ar: {
+    musicCreditLabel: 'تفاصيل الموسيقى', musicTrack: 'فستانك الأبيض', musicArtist: 'حسين الجسمي', musicRights: 'حقوق الأغنية والتسجيل محفوظة لأصحابها.',
     storyWhisper: 'ومن هذا اللقاء، أضاءت ليلة.', nightWhisper: 'ولكل ليلةٍ مضيئة، وعد.', promiseWhisper: 'حتى تزهر الحكاية، ونلتقي.', gardenWhisper: 'وبقي في الرسالة مكانٌ لاسمك.',
     skip: 'انتقل إلى الدعوة', demo: 'دعوة تجريبية · جميع التفاصيل للمعاينة', brand: 'تبدأ الحكاية', navigation: 'التنقل', navDetails: 'تفاصيل الليلة', navLocation: 'المكان', navKeepsake: 'دعوتك الخاصة',
     heroEyebrow: 'بكل الحب، ندعوكم لحفل زفاف', heroTagline: 'حكاية واحدة. وعمرٌ من الحب.', scroll: 'والحكاية تبدأ هنا', heroNote: 'معكم، تصبح أجمل',
@@ -19,6 +20,7 @@ const words = {
     modalKeepsakeTitle: 'لنكتب اسمك في الحكاية.', modalKeepsakeCopy: 'دعوة باسمك، وذكرى من ليلتنا تبقى معك.', guestLabel: 'اسم الضيف', guestPlaceholder: 'اكتب اسمك هنا', guestHelp: 'اسمك يكمّل الحكاية.', downloadPng: 'احفظ دعوتك', preparing: 'نكتبها لك بكل الحب…', previewAlt: 'معاينة دعوتك الشخصية', saveAgain: 'احفظها مجددًا', rewriteGuest: 'اكتب اسمًا جديدًا', keepsakeReadyTitle: 'دعوتك جاهزة.', saveHint: 'يمكنك أيضًا حفظ الصورة بالضغط مطوّلًا عليها.', invalidGuest: 'اكتب اسمًا من حرف واحد إلى ٦٠ حرفًا.', exportError: 'تعذّر إنشاء الصورة. تحقق من الاتصال بالخطوط المحلية وحاول مجددًا.', imageReady: 'دعوتك جاهزة. يمكنك حفظها أيضًا من المعاينة.', audioError: 'لم يبدأ الصوت. يمكنك تشغيله من زر الموسيقى.', configError: 'تعذّر تحميل تفاصيل الدعوة. حدّث الصفحة أو تحقق من ملف content.json.',
   },
   en: {
+    musicCreditLabel: 'Music details', musicTrack: 'Fostanek Al Abyad', musicArtist: 'Hussain Al Jassmi', musicRights: 'Song and recording rights belong to their respective owners.',
     storyWhisper: 'And from that meeting, an evening began to glow.', nightWhisper: 'Every luminous evening holds a promise.', promiseWhisper: 'Until the story blooms, and we meet.', gardenWhisper: 'There is still a place in the letter for your name.',
     skip: 'Skip to invitation', demo: 'Demo invitation · all details are for preview', brand: 'Our story begins', navigation: 'Navigation', navDetails: 'The evening', navLocation: 'The setting', navKeepsake: 'Your keepsake',
     heroEyebrow: 'Together with love, we invite you to the wedding of', heroTagline: 'One story. A lifetime of love.', scroll: 'A little more of our story', heroNote: 'Sweeter with you here',
@@ -1107,6 +1109,7 @@ function initialize() {
     });
   }
   for (const button of $$('[data-open-calendar]')) button.addEventListener('click', () => showDialog($('#calendar-dialog')));
+  $('#open-music-credit').addEventListener('click', () => showDialog($('#music-credit-dialog')));
   $('#open-keepsake').addEventListener('click', () => {
     $('#export-error').textContent = '';
     showDialog($('#keepsake-dialog'));

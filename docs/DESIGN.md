@@ -249,3 +249,8 @@ Keep the bird heartbeat handle occupied while its callback executes, so visits c
 ## Browser Back closes the modal - 29 October 2026
 
 Opening the keepsake or calendar dialog adds one same-URL history entry containing only the dialog ID. Name entry, expansion, the existing ceremony, finished preview and rewriting a name remain within that one entry. Browser Back dismisses the dialog, preserving the page position and the in-memory finished invitation. Forward may reopen that same dialog. Close, Escape and backdrop dismissal consume the entry rather than leaving hidden Back steps; repeated closes cannot traverse twice. Cancel a pending close timer when Forward rapidly reopens a dialog. Back during export uses the existing abort flow so it cannot finish an unwanted download. The landing envelope is not an added history step, and normal navigation remains available after dialogs close. No animation or layout changes.
+
+
+## Discreet music attribution - 29 October 2026
+
+Replace the song/artist line in the footer with a quiet copyright-symbol button with a 44px hit target and localized Music details accessible label. It opens a compact existing-style dialog containing the track, artist and short rights note. Keep Arabic/English content, the existing bird perch and shared history/focus/close behavior. Retain the full CREDITS.txt/source.json; the popup is a presentation change, not an assertion that a license was supplied or that private sharing grants permission. A no-JavaScript credit link remains available.
