@@ -28,7 +28,7 @@ test('both hosted files match the current confirmed event and Google uses the su
     const file=readFileSync(new URL(`../public/assets/calendar/wedding-${language}.ics`,import.meta.url),'utf8');
     const withoutStamp=ics=>ics.replace(/^DTSTAMP:.*\r\n/m,'');
     assert.equal(withoutStamp(file),withoutStamp(buildCalendar(data,language)));
-    assert.ok(file.includes('DTSTART:20261120T120000Z\r\n'));
+    assert.ok(file.includes('DTSTART:20261120T130000Z\r\n'));
     assert.ok(file.includes('DTEND:20261120T180000Z\r\n'));
     const google=new URL(calendarLinks(data,language).google);
     assert.equal(google.pathname,'/calendar/r/eventedit');

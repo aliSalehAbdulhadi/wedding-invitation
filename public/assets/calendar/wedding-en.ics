@@ -5,15 +5,15 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:ali-tabarak-2026-11-20@wedding-invitation.local
-DTSTAMP:20261027T223022Z
-DTSTART:20261120T120000Z
+DTSTAMP:20261028T163851Z
+DTSTART:20261120T130000Z
 DTEND:20261120T180000Z
 SUMMARY:Ali & Tabarak's wedding
 LOCATION:Khayal Hall\, Officers’ Club\, Palestine Street\, Baghdad\, Iraq
 DESCRIPTION:Celebrate Ali and Tabarak's wedding at Khayal Hall\, Officers
- ’ Club\, Palestine Street\, Baghdad. Guests gather at 3 PM\; the celebra
- tion starts at 4 PM and ends around 9 PM (Baghdad time).\nhttps://maps.app
- .goo.gl/6jaVgZaiFFihzx8ZA
+ ’ Club\, Palestine Street\, Baghdad. Guests gather at 4 PM\; the celebra
+ tion starts at 5 PM and ends at 9 PM (Baghdad time).\nhttps://maps.app.goo
+ .gl/6jaVgZaiFFihzx8ZA
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 END:VEVENT

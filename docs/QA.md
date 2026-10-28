@@ -240,3 +240,6 @@ Both browsers accept the native SVG wave mask without a polygon clip. Chrome vis
 
 
 Soft champagne palette (28 October 2026): palette tests, static references, main syntax and whitespace checks pass. Cream on the lighter night surface measures 8.58:1; white primary-button text on the softer ink measures 7.84:1. Chrome and Firefox verified applied colors, no palette button, working envelope/music action and no console errors at 551px and 1440px. Opening, main names, schedule and garden were visually inspected. No new animation or runtime dependency; design branch only.
+
+
+Schedule revision (28 October 2026): gathering 16:00, celebration 17:00, end 21:00 Baghdad. Chrome verified Arabic ٤:٠٠ م / ٥:٠٠ م / ٩:٠٠ م, English 16:00 / 17:00 / 21:00, the date dial at 4 PM, and the Google calendar interval 13:00–18:00 UTC. Both hosted calendar files were regenerated. All 21 Node tests, static URL references and whitespace checks pass. No styling or audio change.

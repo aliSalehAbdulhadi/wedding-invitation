@@ -6,7 +6,7 @@ The couple confirmed the real details on 23 October 2026, including the year 202
 
 - Couple: علي وتبارك / Ali and Tabarak.
 - Venue: قاعة خيال / Khayal Hall. Secondary venue title: نادي الضباط / Officers’ Club. Address: شارع فلسطين، بغداد، العراق / Palestine Street, Baghdad, Iraq.
-- Date: Friday, 20/11/2026. Display the month numerically in both languages, including the PNG. Gathering at 15:00, celebration at 16:00, conclusion around 21:00, Asia/Baghdad (UTC+3). Calendar events cover 15:00–21:00 so guests arrive for the gathering; the description includes the 16:00 celebration start.
+- Date: Friday, 20/11/2026. Display the month numerically in both languages, including the PNG. Gathering at 16:00, celebration at 17:00, conclusion at 21:00, Asia/Baghdad (UTC+3). Calendar events cover 16:00–21:00 so guests arrive for the gathering; the description includes the 17:00 celebration start.
 - Map: https://maps.app.goo.gl/6jaVgZaiFFihzx8ZA (supplied by the couple; opens the hall listing in Baghdad).
 - Languages: Arabic RTL by default; English LTR through the language switch.
 - Theme: ivory and champagne stationery, botanical engraving, and ceremonial typography.
@@ -65,3 +65,6 @@ Audio refinement (27 October 2026): the couple requested approximately 50% of th
 
 
 Confirmed update (28 October 2026, design branch): ivory and champagne is the single guest palette. The colors button and palette dialog are removed; stored guest color choices are ignored. Other palette definitions are retained in source. Opening the envelope now starts the selected song through that explicit click, with the existing music toggle available to pause it. Remove the separate music-entry link and the statement that music needs a separate choice. Event gathering is 3 PM, celebration 4 PM, conclusion around 9 PM Baghdad time.
+
+
+Timing confirmed again (28 October 2026): gathering at 4 PM, celebration starts at 5 PM, finish at 9 PM Baghdad time, on 20/11/2026. The calendar covers 16:00–21:00 (13:00–18:00 UTC); descriptions include the 17:00 party start. This supersedes the earlier 3 PM / 4 PM schedule.
