@@ -243,3 +243,6 @@ Soft champagne palette (28 October 2026): palette tests, static references, main
 
 
 Schedule revision (28 October 2026): gathering 16:00, celebration 17:00, end 21:00 Baghdad. Chrome verified Arabic ٤:٠٠ م / ٥:٠٠ م / ٩:٠٠ م, English 16:00 / 17:00 / 21:00, the date dial at 4 PM, and the Google calendar interval 13:00–18:00 UTC. Both hosted calendar files were regenerated. All 21 Node tests, static URL references and whitespace checks pass. No styling or audio change.
+
+
+Selection disabled (28 October 2026): global user-select:none and its WebKit-prefixed equivalent cover invitation elements and pseudo-elements. Chrome and Firefox verified that dragging across a heading selects no text, while guest-name typing and modal controls still work. Static references and whitespace checks pass. No keyboard-shortcut, copy-event or context-menu interception is added.

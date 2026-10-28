@@ -18,7 +18,7 @@
   --ease: cubic-bezier(.22, 1, .36, 1);
 }
 :lang(en) { --display: 'Cormorant Garamond', Georgia, serif; --body: 'Segoe UI', sans-serif; }
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; -webkit-user-select: none; user-select: none; }
 html { background: var(--paper); scroll-behavior: smooth; scroll-padding-block-start: 1rem; }
 body { margin: 0; color: var(--ink); font: 400 1rem/1.9 var(--body); -webkit-font-smoothing: antialiased; }
 body: :after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 20; opacity: .035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23n)' opacity='.6' d='M0 0h180v180H0z'/%3E%3C/svg%3E"); }
