@@ -239,3 +239,8 @@ The couple clarified that only name entry should be compact. Restore الفصل 
 Keep the approved visual scenes, animation timing, 30fps wake drawing and 20Hz music sampling. The measured change moves the three music-responsive outlines to small decorative child layers, with the same border/opacity/scale response. Music values no longer inherit through every descendant of an entire chapter. Scope the landing reveal class to the hero, and preserve scroll events when the visualViewport handler requests bird updates so cached route geometry is reused. Preload the existing Noto Sans Arabic body face and names-only Aref Ruqaa face alongside Amiri; no font or artwork changes.
 
 The mixed perfromance-improvements stash is retained unchanged. Its broader keyframe/glow rewrites, wing wrappers, higher-frequency music sampling and uncapped wake work were not applied. This patch rebuilds only the previously measured changes from the clean approved release, then revalidates them.
+
+
+## Small invisible performance fixes - 29 October 2026
+
+Keep the bird heartbeat handle occupied while its callback executes, so visits cannot create another loop or reset the running frame clock. Preserve every route, spring parameter, delay and frame-rate cap. Refresh cached routes after transform transitions only when the target is an anchor or its ancestor; unrelated decorative descendants do not move those document-space anchors. Music energy and swell retain the same values and sampling rate but are written only to the two consuming wing paths, not inherited through the bird and engraving containers. No stylesheet, artwork, animation keyframe or event content changes.

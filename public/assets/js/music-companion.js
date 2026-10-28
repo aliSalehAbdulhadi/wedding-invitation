@@ -27,7 +27,7 @@ export function advanceMusicStroke(state, now, energy, random = Math.random) {
 // Read the selected recording locally; no microphone, network service or synthetic beat.
 export function createMusicCompanion(audio) {
   const engraving = document.querySelector('.music-engraving');
-  const bird = document.querySelector('#story-bird');
+  const wings = [...document.querySelectorAll('#story-bird .bird-wing')];
   const strokes = [...engraving.querySelectorAll('svg')];
   const bars = [...document.querySelectorAll('.music-bars i')];
   const scenes = [...document.querySelectorAll('.hero,.chapter')];
@@ -55,9 +55,10 @@ export function createMusicCompanion(audio) {
   }
   function paint() {
     const value = energy.toFixed(3), accent = swell.toFixed(3);
-    for (const node of [engraving,bird]) {
-      node?.style.setProperty('--music-energy',value);
-      node?.style.setProperty('--music-swell',accent);
+    // Only the wing paths consume these values; avoid invalidating the full SVG trees.
+    for (const node of wings) {
+      node.style.setProperty('--music-energy',value);
+      node.style.setProperty('--music-swell',accent);
     }
     if (activeAccent) {
       const kind=activeAccent.dataset.kind;

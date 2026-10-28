@@ -1,4 +1,4 @@
-import { createMusicCompanion } from './music-companion.js?v=20261029-1';
+import { createMusicCompanion } from './music-companion.js?v=20261029-2';
 import { drawBirdWake } from './bird-wake.js?v=20261028-8';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
 import { validateContent, calendarLinks, mapLinks, preferredApps, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-2';
@@ -354,7 +354,11 @@ function initializeScenes() {
   window.visualViewport?.addEventListener('scroll',syncKeepsakeViewport);
   if ('ResizeObserver' in window) new ResizeObserver(requestSceneFrame).observe($('#main'));
   $('#main').addEventListener('transitionend', event => {
-    if (['transform','translate','scale'].includes(event.propertyName)) requestSceneFrame();
+    if (!['transform','translate','scale'].includes(event.propertyName)) return;
+    // Decorative descendants cannot move the cached anchors; their ancestors can.
+    if (flightGeometry && !flightGeometry.positions.some(stop=>event.target.contains(stop.element)) &&
+        !flightGeometry.visits.some(visit=>event.target.contains(visit.space))) return;
+    requestSceneFrame();
   });
   requestSceneFrame();
 }
@@ -853,8 +857,8 @@ function startBirdHeartbeat() {
   birdRaf = requestAnimationFrame(animateLivingBird);
 }
 function animateLivingBird(now) {
-  birdRaf = 0;
-  if (!birdDestination || !birdBody || motion.matches || document.hidden) return;
+  // Keep the handle while this frame runs: a visit may call startBirdHeartbeat again.
+  if (!birdDestination || !birdBody || motion.matches || document.hidden) { birdRaf = 0; return; }
   if (now-birdLastFrame < birdFrameInterval) {
     birdRaf=requestAnimationFrame(animateLivingBird);
     return;

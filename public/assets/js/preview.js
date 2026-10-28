@@ -26,7 +26,7 @@
       document.documentElement.classList.add('dialog-open');
       opening.showModal();
       document.documentElement.classList.remove('opening-pending');
-      import('./main.js?v=20261029-1').catch(() => startup?.fail());
+      import('./main.js?v=20261029-2').catch(() => startup?.fail());
     } catch { startup?.fail(); }
   }
 }
