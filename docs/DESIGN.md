@@ -266,3 +266,8 @@ The personal closing line sits centered in the existing display face, with Back 
 The first corner-ray treatment was rejected during local preview and is not part of the release. Remove all outside rays and all bottom-fold light. A narrow static SVG glow sits immediately before the opaque top flap in the same stacking layer, so the flap naturally hides its upper half and leaves only a soft warm edge beneath the V fold. Animate only its HTML wrapper opacity; the small SVG feather filter is static. Keep the white paper, merged initials, mouse parallax and opening sequence.
 
 Use a legible brass outline for a slower, more visible seal ripple on the white paper. A small curved upward gesture beside the existing open label reinforces the action, mirrored for English. These three CSS cues start only when the envelope is ready, disappear when unsealing starts and have no running animations after the opening dialog closes. Reduced motion keeps static fold light and the action gesture, without the ripple. No JavaScript loops or audio changes.
+
+
+## Final envelope cue: no fold light - 29 October 2026
+
+The couple removed the envelope-light idea entirely. Delete the light SVG, all associated gradients and blur filters, light-animation rules and the experimental flap gap; restore the original paper fold. Keep only the refined seal ripple (two fine staggered echoes) and existing small upward gesture beside Open the invitation. This supersedes the preceding fold-light direction. Preserve the original ambient opening artwork and unsealing sequence.

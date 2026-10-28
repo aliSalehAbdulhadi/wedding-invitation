@@ -126,23 +126,21 @@ body.romantic-edition,.romantic-edition .chapter--closing { background:var(--pap
  .romantic-edition .music-bars i { transform:scaleY(.35); transition:none; }
 }
 
-/* Light stays beneath the top flap; the paper itself occludes the upper half. */
-.envelope-fold-light { position:absolute; inset:0; z-index:3; opacity:.48; pointer-events:none; }
-.envelope-fold-light svg { display:block; inline-size:100%; block-size:100%; max-inline-size:none; }
-.seal-invitation-ring { position:absolute; inset:-7px; border:1.3px solid var(--gold-ink); border-radius:50%; box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 12%,transparent); opacity:0; pointer-events:none; }
+/* A seal ripple and a small gesture invite the guest to open the letter. */
+.seal-invitation-ring { position:absolute; inset:-6px; opacity:1; pointer-events:none; }
+.seal-invitation-ring::before,.seal-invitation-ring::after { content:''; position:absolute; inset:0; border:1px solid var(--gold-ink); border-radius:50%; opacity:0; }
+.seal-invitation-ring::after { border-color:var(--gold); }
 .envelope-cta-cue { inline-size:18px; block-size:25px; margin-inline-start:.5rem; fill:none; stroke:var(--glow); stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round; }
 html[dir='ltr'] .envelope-cta-cue { scale:-1 1; }
-.opening-dialog[open]:not(.is-unsealing) .envelope-button:not(:disabled) .envelope-fold-light { animation:fold-seam-breath 6s ease-in-out 1.2s infinite; }
-.opening-dialog[open]:not(.is-unsealing) .envelope-button:not(:disabled) .seal-invitation-ring { animation:seal-invitation 6s ease-out 1.2s infinite; }
+.opening-dialog[open]:not(.is-unsealing) .envelope-button:not(:disabled) .seal-invitation-ring::before { animation:seal-invitation 6s cubic-bezier(.2,.65,.35,1) 1.2s infinite; }
+.opening-dialog[open]:not(.is-unsealing) .envelope-button:not(:disabled) .seal-invitation-ring::after { animation:seal-invitation 6s cubic-bezier(.2,.65,.35,1) 1.65s infinite; }
 .opening-dialog[open]:not(.is-unsealing) .envelope-button:not(:disabled) .envelope-cta-cue { animation:envelope-invite 3s ease-in-out 1.2s infinite; }
-.envelope-button:disabled .envelope-fold-light,.envelope-button:disabled .envelope-cta-cue,
-.is-unsealing .envelope-fold-light,.is-unsealing .seal-invitation-ring,.is-unsealing .envelope-cta-cue { opacity:0; }
-@keyframes fold-seam-breath { 0%,100% { opacity:.4; } 30% { opacity:.85; } 65% { opacity:.45; } }
-@keyframes seal-invitation { 0% { opacity:0; transform:scale(.94); } 8% { opacity:.8; transform:scale(1); } 28% { opacity:.45; transform:scale(1.45); } 44%,100% { opacity:0; transform:scale(1.65); } }
+.envelope-button:disabled .envelope-cta-cue,
+.is-unsealing .seal-invitation-ring,.is-unsealing .envelope-cta-cue { opacity:0; }
+@keyframes seal-invitation { 0% { opacity:0; transform:scale(.97); } 9% { opacity:.65; transform:scale(1.06); } 26% { opacity:.28; transform:scale(1.32); } 42%,100% { opacity:0; transform:scale(1.48); } }
 @keyframes envelope-invite { 0%,100% { opacity:.6; translate:0 2px; } 50% { opacity:1; translate:0 -2px; } }
 @media(prefers-reduced-motion:reduce) {
- .opening-dialog .envelope-fold-light { opacity:.5; }
  .seal-invitation-ring { display:none; }
  .envelope-cta-cue { opacity:.85; }
- .opening-dialog.is-unsealing .envelope-fold-light,.opening-dialog.is-unsealing .envelope-cta-cue { opacity:0; }
+ .opening-dialog.is-unsealing .envelope-cta-cue { opacity:0; }
 }
