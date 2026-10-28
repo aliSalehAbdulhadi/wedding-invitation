@@ -184,19 +184,47 @@ function startInvitation(withMusic) {
   }, motion.matches ? 0 : 1250);
 }
 
-function closeDialog(dialog) {
+const dialogHistoryKey='weddingInvitationDialog';
+const dialogCloseTimers=new WeakMap();
+let dialogBackPending=false;
+function closeDialog(dialog, fromHistory=false) {
   if (!dialog.open || dialog.classList.contains('is-closing')) return;
   if (dialog.id==='keepsake-dialog') keepsakeExportController?.abort();
+  if (!fromHistory && history.state?.[dialogHistoryKey]===dialog.id) {
+    if (dialogBackPending) return;
+    dialogBackPending=true;
+    history.back();
+    return;
+  }
   dialog.classList.add('is-closing');
-  setTimeout(() => { dialog.close(); dialog.classList.remove('is-closing'); }, motion.matches ? 0 : 200);
+  dialogCloseTimers.set(dialog,setTimeout(() => {
+    dialogCloseTimers.delete(dialog);
+    dialog.close(); dialog.classList.remove('is-closing');
+  }, motion.matches ? 0 : 200));
 }
-function showDialog(dialog) {
+function showDialog(dialog, fromHistory=false) {
   if (dialog.id!=='keepsake-dialog') keepsakeExportController?.abort();
+  clearTimeout(dialogCloseTimers.get(dialog)); dialogCloseTimers.delete(dialog);
   dialog.classList.remove('is-closing');
+  const wasOpen=dialog.open;
   dialog.showModal();
+  // Entry, animation and finished image are one modal, not separate Back steps.
+  if (!fromHistory && !wasOpen) history.pushState({...history.state,[dialogHistoryKey]:dialog.id},'');
   if (dialog.id==='keepsake-dialog') syncKeepsakeViewport();
   syncDialogState();
   visitBirdDialog(dialog);
+}
+function initializeDialogHistory() {
+  // A reload starts a fresh invitation; no guest name or image is stored in history.
+  if (history.state?.[dialogHistoryKey]) {
+    const state={...history.state}; delete state[dialogHistoryKey]; history.replaceState(state,'');
+  }
+  addEventListener('popstate',event=>{
+    dialogBackPending=false;
+    const next=$$('.modal').find(dialog=>dialog.id===event.state?.[dialogHistoryKey]);
+    for (const dialog of $$('.modal[open]')) if (dialog!==next) closeDialog(dialog,true);
+    if (next) showDialog(next,true);
+  });
 }
 // A native mobile keyboard can shrink the visual viewport without resizing the layout.
 function syncKeepsakeViewport(event) {
@@ -1057,8 +1085,18 @@ function initialize() {
     if (!musicIntent) return;
     musicIntent=false; stopMusic(); notify(text('audioError'));
   });
+  initializeDialogHistory();
   for (const dialog of $$('.modal')) {
-    dialog.addEventListener('close', () => { syncDialogState(); if(dialog.id==='keepsake-dialog') keepsakeExportController?.abort(); leaveBirdDialog(dialog); });
+    dialog.addEventListener('close', () => {
+      syncDialogState();
+      if (dialog.open) return;
+      if(dialog.id==='keepsake-dialog') keepsakeExportController?.abort();
+      leaveBirdDialog(dialog);
+      // Also clean up a native/programmatic close that bypasses our close button.
+      if (history.state?.[dialogHistoryKey]===dialog.id && !dialogBackPending) {
+        dialogBackPending=true; history.back();
+      }
+    });
     dialog.addEventListener('scroll', requestSceneFrame, { passive: true });
     dialog.querySelector('[data-close-dialog]').addEventListener('click', () => closeDialog(dialog));
     dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeDialog(dialog); });

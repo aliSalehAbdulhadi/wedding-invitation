@@ -244,3 +244,8 @@ The mixed perfromance-improvements stash is retained unchanged. Its broader keyf
 ## Small invisible performance fixes - 29 October 2026
 
 Keep the bird heartbeat handle occupied while its callback executes, so visits cannot create another loop or reset the running frame clock. Preserve every route, spring parameter, delay and frame-rate cap. Refresh cached routes after transform transitions only when the target is an anchor or its ancestor; unrelated decorative descendants do not move those document-space anchors. Music energy and swell retain the same values and sampling rate but are written only to the two consuming wing paths, not inherited through the bird and engraving containers. No stylesheet, artwork, animation keyframe or event content changes.
+
+
+## Browser Back closes the modal - 29 October 2026
+
+Opening the keepsake or calendar dialog adds one same-URL history entry containing only the dialog ID. Name entry, expansion, the existing ceremony, finished preview and rewriting a name remain within that one entry. Browser Back dismisses the dialog, preserving the page position and the in-memory finished invitation. Forward may reopen that same dialog. Close, Escape and backdrop dismissal consume the entry rather than leaving hidden Back steps; repeated closes cannot traverse twice. Cancel a pending close timer when Forward rapidly reopens a dialog. Back during export uses the existing abort flow so it cannot finish an unwanted download. The landing envelope is not an added history step, and normal navigation remains available after dialogs close. No animation or layout changes.
