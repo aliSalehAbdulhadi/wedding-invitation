@@ -259,3 +259,10 @@ Replace the song/artist line in the footer with a quiet copyright-symbol button 
 ## Balanced footer - 29 October 2026
 
 The personal closing line sits centered in the existing display face, with Back to the beginning and the copyright button in a separate centered utility row. Their controls share a 44px height and aligned centers. A short fading gold rule replaces the full-width footer border; no extra branding or copy. Copyright remains a discreet outlined circle opening the existing details popup. Reserve space below the mobile footer for the expanded floating player and device safe area; the player also respects the mobile bottom safe area. Preserve page background, scene motion and popup behavior.
+
+
+## Light beneath the closed fold - 29 October 2026
+
+The first corner-ray treatment was rejected during local preview and is not part of the release. Remove all outside rays and all bottom-fold light. A narrow static SVG glow sits immediately before the opaque top flap in the same stacking layer, so the flap naturally hides its upper half and leaves only a soft warm edge beneath the V fold. Animate only its HTML wrapper opacity; the small SVG feather filter is static. Keep the white paper, merged initials, mouse parallax and opening sequence.
+
+Use a legible brass outline for a slower, more visible seal ripple on the white paper. A small curved upward gesture beside the existing open label reinforces the action, mirrored for English. These three CSS cues start only when the envelope is ready, disappear when unsealing starts and have no running animations after the opening dialog closes. Reduced motion keeps static fold light and the action gesture, without the ripple. No JavaScript loops or audio changes.
