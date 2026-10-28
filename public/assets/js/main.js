@@ -16,7 +16,7 @@ const words = {
     miniEyebrow: 'دعوة من القلب', dearGuest: 'إلى ضيفنا العزيز', yourName: 'اسمك الجميل هنا', footer: 'صُنعت بحب، لتُحفظ في القلب.', backTop: 'إلى البداية', music: 'الموسيقى', off: 'متوقفة', on: 'تعمل', musicPlay: 'تشغيل الموسيقى الهادئة', musicMute: 'كتم الموسيقى',
     openingBrand: 'بعض الدعوات، تُفتح بالقلب.', openingEyebrow: 'إلى من يجعلون فرحتنا أجمل', openingTitle: 'هذه الدعوة، لك.', openingLetter: 'بكل الحب', openInvitation: 'افتح الدعوة', openWithMusic: 'افتح الدعوة مع موسيقى هادئة', openingHint: 'افتح الرسالة، واتبع طائرنا في الحكاية.', openSilent: 'افتح بدون موسيقى', openingFooter: 'بدايتنا الأجمل، بوجودكم',
     close: 'إغلاق', calendarEyebrow: 'احتفظ بالموعد', calendarTitle: 'نلتقي في هذا اليوم.', calendarDescription: 'اختر تقويمك، واحتفظ بموعد ليلتنا.', googleHint: 'تطبيق Google أو المتصفح', outlookHint: 'Windows · الويب', appleCalendar: 'تقويم الجهاز', appleHint: 'افتح الموعد في تطبيق التقويم', calendarNote: 'يمكنك اختيار تقويم آخر أو حفظ ملف الموعد.',
-    modalKeepsakeTitle: 'لنكتب اسمك في الحكاية.', modalKeepsakeCopy: 'دعوة باسمك، وذكرى من ليلتنا تبقى معك.', guestLabel: 'اسم الضيف', guestPlaceholder: 'اكتب اسمك هنا', guestHelp: 'اسمك يكمّل الحكاية.', downloadPng: 'احفظ دعوتك', preparing: 'نكتبها لك بكل الحب…', previewAlt: 'معاينة دعوتك الشخصية', saveAgain: 'حفظ الصورة مجددًا', saveHint: 'على iPhone، يمكنك فتح الصورة ثم الضغط مطولًا لحفظها في الصور.', invalidGuest: 'اكتب اسمًا من حرف واحد إلى ٦٠ حرفًا.', exportError: 'تعذّر إنشاء الصورة. تحقق من الاتصال بالخطوط المحلية وحاول مجددًا.', imageReady: 'دعوتك جاهزة. يمكنك حفظها أيضًا من المعاينة.', audioError: 'لم يبدأ الصوت. يمكنك تشغيله من زر الموسيقى.', configError: 'تعذّر تحميل تفاصيل الدعوة. حدّث الصفحة أو تحقق من ملف content.json.',
+    modalKeepsakeTitle: 'لنكتب اسمك في الحكاية.', modalKeepsakeCopy: 'دعوة باسمك، وذكرى من ليلتنا تبقى معك.', guestLabel: 'اسم الضيف', guestPlaceholder: 'اكتب اسمك هنا', guestHelp: 'اسمك يكمّل الحكاية.', downloadPng: 'احفظ دعوتك', preparing: 'نكتبها لك بكل الحب…', previewAlt: 'معاينة دعوتك الشخصية', saveAgain: 'احفظها مجددًا', rewriteGuest: 'اكتب اسمًا جديدًا', keepsakeReadyTitle: 'دعوتك جاهزة.', saveHint: 'يمكنك أيضًا حفظ الصورة بالضغط مطوّلًا عليها.', invalidGuest: 'اكتب اسمًا من حرف واحد إلى ٦٠ حرفًا.', exportError: 'تعذّر إنشاء الصورة. تحقق من الاتصال بالخطوط المحلية وحاول مجددًا.', imageReady: 'دعوتك جاهزة. يمكنك حفظها أيضًا من المعاينة.', audioError: 'لم يبدأ الصوت. يمكنك تشغيله من زر الموسيقى.', configError: 'تعذّر تحميل تفاصيل الدعوة. حدّث الصفحة أو تحقق من ملف content.json.',
   },
   en: {
     storyWhisper: 'And from that meeting, an evening began to glow.', nightWhisper: 'Every luminous evening holds a promise.', promiseWhisper: 'Until the story blooms, and we meet.', gardenWhisper: 'There is still a place in the letter for your name.',
@@ -28,7 +28,7 @@ const words = {
     miniEyebrow: 'An invitation from the heart', dearGuest: 'Especially for', yourName: 'Your lovely name', footer: 'Made with love. Kept close to the heart.', backTop: 'Back to the beginning', music: 'Music', off: 'Off', on: 'On', musicPlay: 'Play soft background music', musicMute: 'Mute background music',
     openingBrand: 'Some invitations open the heart.', openingEyebrow: 'For the people who make our joy brighter', openingTitle: 'A little love letter. For you.', openingLetter: 'With love', openInvitation: 'Open the invitation', openWithMusic: 'Open the invitation with soft music', openingHint: 'Open the letter, and follow a little paper bird through our story.', openSilent: 'Open without music', openingFooter: 'Our beginning is brighter with you',
     close: 'Close', calendarEyebrow: 'Keep a little space for us', calendarTitle: "It's a date.", calendarDescription: 'Choose your calendar and keep a little space for our evening.', googleHint: 'Google app or browser', outlookHint: 'Windows · Web', appleCalendar: 'Device calendar', appleHint: 'Open the date in your calendar app', calendarNote: 'Choose another calendar, or keep the calendar file.',
-    modalKeepsakeTitle: "Let's put your name in the story.", modalKeepsakeCopy: 'An invitation with your name, and a little memory of our evening.', guestLabel: 'Guest name', guestPlaceholder: 'Your name', guestHelp: 'A place for you in our story.', downloadPng: 'Save your invitation', preparing: 'Making a little magic…', previewAlt: 'Preview of your personalized invitation', saveAgain: 'Save the image again', saveHint: 'On iPhone, open the image and touch and hold to save it to Photos.', invalidGuest: 'Please enter a name with 1 to 60 characters.', exportError: 'The image could not be created. Check that local fonts loaded, then try again.', imageReady: 'Your invitation is ready. You can also save it from the preview.', audioError: 'Sound could not start. Try the music button.', configError: 'The invitation details could not load. Refresh the page or check content.json.',
+    modalKeepsakeTitle: "Let's put your name in the story.", modalKeepsakeCopy: 'An invitation with your name, and a little memory of our evening.', guestLabel: 'Guest name', guestPlaceholder: 'Your name', guestHelp: 'A place for you in our story.', downloadPng: 'Save your invitation', preparing: 'Making a little magic…', previewAlt: 'Preview of your personalized invitation', saveAgain: 'Save again', rewriteGuest: 'Write a new name', keepsakeReadyTitle: 'Your invitation is ready.', saveHint: 'You can also touch and hold the image to save it.', invalidGuest: 'Please enter a name with 1 to 60 characters.', exportError: 'The image could not be created. Check that local fonts loaded, then try again.', imageReady: 'Your invitation is ready. You can also save it from the preview.', audioError: 'Sound could not start. Try the music button.', configError: 'The invitation details could not load. Refresh the page or check content.json.',
   },
 };
 
@@ -194,8 +194,20 @@ function showDialog(dialog) {
   if (dialog.id!=='keepsake-dialog') keepsakeExportController?.abort();
   dialog.classList.remove('is-closing');
   dialog.showModal();
+  if (dialog.id==='keepsake-dialog') syncKeepsakeViewport();
   syncDialogState();
   visitBirdDialog(dialog);
+}
+// A native mobile keyboard can shrink the visual viewport without resizing the layout.
+function syncKeepsakeViewport() {
+  const dialog=$('#keepsake-dialog');
+  if (dialog.open) {
+    const viewport=window.visualViewport, height=viewport?.height ?? innerHeight;
+    dialog.style.setProperty('--keepsake-viewport-height',`${height}px`);
+    dialog.style.setProperty('--keepsake-viewport-top',`${viewport?.offsetTop ?? 0}px`);
+    dialog.classList.toggle('is-condensed',height<480);
+  }
+  requestSceneFrame();
 }
 function syncDialogState() {
   document.documentElement.classList.toggle('dialog-open',Boolean($('dialog[open]')));
@@ -336,10 +348,10 @@ function initializeScenes() {
   if ('ResizeObserver' in window) new ResizeObserver(syncTimelineLight).observe($('#schedule-list'));
   else addEventListener('resize',syncTimelineLight,{passive:true});
   addEventListener('scroll', requestSceneFrame, { passive: true });
-  addEventListener('resize', requestSceneFrame, { passive: true });
+  addEventListener('resize', syncKeepsakeViewport, { passive: true });
   motion.addEventListener('change', requestSceneFrame);
-  window.visualViewport?.addEventListener('resize',requestSceneFrame);
-  window.visualViewport?.addEventListener('scroll',requestSceneFrame);
+  window.visualViewport?.addEventListener('resize',syncKeepsakeViewport);
+  window.visualViewport?.addEventListener('scroll',syncKeepsakeViewport);
   if ('ResizeObserver' in window) new ResizeObserver(requestSceneFrame).observe($('#main'));
   $('#main').addEventListener('transitionend', event => {
     if (['transform','translate','scale'].includes(event.propertyName)) requestSceneFrame();
@@ -1032,7 +1044,19 @@ function initialize() {
   $('#open-keepsake').addEventListener('click', () => {
     $('#export-error').textContent = '';
     showDialog($('#keepsake-dialog'));
-    $('#guest-name').focus();
+    ($('#download-result').hidden ? $('#guest-name') : $('#keepsake-result-title')).focus({preventScroll:true});
+  });
+  $('#rewrite-guest').addEventListener('click', () => {
+    if (keepsakeExportController) return;
+    if (activeImageUrl) URL.revokeObjectURL(activeImageUrl);
+    activeImageUrl=null;
+    $('#download-preview').removeAttribute('src'); $('#save-png-link').removeAttribute('href');
+    $('#download-result').hidden=true; $('#keepsake-entry').hidden=false;
+    $('#keepsake-dialog').setAttribute('aria-labelledby','keepsake-modal-title');
+    $('#guest-name').value=''; $('#export-error').textContent='';
+    syncGuestDirection(); $('.mini-guest').textContent=text('yourName');
+    $('#keepsake-dialog').scrollTop=0;
+    $('#guest-name').focus({preventScroll:true}); syncKeepsakeViewport();
   });
   for (const event of ['focus','blur','keyup','pointerup','select','scroll','compositionend']) $('#guest-name').addEventListener(event,requestSceneFrame);
   document.addEventListener('selectionchange',()=>{ if (document.activeElement===$('#guest-name')) requestSceneFrame(); });
@@ -1052,6 +1076,7 @@ function initialize() {
     if (button.disabled) return;
     const exportLanguage = language;
     const controller=new AbortController(); keepsakeExportController=controller;
+    $('#guest-name').blur();
     $('#guest-name').readOnly=true; $('#keepsake-form').setAttribute('aria-busy','true'); $('#download-result').hidden=true;
     button.disabled = true; $('#download-png-label').textContent = text('preparing'); $('#export-error').textContent = '';
     try {
@@ -1061,8 +1086,12 @@ function initialize() {
       activeImageUrl = downloadBlob(blob, 'wedding-invitation.png', true);
       $('#download-preview').src = activeImageUrl;
       $('#save-png-link').href = activeImageUrl;
-      $('#download-result').hidden = false;
-      requestSceneFrame();
+      $('#keepsake-entry').hidden=true;
+      $('#download-result').hidden=false;
+      $('#keepsake-dialog').setAttribute('aria-labelledby','keepsake-result-title');
+      $('#keepsake-dialog').scrollTop=0;
+      $('#keepsake-result-title').focus({preventScroll:true});
+      syncKeepsakeViewport();
       notify(text('imageReady'));
     } catch {
       if (!controller.signal.aborted) $('#export-error').textContent=text('exportError');

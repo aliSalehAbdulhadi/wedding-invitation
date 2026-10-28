@@ -48,7 +48,8 @@
 .magic-control:active { box-shadow:0 0 22px color-mix(in srgb,var(--gold) 20%,transparent); }
 .button.magic-control:hover { transform:translateY(-1px); }
 .button.magic-control:active { transform:scale(.99); }
-#open-keepsake.magic-control::after { inset:auto; left:var(--touch-x,50%); top:var(--touch-y,50%); inline-size:220px; block-size:auto; translate:-50% -50%; background:radial-gradient(circle,color-mix(in srgb,var(--glow) 65%,transparent),transparent 68%); animation:none; }
+/* Keep the press layer inside its button: an auto-sized floating pseudo-element moved Firefox hit targets. */
+#open-keepsake.magic-control::after { inset:0; inline-size:auto; block-size:auto; aspect-ratio:auto; translate:none; background:radial-gradient(circle at var(--touch-x,50%) var(--touch-y,50%),color-mix(in srgb,var(--glow) 65%,transparent),transparent 68%); animation:none; }
 #open-keepsake.magic-control.is-enchanted::after { animation:magic-touch .85s ease-out; }
 @keyframes magic-sweep { 0% { translate:0 0; opacity:0; } 20% { opacity:.8; } 100% { translate:450% 0; opacity:0; } }
 @keyframes magic-touch { 0% { scale:.1; opacity:0; } 20% { opacity:.7; } 100% { scale:1.7; opacity:0; } }
@@ -151,7 +152,7 @@
 .ritual-dust { position:absolute; left:50%; top:50%; pointer-events:none; }
 .ritual-dust i { position:absolute; inline-size:5px; block-size:5px; background:var(--gold); border-radius:50%; rotate:calc(var(--ray) * 45deg); animation:keepsake-dust 1.8s ease-out both; }
 .keepsake-modal > .modal-header { position:relative; z-index:6; }
-.is-conjuring > .eyebrow,.is-conjuring > h2,.is-conjuring > .modal-description,.is-conjuring > form { opacity:0; pointer-events:none; }
+.is-conjuring > .keepsake-entry { opacity:0; pointer-events:none; }
 .is-conjuring .modal-header > .icon,.is-conjuring .modal-header > .modal-perch { opacity:0; }
 .is-conjuring > .modal-header { pointer-events:none; }.is-conjuring > .modal-header .close-button { pointer-events:auto; background:var(--white); }
 @keyframes keepsake-halo { 0% { opacity:0; scale:.2; } 55% { opacity:1; } 100% { opacity:.65; scale:1.2; } }
@@ -216,7 +217,7 @@
 @keyframes quill-wing { from { transform:skewY(4deg) scaleX(.48); } to { transform:skewY(-3deg) scaleX(.64); } }
 @keyframes bird-question { 25% { rotate:-9deg; } 60% { rotate:5deg; } }
 @keyframes bird-delight { 35% { translate:0 -7px; rotate:-6deg; } 65% { translate:0 2px; rotate:4deg; } }
-#keepsake-dialog:has(.download-result:not([hidden])) #download-png { display:none; }
+
 .letter-lure .bird-friend { inline-size:42px; block-size:38px; overflow:visible; transform:rotate(-9deg); filter:drop-shadow(0 3px 2px color-mix(in srgb,var(--ink) 14%,transparent)); }
 
 /* The final signature is held by light, with a small moving thread below it. */
@@ -520,3 +521,34 @@
 }
 
 @media print { .chapter--promise { mask:none; -webkit-mask:none; margin-block-end:0; } }
+
+/* A small entry sheet becomes a keepsake viewer; the keyboard has its own viewport. */
+#keepsake-dialog { inline-size:min(92vw,440px); padding:clamp(.9rem,3.5vw,1.5rem); max-block-size:calc(var(--keepsake-viewport-height,100dvh) - 24px); inset-block-start:calc(var(--keepsake-viewport-top,0px) + var(--keepsake-viewport-height,100dvh)/2); inset-block-end:auto; margin-block:0; translate:0 -50%; scroll-padding-block:12px; }
+#keepsake-dialog .modal-header { min-block-size:44px; margin-block-end:.4rem; }
+#keepsake-dialog .modal-perch { block-size:40px; inline-size:56px; left:calc(50% - 28px); }
+#keepsake-dialog .keepsake-entry > .eyebrow { display:none; }
+#keepsake-dialog h2 { font-size:clamp(1.55rem,5.5vw,1.9rem); line-height:1.45; margin-block:.15rem .5rem; }
+#keepsake-dialog .modal-description { margin:0; font-size:.75rem; line-height:1.7; }
+#keepsake-form { margin-block-start:.8rem; gap:.3rem; }
+#guest-name { padding:.6rem .8rem; min-block-size:46px; font-size:1rem; line-height:1.5; }
+#guest-help { line-height:1.6; }
+#export-error { margin:0; min-block-size:0; }
+#export-error:empty { display:none; }
+#keepsake-dialog .button { min-block-size:44px; padding:.65rem .7rem; font-size:.75rem; line-height:1.6; }
+#keepsake-dialog #download-png { margin-block-start:.35rem; }
+#keepsake-dialog .download-result { margin-block-start:0; animation:keepsake-result-in .4s var(--ease) both; }
+#keepsake-result-title { text-align:center; }
+#keepsake-dialog #download-preview { inline-size:auto; block-size:clamp(96px,calc(var(--keepsake-viewport-height,100dvh) - 248px),360px); max-inline-size:100%; object-fit:contain; aspect-ratio:3/4; }
+.keepsake-result-actions { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; margin-block-start:.8rem; }
+#keepsake-dialog .button--outline { color:var(--ink); background:transparent; border-color:var(--gold); }
+#keepsake-dialog .modal-footnote { margin-block:.5rem 0; font-size:.62rem; line-height:1.6; text-align:center; }
+#keepsake-dialog.is-condensed { padding:.65rem .85rem; }
+#keepsake-dialog.is-condensed .modal-description,#keepsake-dialog.is-condensed #guest-help,#keepsake-dialog.is-condensed .modal-footnote { display:none; }
+#keepsake-dialog.is-condensed h2 { font-size:1.4rem; margin-block:0 .3rem; }
+#keepsake-dialog.is-condensed #keepsake-form { margin-block-start:.3rem; }
+#keepsake-dialog .ritual-paper { scale:.72; }
+#keepsake-dialog .ritual-status { margin:0; bottom:.6rem; }
+#keepsake-dialog.is-condensed .ritual-paper { min-block-size:180px; max-block-size:calc(var(--keepsake-viewport-height,100dvh) - 90px); inline-size:auto; padding:1rem; }
+#keepsake-dialog.is-condensed .ritual-status { bottom:.5rem; }
+@keyframes keepsake-result-in { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:none; } }
+@media(prefers-reduced-motion:reduce),print { #keepsake-dialog .download-result { animation:none; } }

@@ -246,3 +246,16 @@ Schedule revision (28 October 2026): gathering 16:00, celebration 17:00, end 21:
 
 
 Selection disabled (28 October 2026): global user-select:none and its WebKit-prefixed equivalent cover invitation elements and pseudo-elements. Chrome and Firefox verified that dragging across a heading selects no text, while guest-name typing and modal controls still work. Static references and whitespace checks pass. No keyboard-shortcut, copy-event or context-menu interception is added.
+
+
+## Compact mobile keepsake and rounded sharing image — 28 October 2026
+
+All 21 Node tests, main syntax, static references and whitespace checks pass. The new sharing JPEG is 1730x909, 78,307 bytes, and metadata points to its new filename. It was visually compared with the approved initials image; the rounded ivory card is visible against its champagne margin. No direct WhatsApp-client cache refresh was tested.
+
+Chrome and Firefox exercised actual exports: input view is about 303px / 314px high at 375x812, and the finished view about 566px. At 375x350, the input and Save action fit above the viewport bottom. Chrome additionally simulated a visualViewport of height 350 with offsetTop 90 while innerHeight stayed 812: the complete modal remained within that visible area. This is keyboard-space simulation, not a physical-phone keyboard test.
+
+Both browsers passed the normal reveal ceremony, close-to-cancel before download, a finished view with exactly two primary actions, save-again reusing the same blob, close/reopen preserving the finished view, new-name reset with input focus, forced PNG failure followed by successful retry, reduced-motion export, and English labels. Tested 320px and 1440px layouts; no page errors. Chrome entry/ceremony/result screenshots were visually inspected after transitions settled. Bird/header focus, native modal trapping and the previous music/schedule remain intact.
+
+Firefox tracing exposed a prior 41px movement between press and release of the opening button. A/B checks isolated its floating press pseudo-element; bounding that gradient to the button preserved the animation and restored normal reopen clicks. The complete suite passed after that fix. No fresh Safari or physical iPhone/Android keyboard check.
+
+Final compact-view check: Chrome also verified the finished English actions and blank-name reset in a 640x442 effective 200% zoom layout; actions remained visible and there was no horizontal overflow. The ceremony status sits below its scaled paper card.

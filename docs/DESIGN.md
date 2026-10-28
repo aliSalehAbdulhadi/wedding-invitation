@@ -218,3 +218,12 @@ Restore the original native Bezier wave as a small SVG mask shared by the promis
 
 
 Softer champagne contrast (28 October 2026, branch only): the couple asked to lighten the dark brown while retaining the champagne aesthetic. Shift night surfaces to warm taupe (#49463e / #36342e), with softer matching ink (#575044) and button hover (#4e483d). Ivory, champagne gold and secondary text stay coordinated with the existing palette. Static fallbacks and startup background match the same colors.
+
+
+## Compact keepsake entry and finished invitation — 28 October 2026
+
+The invitation dialog has two explicit views in the same native modal. Entry contains only the compact heading, short description, name field and save action. After the existing ceremony/export succeeds, hide the whole entry view and show the finished PNG with Save again and Write a new name. Closing and reopening retains that finished view and image in memory; only Write a new name clears the input, revokes the previous object URL and returns focus to a blank entry. Guest names are still neither stored nor transmitted.
+
+Use visualViewport height and offset for the modal's available area; a keyboard can resize that viewport independently of the layout viewport. Below 480px of visible height, omit secondary copy and tighten spacing while retaining 44px controls. A 16px input avoids small-input focus zoom. Keep the existing ceremony, scaled to fit the compact panel, and return focus to the finished heading rather than reopening the keyboard. Closing during export cancels the ceremony/download; errors leave the form usable for retry. The invitation button's press gradient is bounded by its button instead of an auto-sized floating pseudo-element, which shifted the press hit target in Firefox.
+
+The sharing image now uses medium rounded ivory corners against a slim champagne margin inside the image. Its source, exact image-tool prompt and optimized JPEG path are recorded in SHARING-IMAGE.md; the approved initials and existing metadata wording remain. The old image remains available for cached shares.
