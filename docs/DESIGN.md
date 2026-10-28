@@ -254,3 +254,8 @@ Opening the keepsake or calendar dialog adds one same-URL history entry containi
 ## Discreet music attribution - 29 October 2026
 
 Replace the song/artist line in the footer with a quiet copyright-symbol button with a 44px hit target and localized Music details accessible label. It opens a compact existing-style dialog containing the track, artist and short rights note. Keep Arabic/English content, the existing bird perch and shared history/focus/close behavior. Retain the full CREDITS.txt/source.json; the popup is a presentation change, not an assertion that a license was supplied or that private sharing grants permission. A no-JavaScript credit link remains available.
+
+
+## Balanced footer - 29 October 2026
+
+The personal closing line sits centered in the existing display face, with Back to the beginning and the copyright button in a separate centered utility row. Their controls share a 44px height and aligned centers. A short fading gold rule replaces the full-width footer border; no extra branding or copy. Copyright remains a discreet outlined circle opening the existing details popup. Reserve space below the mobile footer for the expanded floating player and device safe area; the player also respects the mobile bottom safe area. Preserve page background, scene motion and popup behavior.

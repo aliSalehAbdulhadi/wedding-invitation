@@ -93,12 +93,15 @@ html[lang='ar'] .couple-names .name-join { translate: 0 .32em; }
 .body-copy { color: var(--muted); font-size: .95rem; line-height: 2.2; max-inline-size: 49ch; }
 .text-button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-block-size: 44px; padding: .5rem .1rem; border: 0; border-block-end: 1px solid var(--foliage); background: transparent; color: var(--ink); font-size: .8rem; text-decoration: none; }
 .privacy-note { font-size: .65rem; color: var(--muted); margin-block-start: 1rem; }
-.site-footer { max-inline-size: var(--page); margin-inline: auto; padding: 1.3rem var(--gutter) 2rem; border-block-start: 1px solid var(--line); display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); font-size: .65rem; }
-.footer-copy { min-inline-size: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 .4rem; }
-.music-credit { display: inline-flex; align-items: center; justify-content: center; min-inline-size: 44px; min-block-size: 44px; padding: 0; border: 0; background: none; color: inherit; font-family: var(--body); font-size: .85rem; line-height: 1.8; text-decoration: none; }
+.site-footer { max-inline-size: var(--page); margin-inline: auto; padding: 1.5rem var(--gutter) calc(2.5rem + env(safe-area-inset-bottom, 0px)); display: grid; justify-items: center; gap: .55rem; color: var(--muted); text-align: center; }
+.site-footer::before { content: ''; inline-size: min(200px, 55vw); block-size: 1px; margin-block-end: .45rem; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.footer-copy { margin: 0; max-inline-size: 36ch; font-family: var(--display); font-size: 1rem; line-height: 1.9; }
+.footer-actions { display: flex; align-items: center; justify-content: center; gap: .8rem; font-size: .7rem; }
+.music-credit { display: inline-flex; align-items: center; justify-content: center; inline-size: 44px; block-size: 44px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: none; color: inherit; font-family: var(--body); font-size: .85rem; line-height: 1; text-decoration: none; }
+.music-credit:hover { border-color: var(--gold); color: var(--ink); }
 .modal.music-credit-dialog { inline-size: min(90vw, 380px); padding: 1.4rem; }
 
-.back-top { display: inline-flex; gap: .6rem; text-decoration: none; min-block-size: 44px; align-items: flex-start; }
+.back-top { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-block-size: 44px; padding-inline: .4rem; text-decoration: none; }
 .music-toggle { position: fixed; z-index: 15; inset-block-end: 1.3rem; inset-inline-end: 1.3rem; display: flex; align-items: center; gap: .7rem; min-block-size: 48px; padding: .6rem 1rem; color: var(--ink); background: color-mix(in srgb, var(--white) 92.94%, transparent); border: 1px solid var(--soft); border-radius: 50px; box-shadow: 0 3px 15px color-mix(in srgb, var(--ink) 5.10%, transparent); font-size: .65rem; }
 .music-state { color: var(--muted); font-size: .6rem; }
 .music-bars { display: inline-flex; block-size: 20px; gap: 3px; align-items: center; }
@@ -600,8 +603,8 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep, #15231b) 76.
   .body-copy { font-size: .88rem; }
   .timeline li { padding-block: .9rem; }
   .timeline li::before, .timeline li::after { inset-block-start: 1.35rem; }
-  .site-footer { align-items: flex-start; padding-block-end: 5.5rem; }
-  .music-toggle { inset-block-end: 1rem; inset-inline-end: 1rem; min-block-size: 44px; padding: .45rem .8rem; }
+  .site-footer { padding-block-end: calc(5.5rem + env(safe-area-inset-bottom, 0px)); }
+  .music-toggle { inset-block-end: calc(1rem + env(safe-area-inset-bottom, 0px)); inset-inline-end: 1rem; min-block-size: 44px; padding: .45rem .8rem; }
   .music-state { display: none; }
   .opening-dialog { padding: 1rem 1.3rem; }
   .opening-top { gap: .5rem; font-size: .62rem; }
