@@ -232,3 +232,10 @@ The sharing image now uses medium rounded ivory corners against a slim champagne
 ## Full viewer before the ceremony — 28 October 2026
 
 The couple clarified that only name entry should be compact. Restore الفصل الأخير · وأنت جزءٌ منه as the subtitle below the heading in both entry and finished views, including short keyboard-space layouts. Save immediately switches the same native dialog to a full-height viewer (viewport minus 24px, up to 620px wide), blurs the name field and focuses the close control. Let visualViewport resize settle briefly, with a bounded timeout, and paint the expanded geometry before starting the existing paper ceremony. Keep that full-size viewer for the finished invitation and on reopen. Write a new name removes the expanded state and returns to the compact form. Export errors and cancellation also clean up pending expansion and restore entry. No image, music, schedule or privacy changes.
+
+
+## Animation-preserving performance follow-up — 29 October 2026
+
+Keep the approved visual scenes, animation timing, 30fps wake drawing and 20Hz music sampling. The measured change moves the three music-responsive outlines to small decorative child layers, with the same border/opacity/scale response. Music values no longer inherit through every descendant of an entire chapter. Scope the landing reveal class to the hero, and preserve scroll events when the visualViewport handler requests bird updates so cached route geometry is reused. Preload the existing Noto Sans Arabic body face and names-only Aref Ruqaa face alongside Amiri; no font or artwork changes.
+
+The mixed perfromance-improvements stash is retained unchanged. Its broader keyframe/glow rewrites, wing wrappers, higher-frequency music sampling and uncapped wake work were not applied. This patch rebuilds only the previously measured changes from the clean approved release, then revalidates them.

@@ -62,9 +62,9 @@ html[lang='ar'] .romantic-edition .couple-names .name-join { translate:0; }
 .romantic-edition .romance-caption { text-align:center; margin-block:.8rem 1.5rem; padding-inline:1rem; }
 
 html[lang='en'] .romantic-edition .hero-content .eyebrow { letter-spacing:.02em; }
-.invitation-open .romance-frame { animation:romance-arrival 1.1s var(--ease) both; }
+.hero.invitation-open .romance-frame { animation:romance-arrival 1.1s var(--ease) both; }
 @keyframes romance-arrival { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-@media(prefers-reduced-motion:reduce) { .invitation-open .romance-frame { animation:none; } }
+@media(prefers-reduced-motion:reduce) { .hero.invitation-open .romance-frame { animation:none; } }
 
 /* The illustration is gently toned, rather than retaining a fixed pink cast. */
 html[data-theme='olive'] { --vintage-art-hue:-5deg; }
@@ -109,11 +109,8 @@ body.romantic-edition,.romantic-edition .chapter--closing { background:var(--pap
 #story-bird .bird-wing--front { rotate:calc(var(--music-energy,0)*-6deg + var(--music-swell,0)*-6deg); transition:rotate .55s ease-out; }
 #story-bird .bird-wing--back { rotate:calc(var(--music-energy,0)*4deg + var(--music-swell,0)*4deg); transition:rotate .65s ease-out; }
 /* Small, distinct responses on the currently visible scene, using composited layers. */
-.ring-universe::after,.date-card::after,.arrival-seal::after { content:''; position:absolute; inset:3%; border:1px solid var(--gold); border-radius:50%; pointer-events:none; opacity:0; }
-.music-listening .ring-universe::after { opacity:calc(var(--music-energy,0)*.12); scale:calc(1 + var(--music-swell,0)*.008); }
-.music-listening .date-card::after { opacity:calc(var(--music-energy,0)*.14); scale:calc(1 + var(--music-swell,0)*.006); }
-.arrival-seal::after { inset:-8px; border-width:1px; }
-.music-listening .arrival-seal::after { opacity:calc(var(--music-swell,0)*.2); scale:calc(1 + var(--music-swell,0)*.08); }
+.music-scene-accent { position:absolute; inset:3%; border:1px solid var(--gold); border-radius:50%; pointer-events:none; opacity:0; }
+.arrival-seal > .music-scene-accent { inset:-8px; }
 /* Note icon opens into a real nine-band waveform; the label remains accessible. */
 .romantic-edition .music-toggle { gap:0; min-inline-size:52px; block-size:52px; padding:0 14px; border-color:var(--line); background:var(--white); color:var(--ink); box-shadow:0 4px 18px color-mix(in srgb,var(--ink) 12%,transparent); }
 .music-note { inline-size:24px; block-size:24px; flex:none; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }

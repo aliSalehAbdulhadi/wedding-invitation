@@ -32,23 +32,37 @@ export function createMusicCompanion(audio) {
   const bars = [...document.querySelectorAll('.music-bars i')];
   const scenes = [...document.querySelectorAll('.hero,.chapter')];
   let activeScene = document.querySelector('.hero');
+  // A leaf layer keeps the same outline response without inheriting values through the artwork.
+  for (const ornament of document.querySelectorAll('.ring-universe,.date-card,.arrival-seal')) {
+    const accent=document.createElement('span'); accent.className='music-scene-accent'; accent.setAttribute('aria-hidden','true');
+    accent.dataset.kind=ornament.classList.contains('ring-universe')?'rings':ornament.classList.contains('date-card')?'date':'seal';
+    ornament.append(accent);
+  }
+  const sceneAccent = scene => scene?.querySelector('.music-scene-accent');
+  let activeAccent = sceneAccent(activeScene);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let context, source, analyser, samples, spectrum, frame = 0, last = 0, energy = 0, swell = 0;
   const passage = {active:null,nextAt:0,lastSide:-1,id:0};
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
       for (const entry of entries) if (entry.isIntersecting) {
-        if (activeScene !== entry.target) { activeScene?.style.setProperty('--music-energy','0'); activeScene?.style.setProperty('--music-swell','0'); }
+        if (activeScene !== entry.target && activeAccent) activeAccent.style.opacity='0';
         activeScene = entry.target;
+        activeAccent = sceneAccent(activeScene);
       }
     }, {rootMargin:'-35% 0px -35% 0px',threshold:0});
     scenes.forEach(scene => observer.observe(scene));
   }
   function paint() {
     const value = energy.toFixed(3), accent = swell.toFixed(3);
-    for (const node of [engraving,bird,activeScene]) {
+    for (const node of [engraving,bird]) {
       node?.style.setProperty('--music-energy',value);
       node?.style.setProperty('--music-swell',accent);
+    }
+    if (activeAccent) {
+      const kind=activeAccent.dataset.kind;
+      activeAccent.style.opacity=(kind==='seal'?swell*.2:energy*(kind==='rings'?.12:.14)).toFixed(3);
+      activeAccent.style.transform=`scale(${(1+swell*(kind==='seal'?.08:kind==='rings'?.008:.006)).toFixed(4)})`;
     }
     const night = activeScene?.classList.contains('chapter--celebration') || activeScene?.classList.contains('chapter--promise');
     const tone=night?'night':'paper';

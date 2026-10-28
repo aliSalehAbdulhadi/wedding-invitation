@@ -8,7 +8,7 @@ test('song reactions use one audio route, settle on pause, and respect reduced m
   const queued=new Map(),classes=new Set(),nodes=new Map();let next=0,contexts=0,routes=0,resumes=0;
   const reduced=Object.assign(new EventTarget(),{matches:false});
   const audio=Object.assign(new EventTarget(),{paused:true});
-  const doc=Object.assign(new EventTarget(),{hidden:false,body:{classList:{add:v=>classes.add(v),remove:v=>classes.delete(v)}},querySelectorAll(){return []},querySelector(selector){if(!nodes.has(selector))nodes.set(selector,{dataset:{},classList:{contains(){return false}},querySelectorAll(){return []},style:{values:new Map(),setProperty(k,v){this.values.set(k,v)}}});return nodes.get(selector)}});
+  const doc=Object.assign(new EventTarget(),{hidden:false,body:{classList:{add:v=>classes.add(v),remove:v=>classes.delete(v)}},querySelectorAll(){return []},querySelector(selector){if(!nodes.has(selector))nodes.set(selector,{dataset:{},classList:{contains(){return false}},querySelectorAll(){return []},querySelector(){return null},style:{values:new Map(),setProperty(k,v){this.values.set(k,v)}}});return nodes.get(selector)}});
   class Context extends EventTarget {
     constructor(){super();contexts++;this.state='suspended';this.destination={};}
     createAnalyser(){return{fftSize:1024,frequencyBinCount:512,getByteFrequencyData(a){a.fill(90)},connect(){routes++},getByteTimeDomainData(a){a.forEach((_,i)=>a[i]=i%2?132:124)}};}
@@ -25,6 +25,7 @@ test('song reactions use one audio route, settle on pause, and respect reduced m
     const [id,tick]=queued.entries().next().value;queued.delete(id);tick(100);
     assert.ok(reaction.energy>0&&reaction.energy<1);assert.ok(reaction.swell>0,'musical dynamics produce a soft swell');assert.equal(classes.has('music-listening'),true);
     assert.equal(nodes.get('.music-engraving').style.values.get('--music-energy'),nodes.get('#story-bird').style.values.get('--music-energy'));
+    assert.equal(nodes.get('.hero').style.values.has('--music-energy'),false,'music must not invalidate an entire scene subtree');
     reaction.prepare();assert.equal(contexts,1);assert.equal(routes,2,'one source-to-analyser-to-output path');
     audio.paused=true;audio.dispatchEvent(new Event('pause'));assert.equal(reaction.energy,0);assert.equal(reaction.swell,0);assert.equal(queued.size,0);assert.equal(classes.size,0);
     reduced.matches=true;reduced.dispatchEvent(new Event('change'));audio.paused=false;const before=resumes;reaction.prepare();audio.dispatchEvent(new Event('playing'));assert.equal(resumes,before);assert.equal(queued.size,0);

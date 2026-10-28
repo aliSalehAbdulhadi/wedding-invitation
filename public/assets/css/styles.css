@@ -200,7 +200,7 @@ dialog::backdrop { background: color-mix(in srgb, var(--night-deep, #15231b) 76.
 .is-unsealing .stage-orbit { animation: orbit-release 1.3s var(--ease) both; }
 .is-unsealing .stage-halo { animation: halo-flare 1.3s var(--ease) both; }
 .is-unsealing { animation: opening-out 1.25s var(--ease) both !important; }
-.invitation-open .hero-enter { animation: hero-in 1.3s var(--ease) both; }
+.hero.invitation-open .hero-enter { animation: hero-in 1.3s var(--ease) both; }
 .hero-enter:nth-child(2) { animation-delay: .12s; }
 .hero-enter:nth-child(3) { animation-delay: .23s; }
 .hero-enter:nth-child(4) { animation-delay: .32s; }

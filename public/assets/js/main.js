@@ -1,4 +1,4 @@
-import { createMusicCompanion } from './music-companion.js?v=20261028-8';
+import { createMusicCompanion } from './music-companion.js?v=20261029-1';
 import { drawBirdWake } from './bird-wake.js?v=20261028-8';
 import { makeBirdVisit, sampleBirdVisit } from './bird-scenes.js?v=20261023-17';
 import { validateContent, calendarLinks, mapLinks, preferredApps, cleanGuestName, cubicPoint, advanceSpring, advanceBirdWake, activeFlightStop } from './invitation.js?v=20261024-2';
@@ -179,7 +179,7 @@ function startInvitation(withMusic) {
   setTimeout(beginStoryFlight, motion.matches ? 0 : 330);
   setTimeout(() => {
     if (opening.open) opening.close();
-    document.body.classList.add('invitation-open');
+    $('.hero').classList.add('invitation-open');
     $('#main').focus({ preventScroll: true });
   }, motion.matches ? 0 : 1250);
 }
@@ -199,7 +199,7 @@ function showDialog(dialog) {
   visitBirdDialog(dialog);
 }
 // A native mobile keyboard can shrink the visual viewport without resizing the layout.
-function syncKeepsakeViewport() {
+function syncKeepsakeViewport(event) {
   const dialog=$('#keepsake-dialog');
   if (dialog.open) {
     const viewport=window.visualViewport, height=viewport?.height ?? innerHeight;
@@ -207,7 +207,7 @@ function syncKeepsakeViewport() {
     dialog.style.setProperty('--keepsake-viewport-top',`${viewport?.offsetTop ?? 0}px`);
     dialog.classList.toggle('is-condensed',height<480 && !dialog.classList.contains('is-expanded'));
   }
-  requestSceneFrame();
+  requestSceneFrame(event);
 }
 function syncDialogState() {
   document.documentElement.classList.toggle('dialog-open',Boolean($('dialog[open]')));
